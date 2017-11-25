@@ -1,0 +1,4 @@
+services:
+#    lcs.example:
+#        class: LCSBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

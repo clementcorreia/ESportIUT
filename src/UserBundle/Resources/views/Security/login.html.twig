@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Connexion{% endblock %}
+
+{% block menu %}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" id="loginForm">
+        <form action="{{ path("fos_user_security_check") }}" method="post" id="login">
+            <div>&nbsp;</div>
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <label for="username" class="sr-only">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control input-lg" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required autofocus tabindex="1">
+            <label for="password" class="sr-only">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="password" id="password" name="_password" class="form-control input-lg" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required tabindex="2">
+            <p>
+                <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" tabindex="3"/>
+            </p>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" tabindex="4">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+        </form>
+    </div>
+{% endblock %}

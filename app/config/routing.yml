@@ -1,0 +1,10 @@
+lcs:
+    resource: "@LCSBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
