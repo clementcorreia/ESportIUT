@@ -41,7 +41,9 @@
                             <li {% block activeEquipes %}{% endblock %}><a href="{{ path("lcs_equipes_index") }}">Equipes</a></li>
                             <li {% block activeJoueurs %}{% endblock %}><a href="{{ path("lcs_joueurs_index") }}">Joueurs</a></li>
                             <li {% block activeMatchs %}{% endblock %}><a href="{{ path("lcs_matchs_index") }}">Matchs</a></li>
-                            <li {% block activeAdmin %}{% endblock %}><a href="{{ path("lcs_admin_index") }}">Administration</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li {% block activeAdmin %}{% endblock %}><a href="{{ path("lcs_admin_index") }}">Administration</a></li>
+                            {% endif %}
                         </ul>
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">

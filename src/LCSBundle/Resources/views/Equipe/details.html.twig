@@ -1,0 +1,30 @@
+<div class="modal fade" id="details-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        	<div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <span aria-hidden="true">&times;</span>
+			    </button>
+			    <span id="titleContainer"><h3>Détails de l'équipe</h3></span>
+			</div>
+            <div class="modal-body" id="details_container">
+                <div class="detailsEntity">
+                {% if equipe is not empty %}
+            		<div>
+            			<h3>Nom :</h3>
+            			<p>{{ equipe.nom }}</p>
+            		</div>
+            		<div>
+            			<h3>Slogan : </h3>
+	            		<p>
+	            			{{ equipe.slogan }}
+	            		</p>
+	            	</div>
+				{% else %}
+					<p><i>Aucune donnée...</i></p>
+            	{% endif %}
+				</div>
+			</div>
+        </div>
+    </div>
+</div>

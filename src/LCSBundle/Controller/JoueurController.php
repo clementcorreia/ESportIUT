@@ -14,16 +14,10 @@ class JoueurController extends Controller
 
     public function detailsAction($pseudo)
     {
-    	$joueur = $this->getDoctrine()->getRepository("LCSBundle:Joueur")->findOneBy(array('pseudo' => $pseudo));
-    	$joueur_empty = array();
-		$joueur_empty['pseudo'] = null;
-		$joueur_empty['prenom'] = null;
-		$joueur_empty['nom'] = null;
-		$joueur_empty['poste'] = null;
-		$joueur_empty['description'] = null;
+    	$joueur = $this->getDoctrine()->getRepository("LCSBundle:Joueur")->findOneByPseudo($pseudo);
     	
         return $this->render('LCSBundle:Joueur:details.html.twig', array(
-        	'joueur' => $joueur //? $joueur : $joueur_empty
+        	'joueur' => $joueur
         ));
     }
 

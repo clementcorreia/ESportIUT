@@ -13,6 +13,18 @@ lcs_competitions_index:
 lcs_equipes_index:
     path:     /equipes
     defaults: { _controller: LCSBundle:Equipe:index }
+    
+lcs_equipes_liste:
+    path    : /equipes/liste
+    defaults: { _controller: LCSBundle:Equipe:liste }
+    options:
+        expose: true
+
+lcs_equipes_details:
+    path    : /equipes/details/{nom}
+    defaults: { _controller: LCSBundle:Equipe:details }
+    options:
+        expose: true
 
 #### JOUEURS ####
 

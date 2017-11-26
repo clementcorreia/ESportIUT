@@ -5,5 +5,20 @@
 {% endblock %}
 
 {% block content %}
-	Equipes
+
+	<table id="listeEquipes_table" class="table table-striped table-bordered">
+		<thead>
+			<th>Nom</th>
+			<th>Slogan</th>
+		</thead>
+	</table>
+
+	{{ render(controller('LCSBundle:Equipe:details', {'nom' : null})) }} 
+
+{% endblock %}
+    
+{% block pageScript %}
+    {% javascripts 'js/datatables/listeEquipes.js' output='js/compiled/listeEquipes.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
