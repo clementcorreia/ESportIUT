@@ -50,22 +50,30 @@ class Game
     private $statistiques;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Competition", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Poule", inversedBy="games")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $competition;
+    private $poule;
 
     /**
      * @ORM\ManyToMany(targetEntity="LCSBundle\Entity\Equipe", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipes;
-
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -143,14 +151,6 @@ class Game
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add statistique
@@ -187,27 +187,27 @@ class Game
     }
 
     /**
-     * Set competition
+     * Set poule
      *
-     * @param \LCSBundle\Entity\Competition $competition
+     * @param \LCSBundle\Entity\Poule $poule
      *
      * @return Game
      */
-    public function setCompetition(\LCSBundle\Entity\Competition $competition)
+    public function setPoule(\LCSBundle\Entity\Poule $poule)
     {
-        $this->competition = $competition;
+        $this->poule = $poule;
 
         return $this;
     }
 
     /**
-     * Get competition
+     * Get poule
      *
-     * @return \LCSBundle\Entity\Competition
+     * @return \LCSBundle\Entity\Poule
      */
-    public function getCompetition()
+    public function getPoule()
     {
-        return $this->competition;
+        return $this->poule;
     }
 
     /**

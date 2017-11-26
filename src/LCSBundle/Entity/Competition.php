@@ -65,22 +65,29 @@ class Competition
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Game", mappedBy="competition")
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Poule", mappedBy="competition")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $games;
+    private $poules;
 
     /**
      * @ORM\ManyToMany(targetEntity="LCSBundle\Entity\Equipe", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipes;
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->poules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -176,7 +183,7 @@ class Competition
     /**
      * Get nbEquipeMin
      *
-     * @return int
+     * @return integer
      */
     public function getNbEquipeMin()
     {
@@ -200,7 +207,7 @@ class Competition
     /**
      * Get nbEquipeMax
      *
-     * @return int
+     * @return integer
      */
     public function getNbEquipeMax()
     {
@@ -230,47 +237,39 @@ class Competition
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add game
+     * Add poule
      *
-     * @param \LCSBundle\Entity\Game $game
+     * @param \LCSBundle\Entity\Poule $poule
      *
      * @return Competition
      */
-    public function addGame(\LCSBundle\Entity\Game $game)
+    public function addPoule(\LCSBundle\Entity\Poule $poule)
     {
-        $this->games[] = $game;
+        $this->poules[] = $poule;
 
         return $this;
     }
 
     /**
-     * Remove game
+     * Remove poule
      *
-     * @param \LCSBundle\Entity\Game $game
+     * @param \LCSBundle\Entity\Poule $poule
      */
-    public function removeGame(\LCSBundle\Entity\Game $game)
+    public function removePoule(\LCSBundle\Entity\Poule $poule)
     {
-        $this->games->removeElement($game);
+        $this->poules->removeElement($poule);
     }
 
     /**
-     * Get games
+     * Get poules
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGames()
+    public function getPoules()
     {
-        return $this->games;
+        return $this->poules;
     }
 
     /**
