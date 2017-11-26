@@ -7,6 +7,18 @@ lcs_homepage:
 lcs_competitions_index:
     path:     /competitions
     defaults: { _controller: LCSBundle:Competition:index }
+    
+lcs_competitions_liste:
+    path    : /competitions/liste
+    defaults: { _controller: LCSBundle:Competition:liste }
+    options:
+        expose: true
+
+lcs_competitions_details:
+    path    : /competitions/details/{nom}
+    defaults: { _controller: LCSBundle:Competition:details }
+    options:
+        expose: true
 
 #### EQUIPES ####
 

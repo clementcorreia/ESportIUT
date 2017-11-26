@@ -5,5 +5,21 @@
 {% endblock %}
 
 {% block content %}
-	Compétitions
+	<table id="listeCompetitions_table" class="table table-striped table-bordered">
+		<thead>
+			<th>Nom</th>
+			<th>Début</th>
+			<th>Fin</th>
+			<th>Inscrits</th>
+		</thead>
+	</table>
+
+	{{ render(controller('LCSBundle:Competition:details', {'nom' : null})) }} 
+
+{% endblock %}
+    
+{% block pageScript %}
+    {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
