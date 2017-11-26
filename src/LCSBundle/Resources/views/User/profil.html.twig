@@ -1,8 +1,10 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}{{ parent() }} - Votre profil{% endblock %}
+
 {% block content %}
 	Utilisateur {{ username }}
-	{% if app.user and username == app.user.username %}
+	{% if app.user and (username == app.user.username or is_granted('ROLE_ADMIN')) %}
 		{# Ici on placera les éléments disponibles uniquement pour l'utilisateur propriétaire #}
 		Modifier
 	{% endif %}
