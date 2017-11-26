@@ -1961,7 +1961,7 @@ a.ui-button:active,
     justify-content: flex-start;
 }
 
-.well {
+/*.well {
     display: flex;
     justify-content: center;
 }
@@ -1979,7 +1979,7 @@ a.ui-button:active,
 
 .well > form > div.not(.form-group) {
     text-align: center;
-}
+}*/
 
 label.required:after {
     content: " *";

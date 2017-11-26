@@ -21,7 +21,7 @@
     justify-content: flex-start;
 }
 
-.well {
+/*.well {
     display: flex;
     justify-content: center;
 }
@@ -39,7 +39,7 @@
 
 .well > form > div.not(.form-group) {
     text-align: center;
-}
+}*/
 
 label.required:after {
     content: " *";

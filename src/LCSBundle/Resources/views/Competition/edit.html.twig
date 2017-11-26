@@ -1,0 +1,44 @@
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container">
+                 <h4 class="modal-title">
+                    {% if app.request.get('id') is not null and app.request.get('id')>0 %}
+                        Modifier une compétition
+                    {% else %}
+                        Ajouter une compétition
+                    {% endif %}
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                    <h3>Informations sur la compétition</h3>
+                        
+                    {{ form_row(form.nom) }}
+                    {{ form_row(form.dateDebut) }}
+                    {{ form_row(form.dateFin) }}
+                    {{ form_row(form.nbEquipeMin) }}
+                    {{ form_row(form.nbEquipeMax) }}
+                    {{ form_row(form.description) }}
+
+                    {{ form_rest(form) }}
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <div id="modal-validation-message-creation" style="display: none;">
+                <p>La compétition a été créée avec succès</p>
+            </div>
+            <div id="modal-validation-message-modification" style="display: none;">
+                <p>La compétition a été modifiée avec succès</p>
+            </div>
+        </div>
+    </div>
+</div>

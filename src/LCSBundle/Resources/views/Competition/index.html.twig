@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}{{ parent() }} - Liste des compétitions{% endblock %}
+
 {% block activeCompetitions %}
 	class="active"
 {% endblock %}
@@ -13,12 +15,18 @@
 			<th>Inscrits</th>
 		</thead>
 	</table>
+	{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+    <button type="button" class="btn btn-success" id="addModal"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+    {% endif %}
 
-	{{ render(controller('LCSBundle:Competition:details', {'nom' : null})) }} 
+	{{ render(controller('LCSBundle:Competition:edit', {'id' : 0})) }} 
 
 {% endblock %}
     
 {% block pageScript %}
+	<script type="text/javascript">		
+    	var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
+	</script>
     {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

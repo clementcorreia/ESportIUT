@@ -8,18 +8,25 @@
 
 {% block content %}
 
-	<table id="listeEquipes_table" class="table table-striped table-bordered">
+	<table id="listeEquipes_table" class="table table-striped table-bordered datatable_table">
 		<thead>
 			<th>Nom</th>
 			<th>Slogan</th>
 		</thead>
 	</table>
+	{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+    <button type="button" class="btn btn-success" id="addModal"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+    {% endif %}
 
-	{{ render(controller('LCSBundle:Equipe:details', {'nom' : null})) }} 
+	{{ render(controller('LCSBundle:Equipe:details', {'id' : 0})) }} 
+	{{ render(controller('LCSBundle:Equipe:edit', {'id' : null})) }} 
 
 {% endblock %}
     
 {% block pageScript %}
+	<script type="text/javascript">		
+    	var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
+	</script>
     {% javascripts 'js/datatables/listeEquipes.js' output='js/compiled/listeEquipes.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

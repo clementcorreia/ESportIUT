@@ -15,8 +15,14 @@ lcs_competitions_liste:
         expose: true
 
 lcs_competitions_details:
-    path    : /competitions/details/{nom}
+    path    : /competitions/details/{id}
     defaults: { _controller: LCSBundle:Competition:details }
+    options:
+        expose: true
+
+lcs_competitions_edit:
+    path    : /competitions/edit/{id}
+    defaults: { _controller: LCSBundle:Competition:edit, id: null }
     options:
         expose: true
 
@@ -33,8 +39,14 @@ lcs_equipes_liste:
         expose: true
 
 lcs_equipes_details:
-    path    : /equipes/details/{nom}
+    path    : /equipes/details/{id}
     defaults: { _controller: LCSBundle:Equipe:details }
+    options:
+        expose: true
+
+lcs_equipes_edit:
+    path    : /equipes/edit/{id}
+    defaults: { _controller: LCSBundle:Equipe:edit, id: null }
     options:
         expose: true
 
