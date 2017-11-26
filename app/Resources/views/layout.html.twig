@@ -15,7 +15,7 @@
                 <link rel="stylesheet" href="{{ asset_url }}?v=0.0.2"></script>
             {% endstylesheets %}
         {% endblock %} 
-        <title>CEM - Outil de gestion</title>
+        <title>E-sport IUT</title>
     </head>
     <body>
         {% trans_default_domain 'GestionBundle' %}
@@ -36,7 +36,7 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li {% block activeAccueil %}{% endblock %}><a href="{{ path("lcs_homepage") }}">Accueil</a></li>
+                            <li {% block activeAccueil %}{% endblock %}><a href="{{ path("lcs_homepage") }}"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
                             <li {% block activeCompetitions %}{% endblock %}><a href="{{ path("lcs_competitions_index") }}">Compétitions</a></li>
                             <li {% block activeEquipes %}{% endblock %}><a href="{{ path("lcs_equipes_index") }}">Equipes</a></li>
                             <li {% block activeJoueurs %}{% endblock %}><a href="{{ path("lcs_joueurs_index") }}">Joueurs</a></li>
@@ -45,7 +45,13 @@
                         </ul>
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{ path("fos_user_security_logout") }}"><i class="material-icons" style="vertical-align: middle; margin-top: -5px;">exit_to_app</i> Déconnexion</a></li>
+                            <li><a href="{{ path("lcs_user_details", {username: app.user.username}) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                            <li><a href="{{ path("fos_user_security_logout") }}"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+                        </ul>
+                        {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> Inscription</a></li>
+                            <li><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
                         </ul>
                         {% endif %}
                     </div>
@@ -64,7 +70,8 @@
                 {% endfor %}
             {% endblock %}
             
-            {% block content %}{% endblock %}
+            {% block content %}{% endblock %}  
+    
         </div>
         
         {% block javascripts %}

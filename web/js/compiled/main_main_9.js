@@ -80,6 +80,12 @@ function openAddModal2(url) {
     });
 }   
 
+function openDetailsModal(url) {
+    $("#details_container").load(url + ' #details_container > *', function (html) {
+        $('#details-modal').modal('show');
+    });
+}
+
 function openEditModal(url, option = 0) {
     if (!option) {
         $("#edit_form_container").load(url + ' #edit_form_container > *', function (html) {

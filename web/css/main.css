@@ -1,14 +1,7 @@
 /**
     Gestion du formulaire de connexion
 */
-#loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #loginForm > form {
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,12 +15,30 @@
     width: 50%;
 }
 
-#loginForm > form > h1 {
+#loginForm > form > p {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.well {
+    display: flex;
+    justify-content: center;
+}
+
+.well > form {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.well > form > div.form-group {
     width: 100%;
 }
 
-#loginForm > form > p {
-    width: 100%;
+.well > form > div.not(.form-group) {
+    text-align: center;
 }
 
 label.required:after {
@@ -92,21 +103,19 @@ div.details:not(.twoColumns) > div > div, div.details:not(.twoColumns) > div > p
     flex: 3;
 }
 
-/**
-    Gestion de l'écran stock
-*/
-
-div.stock > div > div {
+div.detailsEntity > div {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    flex-direction: row;
+    align-items: baseline;
 }
 
-div.stock > div > div > a {    
-    padding: 3em;
-    width: 100%;
+div.detailsEntity > div > h3 {
+    flex: 1;
+}
+
+div.detailsEntity > div > p {
+    flex: 2;
+    font-size: 135%;
 }
 
 /**

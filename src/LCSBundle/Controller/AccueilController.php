@@ -10,4 +10,8 @@ class AccueilController extends Controller
     {
         return $this->render('LCSBundle:Accueil:index.html.twig');
     }
+
+    public function loginAction() {
+        
+    }
 }

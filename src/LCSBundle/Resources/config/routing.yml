@@ -2,22 +2,50 @@ lcs_homepage:
     path:     /
     defaults: { _controller: LCSBundle:Accueil:index }
 
+#### COMPETITIONS ####    
+
 lcs_competitions_index:
     path:     /competitions
     defaults: { _controller: LCSBundle:Competition:index }
+
+#### EQUIPES ####
 
 lcs_equipes_index:
     path:     /equipes
     defaults: { _controller: LCSBundle:Equipe:index }
 
+#### JOUEURS ####
+
 lcs_joueurs_index:
     path:     /joueurs
     defaults: { _controller: LCSBundle:Joueur:index }
+    
+lcs_joueurs_liste:
+    path    : /joueurs/liste
+    defaults: { _controller: LCSBundle:Joueur:liste }
+    options:
+        expose: true
+
+lcs_joueurs_details:
+    path    : /joueurs/details/{pseudo}
+    defaults: { _controller: LCSBundle:Joueur:details }
+    options:
+        expose: true
+
+#### MATCHS ####
 
 lcs_matchs_index:
     path:     /matchs
     defaults: { _controller: LCSBundle:Game:index }
 
+#### ADMIN ####
+
 lcs_admin_index:
     path:     /admin
     defaults: { _controller: LCSBundle:Admin:index }
+
+#### USERS ####
+
+lcs_user_details:
+    path:    /profil/{username}
+    defaults: { _controller: UserBundle:Security:profil}

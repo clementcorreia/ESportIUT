@@ -1,0 +1,12 @@
+{% block form_row -%}
+    <div {% if attr.id is defined %}id="{{attr.id}}"{% endif %} class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {% if help is defined and help %}
+            <span class="help-block">{{ help }}</span>
+        {% endif %}
+        <div class="help-block with-errors">
+        </div>
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}

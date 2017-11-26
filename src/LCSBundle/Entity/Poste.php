@@ -35,6 +35,12 @@ class Poste
      */
     private $shortname;
 
+    /**
+     * Affichage de l'objet
+     */
+    public function __toString() {
+        return $this->getNom();
+    }
 
     /**
      * Get id

@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block activeJoueurs %}
+	class="active"
+{% endblock %}
+
+{% block content %}
+
+	<table id="listeJoueurs_table" class="table table-striped table-bordered">
+		<thead>
+			<th>Pseudo</th>
+			<th>Prénom</th>
+			<th>Nom</th>
+			<th>Poste</th>
+		</thead>
+	</table>
+
+	{{ render(controller('LCSBundle:Joueur:details', {'pseudo' : null})) }} 
+
+{% endblock %}
+    
+{% block pageScript %}
+    {% javascripts 'js/datatables/listeJoueurs.js' output='js/compiled/listeJoueurs.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

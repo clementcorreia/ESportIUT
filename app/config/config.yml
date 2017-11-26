@@ -84,4 +84,14 @@ fos_user:
         sender_name:    Ne Pas Repondre
     db_driver: orm
     firewall_name: main
-    user_class: UserBundle\Entity\User
+    user_class: UserBundle\Entity\User    
+    registration:
+        form:
+            type: lcs_user_registration
+
+services:
+    lcs.form.registration:
+        class: UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            -  { name: form.type, alias: lcs_user_registration }
