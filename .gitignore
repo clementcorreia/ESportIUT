@@ -1,4 +1,6 @@
 /web/bundles/
+/web/app.php
+/web/app_dev.php
 /app/bootstrap.php.cache
 /app/cache/*
 /app/sessions/*
