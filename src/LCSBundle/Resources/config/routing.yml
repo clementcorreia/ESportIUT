@@ -74,14 +74,24 @@ lcs_matchs_index:
     path:     /matchs
     defaults: { _controller: LCSBundle:Game:index }
 
-#### ADMIN ####
-
-lcs_admin_index:
-    path:     /admin
-    defaults: { _controller: LCSBundle:Admin:index }
-
 #### USERS ####
+
+lcs_users_index:
+    path:     /utilisateurs
+    defaults: { _controller: LCSBundle:Utilisateur:index }
 
 lcs_user_details:
     path:    /profil/{username}
     defaults: { _controller: UserBundle:Security:profil}
+
+lcs_users_liste:
+    path:    /utilisateurs/liste
+    defaults: { _controller: LCSBundle:Utilisateur:liste }
+    options:
+        expose: true
+
+lcs_users_edit:
+    path:    /utilisateurs/edit/{id}
+    defaults: { _controller: LCSBundle:Utilisateur:edit, id: null }
+    options:
+        expose: true

@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 
-<div class="well">
+<div class="well fullscreenForm">
 {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register form-horizontal'}}) }}
 	<h3>Informations</h3>

@@ -21,25 +21,25 @@
     justify-content: flex-start;
 }
 
-/*.well {
+.fullscreenForm {
     display: flex;
     justify-content: center;
 }
 
-.well > form {
+.fullscreenForm > form {
     width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.well > form > div.form-group {
+.fullscreenForm > form > div.form-group {
     width: 100%;
 }
 
-.well > form > div.not(.form-group) {
+.fullscreenForm > form > div.not(.form-group) {
     text-align: center;
-}*/
+}
 
 label.required:after {
     content: " *";

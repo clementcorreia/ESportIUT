@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} - Connexion{% endblock %}
 
 {% block content %}
-<div class="well" id="loginForm">
+<div class="well fullscreenForm" id="loginForm">
     <form action="{{ path("fos_user_security_check") }}" method="post" id="login">
         <div>&nbsp;</div>
         {% if error is defined and error %}

@@ -1,0 +1,47 @@
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container">
+                 <h4 class="modal-title">
+                    {% if app.request.get('id') is not null and app.request.get('id')>0 %}
+                        Modifier un utilisateur
+                    {% else %}
+                        Ajouter un utilisateur
+                    {% endif %}
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                    <h3>Informations</h3>
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {% if form.plainPassword is defined %}
+                        {{ form_row(form.plainPassword) }}
+                    {% endif %}
+                    <h3>Détails du joueur</h3>
+                    {{ form_row(form.joueur.pseudo) }}
+                    {{ form_row(form.joueur.prenom) }}
+                    {{ form_row(form.joueur.nom) }}
+                    {{ form_row(form.joueur.description) }}
+                    {{ form_row(form.joueur.poste) }}
+                    {{ form_rest(form) }}
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <div id="modal-validation-message-creation" style="display: none;">
+                <p>L'utilisateur a été créé avec succès</p>
+            </div>
+            <div id="modal-validation-message-modification" style="display: none;">
+                <p>L'utilisateur a été modifié avec succès</p>
+            </div>
+        </div>
+    </div>
+</div>
