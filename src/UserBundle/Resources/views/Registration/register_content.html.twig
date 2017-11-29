@@ -9,11 +9,12 @@
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword) }}
     <h3>Détails du joueur</h3>
-    {{ form_row(form.joueur.pseudo) }}
     {{ form_row(form.joueur.prenom) }}
     {{ form_row(form.joueur.nom) }}
-    {{ form_row(form.joueur.description) }}
+    {{ form_row(form.joueur.pseudo) }}
     {{ form_row(form.joueur.poste) }}
+    {{ form_row(form.joueur.rang) }}
+    {{ form_row(form.joueur.description) }}
     {{ form_rest(form) }}
     <div>
         <input type="submit" value="{{ 'registration.submit'|trans }}" />
