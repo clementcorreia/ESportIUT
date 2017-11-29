@@ -15,6 +15,26 @@ class UtilisateurController extends Controller
         return $this->render('LCSBundle:User:index.html.twig');
     }
 
+    public function profilAction($username) {
+        $rangs = $this->getDoctrine()->getRepository("LCSBundle:Rang")->findAll();
+        $style = "";
+        foreach ($rangs as $rang) {
+            $style.="
+                .".$rang->getNom()." {
+                    width: 200px;
+                    display: inline-block;
+                    text-align: center;
+                    background-color: ".$rang->getCouleur().";
+                }
+                ";
+        }
+        $user = $this->getDoctrine()->getRepository("UserBundle:User")->findOneByUsername($username);
+        return $this->render('LCSBundle:User:profil.html.twig', array(
+            'user' => $user,
+            'style' => $style
+        ));
+    }
+
     public function listeAction()
     {
         $users = $this->getDoctrine()->getRepository("UserBundle:User")->findAll();

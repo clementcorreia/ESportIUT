@@ -42,6 +42,12 @@ class Rang
      */
     private $valeur;
 
+    /**
+     * Affichage de l'objet
+     */
+    public function __toString() {
+        return $this->getNom();
+    }
 
     /**
      * Get id

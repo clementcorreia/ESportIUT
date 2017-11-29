@@ -3,9 +3,57 @@
 {% block title %}{{ parent() }} - Votre profil{% endblock %}
 
 {% block content %}
-	Utilisateur {{ username }}
-	{% if app.user and (username == app.user.username or is_granted('ROLE_ADMIN')) %}
-		{# Ici on placera les éléments disponibles uniquement pour l'utilisateur propriétaire #}
-		Modifier
-	{% endif %}
+	<style type="text/css">
+		{{ style }}
+	</style>
+	<div class="details">
+		<div>
+            <h4>Nom d'utilisateur :</h4>
+            <p>{{ user.username }}</p>
+        </div>
+        <div>
+            <h4>Adresse mail :</h4>
+            <p>{{ user.email }}</p>
+        </div>
+    	<div>
+    		<h4>Joueur :</h4>
+		</div>
+		{% if user.joueur is defined and user.joueur is not null %}
+        <div>
+            <h5>Prénom :</h5>
+            <p>{{ user.joueur.prenom }}</p>
+        </div>
+        <div>
+            <h5>Nom :</h5>
+            <p>{{ user.joueur.nom }}</p>
+        </div>
+        <div>
+            <h5>Pseudo :</h5>
+            <p>{{ user.joueur.pseudo }}</p>
+        </div>
+        <div>
+            <h5>Poste occupé :</h5>
+            <p>{{ user.joueur.poste }}</p>
+        </div>
+        <div>
+            <h5>Rang :</h5>
+            <p><span class="{{ user.joueur.rang }}">{{ user.joueur.rang }}</span></p>
+        </div>
+    	<div>
+    		<h5>Description :</h5>
+    		<p>{% if user.joueur.description is empty %}<i>Aucune description</i>{% else %}{{ user.joueur.description }}{% endif %}</p>
+    	</div>
+	    {% else %}
+	    <div>
+	    	<h5><i>Vous ne possédez pas de compte joueur</i></h5>
+	    </div>
+        {% endif %}
+    </div>
+    <div>&nbsp;</div>
+    <div>
+		{% if app.user and (user.username == app.user.username or is_granted('ROLE_ADMIN')) %}
+			{# Ici on placera les éléments disponibles uniquement pour l'utilisateur propriétaire #}
+		<a href="{{ path('fos_change_password') }}" class="btn btn-warning">Changer mot de passe</a>
+		{% endif %}
+	</div>
 {% endblock %}

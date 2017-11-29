@@ -21,5 +21,9 @@ fos_login:
     path: /login
     defaults: { _controller: UserBundle:Security:login }
 
+fos_change_password:
+    path: /change_password
+    defaults: { _controller: UserBundle:ChangePassword:changePassword }
+
 fos_register:
     path: /register

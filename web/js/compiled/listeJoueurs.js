@@ -1,13 +1,17 @@
 $(document).ready(function() {
-	
+    $('#listeJoueurs_table').DataTable($.extend({}, datatableDefaults, {
+        "ajax": Routing.generate('lcs_joueurs_liste'),
+        "columns": [
+            {"data": "pseudo"},
+            {"data": "prenom"},
+            {"data": "nom"},
+            {"data": "poste"},
+            {"data": "rang"},
+        ]
+    }));
 
-    var td_rang = document.getElementsByClassName('rang', 'span');
-    console.log(td_rang);
-    console.log(td_rang.length);
-    for(var i=0; i<td_rang.length; i++) {
-        var span = td_rang[i].getElementsByTagName('span')[0];
-        alert(span);
-        var color = $(span).data('color');
-        $(this).css('color', color);
-    }
+    $('#listeJoueurs_table tbody').on('click', 'td:not(.select-checkbox,.control,.link)', function () {
+        var pseudo = $(this).parent().attr("id").split("_")[1];
+        openDetailsModal(Routing.generate('lcs_joueurs_details',{'pseudo':pseudo}));
+    });
 });

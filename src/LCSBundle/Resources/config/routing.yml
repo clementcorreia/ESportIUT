@@ -82,7 +82,7 @@ lcs_users_index:
 
 lcs_user_details:
     path:    /profil/{username}
-    defaults: { _controller: UserBundle:Security:profil}
+    defaults: { _controller: LCSBundle:Utilisateur:profil}
 
 lcs_users_liste:
     path:    /utilisateurs/liste

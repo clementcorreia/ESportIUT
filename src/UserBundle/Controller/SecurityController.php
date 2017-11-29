@@ -11,13 +11,6 @@ use FOS\UserBundle\Controller\SecurityController as BaseController;
 class SecurityController extends BaseController
 {
 
-    public function profilAction($username) {
-        
-        return $this->render('LCSBundle:User:profil.html.twig', array(
-            'username' => $username
-        ));
-    }
-
 	/**
      * @param Request $request
      *

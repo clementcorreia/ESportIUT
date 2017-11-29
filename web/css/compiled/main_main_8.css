@@ -105,8 +105,12 @@ div.details:not(.twoColumns) > div {
     align-items: baseline;
 }
 
-div.details:not(.twoColumns) > div > h4 {
+div.details:not(.twoColumns) > div > h4, div.details:not(.twoColumns) > div > h5 {
     flex: 1;
+}
+
+div.details:not(.twoColumns) > div > h5 {
+    padding-left: 15px;
 }
 
 div.details:not(.twoColumns) > div > div, div.details:not(.twoColumns) > div > p {
