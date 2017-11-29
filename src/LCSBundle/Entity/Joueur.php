@@ -56,6 +56,12 @@ class Joueur
     private $poste;
 
     /**
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Rang")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rang;
+
+    /**
      * Get id
      *
      * @return integer
@@ -183,5 +189,29 @@ class Joueur
     public function getPoste()
     {
         return $this->poste;
+    }
+
+    /**
+     * Set rang
+     *
+     * @param \LCSBundle\Entity\Rang $rang
+     *
+     * @return Joueur
+     */
+    public function setRang(\LCSBundle\Entity\Rang $rang)
+    {
+        $this->rang = $rang;
+
+        return $this;
+    }
+
+    /**
+     * Get rang
+     *
+     * @return \LCSBundle\Entity\Rang
+     */
+    public function getRang()
+    {
+        return $this->rang;
     }
 }

@@ -61,6 +61,16 @@ tbody tr:hover{
 .table > thead > tr > th {
     vertical-align: middle;
 } 
+tbody > tr > .control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+tbody > tr > td > span.rang {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
 
 /**
     Gestion des affichages des détails

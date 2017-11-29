@@ -20,10 +20,12 @@ class UtilisateurController extends Controller
         $users = $this->getDoctrine()->getRepository("UserBundle:User")->findAll();
         $data     = ['data' => []];
         foreach($users as $user) {
+            $actions = '<a href=""><span class="glyphicon glyphicon-cog text-warning"></span></a><a href=""><span class="glyphicon glyphicon-trash text-danger"></span></a>';
             $data['data'][] = [
-                'username'     => $user ? $user->getUsername() : null,
-                'mail'        => $user ? $user->getEmail() : null,
+                'username'  => $user ? $user->getUsername() : null,
+                'mail'      => $user ? $user->getEmail() : null,
                 'roles'     => $user ? $user->getRoles() : null,
+                'actions'   => $actions,
                 //Permet de récupérer l'id pour chaque td du tableau
                 //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire
                 'DT_RowId'   => 'id_'.$user->getId()

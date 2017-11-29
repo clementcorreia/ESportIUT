@@ -31,6 +31,13 @@ class JoueurType extends AbstractType
                     'choice_label'  => 'shortname',
                     'multiple'  => false,
                     'expanded'  => false
+                ))
+                ->add('rang', 'entity', array(
+                    'label' => 'Rang',
+                    'class'     => 'LCSBundle:Rang',
+                    'choice_label'  => 'nom',
+                    'multiple'  => false,
+                    'expanded'  => false
                 ));
     }
     

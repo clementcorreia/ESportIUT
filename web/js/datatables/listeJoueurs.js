@@ -6,6 +6,7 @@ $(document).ready(function() {
             {"data": "prenom"},
             {"data": "nom"},
             {"data": "poste"},
+            {"data": "rang"},
         ]
     }));
 

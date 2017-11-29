@@ -14,6 +14,7 @@
 			<th>Prénom</th>
 			<th>Nom</th>
 			<th>Poste</th>
+			<th>Rang</th>
 		</thead>
 	</table>
 
@@ -22,7 +23,8 @@
 {% endblock %}
     
 {% block pageScript %}
-    {% javascripts 'js/datatables/listeJoueurs.js' output='js/compiled/listeJoueurs.js' %}
+    {% javascripts  'js/datatables/listeJoueurs.js'
+    				output='js/compiled/listeJoueurs.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
