@@ -22,7 +22,7 @@ class Poste extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return ;
+        return 0;
     }
 
 

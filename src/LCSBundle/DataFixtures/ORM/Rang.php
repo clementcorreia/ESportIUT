@@ -22,7 +22,7 @@ class Rang extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return ;
+        return 1;
     }
 
 
