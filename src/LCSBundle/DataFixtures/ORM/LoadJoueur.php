@@ -38,8 +38,8 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
         $item8->setPseudo("ThePowerVoid");
         $item8->setNom("Vannier");
         $item8->setPrenom("Pierre");
-        $item8->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste3'));
-        $item8->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang4'));
+        $item8->setPoste($this->getReference('_reference_LCSBundleEntityPoste3'));
+        $item8->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
 
         $manager->persist($item8);
 
@@ -48,8 +48,8 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
         $item13->setPseudo("Spk Angelus");
         $item13->setNom("Lopez");
         $item13->setPrenom("Rémi");
-        $item13->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste1'));
-        $item13->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang3'));
+        $item13->setPoste($this->getReference('_reference_LCSBundleEntityPoste1'));
+        $item13->setRang($this->getReference('_reference_LCSBundleEntityRang3'));
 
         $manager->persist($item13);
 
@@ -58,8 +58,8 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
         $item14->setPseudo("Toutruche");
         $item14->setNom("Mazel");
         $item14->setPrenom("Guilhem");
-        $item14->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste5'));
-        $item14->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang6'));
+        $item14->setPoste($this->getReference('_reference_LCSBundleEntityPoste5'));
+        $item14->setRang($this->getReference('_reference_LCSBundleEntityRang6'));
 
         $manager->persist($item14);
 
@@ -68,8 +68,8 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
         $item15->setPseudo("Howrus");
         $item15->setNom("Morandini");
         $item15->setPrenom("Eric");
-        $item15->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste2'));
-        $item15->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang4'));
+        $item15->setPoste($this->getReference('_reference_LCSBundleEntityPoste2'));
+        $item15->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
 
         $manager->persist($item15);
 
@@ -78,8 +78,8 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
         $item16->setPseudo("Not Known");
         $item16->setNom("Cisterne");
         $item16->setPrenom("Clément");
-        $item16->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste4'));
-        $item16->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang4'));
+        $item16->setPoste($this->getReference('_reference_LCSBundleEntityPoste4'));
+        $item16->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
 
         $manager->persist($item16);
 

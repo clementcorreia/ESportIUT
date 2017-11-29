@@ -48,7 +48,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
         $item3 = new User();
         $this->addReference('_reference_UserBundleEntityUser3', $item3);
-        $item3->setJoueur($this->getReference('_reference_Proxies__CG__LCSBundleEntityJoueur8'));
+        $item3->setJoueur($this->getReference('_reference_LCSBundleEntityJoueur8'));
         $item3->setUsername("vannier");
         $item3->setUsernameCanonical("vannier");
         $item3->setEmail("thepv66@gmail.com");
@@ -61,7 +61,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
         $item7 = new User();
         $this->addReference('_reference_UserBundleEntityUser7', $item7);
-        $item7->setJoueur($this->getReference('_reference_Proxies__CG__LCSBundleEntityJoueur13'));
+        $item7->setJoueur($this->getReference('_reference_LCSBundleEntityJoueur13'));
         $item7->setUsername("lopez");
         $item7->setUsernameCanonical("lopez");
         $item7->setEmail("remi.lopez@etu.umontpellier.fr");
@@ -72,7 +72,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
         $item8 = new User();
         $this->addReference('_reference_UserBundleEntityUser8', $item8);
-        $item8->setJoueur($this->getReference('_reference_Proxies__CG__LCSBundleEntityJoueur14'));
+        $item8->setJoueur($this->getReference('_reference_LCSBundleEntityJoueur14'));
         $item8->setUsername("mazel");
         $item8->setUsernameCanonical("mazel");
         $item8->setEmail("guilhem.mazel@etu.umontpellier.fr");
@@ -83,7 +83,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
         $item9 = new User();
         $this->addReference('_reference_UserBundleEntityUser9', $item9);
-        $item9->setJoueur($this->getReference('_reference_Proxies__CG__LCSBundleEntityJoueur15'));
+        $item9->setJoueur($this->getReference('_reference_LCSBundleEntityJoueur15'));
         $item9->setUsername("morandini");
         $item9->setUsernameCanonical("morandini");
         $item9->setEmail("eric.morandini@etu.umontpellier.fr");
@@ -94,7 +94,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 
         $item10 = new User();
         $this->addReference('_reference_UserBundleEntityUser10', $item10);
-        $item10->setJoueur($this->getReference('_reference_Proxies__CG__LCSBundleEntityJoueur16'));
+        $item10->setJoueur($this->getReference('_reference_LCSBundleEntityJoueur16'));
         $item10->setUsername("cisterne");
         $item10->setUsernameCanonical("cisterne");
         $item10->setEmail("clement.cisterne@etu.umontpellier.fr");
