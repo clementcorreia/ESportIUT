@@ -56,6 +56,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
         $item3->setEnabled(true);
         $item3->setPassword("\$2y\$13\$RhuNlxMkrAp1/qPr0biTeOyds38KhueTwRmbSI50SzsIQ4Mvutj7i");
         $item3->setLastLogin(new \DateTime("2017-11-27 12:18:51"));
+        $item3->setRoles(unserialize('a:1:{i:0;s:10:"ROLE_ADMIN";}'));
 
         $manager->persist($item3);
 
@@ -89,6 +90,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
         $item9->setEmail("eric.morandini@etu.umontpellier.fr");
         $item9->setEmailCanonical("eric.morandini@etu.umontpellier.fr");
         $item9->setPassword("\$2y\$13\$XYwkeLjVkZiKc/Gfq/A4NuRgLueJsdqPJmuf/ZNGcK5B5v8ZuEcLS");
+        $item9->setRoles(unserialize('a:1:{i:0;s:10:"ROLE_ADMIN";}'));
 
         $manager->persist($item9);
 
