@@ -68,6 +68,13 @@ class LoadPoste extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->persist($item5);
 
+        $item6 = new Poste();
+        $this->addReference('_reference_LCSBundleEntityPoste6', $item6);
+        $item6->setNom("Aucun");
+        $item6->setShortname("");
+
+        $manager->persist($item6);
+
     
         $manager->flush();
     }
