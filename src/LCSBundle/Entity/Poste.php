@@ -42,10 +42,11 @@ class Poste
         return $this->getNom();
     }
 
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

@@ -44,10 +44,16 @@ class Game
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Statistique", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueJoueur", mappedBy="game")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $statistiques;
+    private $statistiquesJoueurs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueEquipe", mappedBy="game")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statistiquesEquipes;
 
     /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Poule", inversedBy="games")
@@ -66,7 +72,8 @@ class Game
      */
     public function __construct()
     {
-        $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statistiquesJoueurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statistiquesEquipes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -153,37 +160,71 @@ class Game
     }
 
     /**
-     * Add statistique
+     * Add statistiquesJoueur
      *
-     * @param \LCSBundle\Entity\Statistique $statistique
+     * @param \LCSBundle\Entity\StatistiqueJoueur $statistiquesJoueur
      *
      * @return Game
      */
-    public function addStatistique(\LCSBundle\Entity\Statistique $statistique)
+    public function addStatistiquesJoueur(\LCSBundle\Entity\StatistiqueJoueur $statistiquesJoueur)
     {
-        $this->statistiques[] = $statistique;
+        $this->statistiquesJoueurs[] = $statistiquesJoueur;
 
         return $this;
     }
 
     /**
-     * Remove statistique
+     * Remove statistiquesJoueur
      *
-     * @param \LCSBundle\Entity\Statistique $statistique
+     * @param \LCSBundle\Entity\StatistiqueJoueur $statistiquesJoueur
      */
-    public function removeStatistique(\LCSBundle\Entity\Statistique $statistique)
+    public function removeStatistiquesJoueur(\LCSBundle\Entity\StatistiqueJoueur $statistiquesJoueur)
     {
-        $this->statistiques->removeElement($statistique);
+        $this->statistiquesJoueurs->removeElement($statistiquesJoueur);
     }
 
     /**
-     * Get statistiques
+     * Get statistiquesJoueurs
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getStatistiques()
+    public function getStatistiquesJoueurs()
     {
-        return $this->statistiques;
+        return $this->statistiquesJoueurs;
+    }
+
+    /**
+     * Add statistiquesEquipe
+     *
+     * @param \LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe
+     *
+     * @return Game
+     */
+    public function addStatistiquesEquipe(\LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe)
+    {
+        $this->statistiquesEquipes[] = $statistiquesEquipe;
+
+        return $this;
+    }
+
+    /**
+     * Remove statistiquesEquipe
+     *
+     * @param \LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe
+     */
+    public function removeStatistiquesEquipe(\LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe)
+    {
+        $this->statistiquesEquipes->removeElement($statistiquesEquipe);
+    }
+
+    /**
+     * Get statistiquesEquipes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStatistiquesEquipes()
+    {
+        return $this->statistiquesEquipes;
     }
 
     /**

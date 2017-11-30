@@ -62,6 +62,20 @@ class Joueur
     private $rang;
 
     /**
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueJoueur", mappedBy="joueur")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statistiques;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -213,5 +227,39 @@ class Joueur
     public function getRang()
     {
         return $this->rang;
+    }
+
+    /**
+     * Add statistique
+     *
+     * @param \LCSBundle\Entity\StatistiqueJoueur $statistique
+     *
+     * @return Joueur
+     */
+    public function addStatistique(\LCSBundle\Entity\StatistiqueJoueur $statistique)
+    {
+        $this->statistiques[] = $statistique;
+
+        return $this;
+    }
+
+    /**
+     * Remove statistique
+     *
+     * @param \LCSBundle\Entity\StatistiqueJoueur $statistique
+     */
+    public function removeStatistique(\LCSBundle\Entity\StatistiqueJoueur $statistique)
+    {
+        $this->statistiques->removeElement($statistique);
+    }
+
+    /**
+     * Get statistiques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStatistiques()
+    {
+        return $this->statistiques;
     }
 }

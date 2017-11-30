@@ -53,11 +53,19 @@ class Poule
      */
     private $games;
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -105,19 +113,11 @@ class Poule
     /**
      * Get type
      *
-     * @return int
+     * @return integer
      */
     public function getType()
     {
         return $this->type;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

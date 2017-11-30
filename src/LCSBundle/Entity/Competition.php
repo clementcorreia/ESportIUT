@@ -75,6 +75,7 @@ class Competition
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipes;
+    
     /**
      * Constructor
      */

@@ -48,11 +48,12 @@ class Rang
     public function __toString() {
         return $this->getNom();
     }
+    
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -124,11 +125,10 @@ class Rang
     /**
      * Get valeur
      *
-     * @return int
+     * @return integer
      */
     public function getValeur()
     {
         return $this->valeur;
     }
 }
-

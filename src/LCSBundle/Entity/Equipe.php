@@ -49,11 +49,25 @@ class Equipe
      */
     private $joueurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueEquipe", mappedBy="equipe")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $statistiques;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->joueurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -131,13 +145,6 @@ class Equipe
     {
         return $this->description;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->joueurs = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add joueur
@@ -171,5 +178,39 @@ class Equipe
     public function getJoueurs()
     {
         return $this->joueurs;
+    }
+
+    /**
+     * Add statistique
+     *
+     * @param \LCSBundle\Entity\StatistiqueEquipe $statistique
+     *
+     * @return Equipe
+     */
+    public function addStatistique(\LCSBundle\Entity\StatistiqueEquipe $statistique)
+    {
+        $this->statistiques[] = $statistique;
+
+        return $this;
+    }
+
+    /**
+     * Remove statistique
+     *
+     * @param \LCSBundle\Entity\StatistiqueEquipe $statistique
+     */
+    public function removeStatistique(\LCSBundle\Entity\StatistiqueEquipe $statistique)
+    {
+        $this->statistiques->removeElement($statistique);
+    }
+
+    /**
+     * Get statistiques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStatistiques()
+    {
+        return $this->statistiques;
     }
 }
