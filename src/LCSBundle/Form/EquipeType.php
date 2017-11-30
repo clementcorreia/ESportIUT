@@ -5,6 +5,7 @@ namespace LCSBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class EquipeType extends AbstractType
 {
@@ -15,7 +16,21 @@ class EquipeType extends AbstractType
     {
         $builder->add('nom')
                 ->add('slogan')
-                ->add('description');
+                ->add('description')
+                ->add('capitaine', 'entity', array(
+                    'label'     => 'Capitaine',
+                    'class'     => 'LCSBundle:Joueur',
+                    'property'  => 'pseudo',
+                    'multiple'  => false,
+                    'expanded'  => false
+                ))
+                ->add('joueurs', 'entity', array(
+                    'label'     => 'Joueurs',
+                    'class'     => 'LCSBundle:Joueur',
+                    'property'  => 'pseudo',
+                    'multiple'  => true,
+                    'expanded'  => false
+                ));
     }
     
     /**

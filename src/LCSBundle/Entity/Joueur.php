@@ -68,6 +68,14 @@ class Joueur
     private $statistiques;
 
     /**
+     * Affichage de l'objet
+     */
+    public function __toString()
+    {
+        return $this->pseudo;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()

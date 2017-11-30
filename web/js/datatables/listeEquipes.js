@@ -4,6 +4,8 @@ $(document).ready(function() {
         "columns": [
             {"data": "nom"},
             {"data": "slogan"},
+            {"data": "capitaine"},
+            {"data": "nbJoueurs"},
         ]
     }));
 

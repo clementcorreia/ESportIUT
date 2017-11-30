@@ -44,6 +44,12 @@ class Equipe
     private $description;
 
     /**
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Joueur")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $capitaine;
+
+    /**
      * @ORM\ManyToMany(targetEntity="LCSBundle\Entity\Joueur", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -54,7 +60,7 @@ class Equipe
      * @ORM\JoinColumn(nullable=false)
      */
     private $statistiques;
-
+    
     /**
      * Constructor
      */
@@ -144,6 +150,30 @@ class Equipe
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set capitaine
+     *
+     * @param \LCSBundle\Entity\Joueur $capitaine
+     *
+     * @return Equipe
+     */
+    public function setCapitaine(\LCSBundle\Entity\Joueur $capitaine)
+    {
+        $this->capitaine = $capitaine;
+
+        return $this;
+    }
+
+    /**
+     * Get capitaine
+     *
+     * @return \LCSBundle\Entity\Joueur
+     */
+    public function getCapitaine()
+    {
+        return $this->capitaine;
     }
 
     /**
