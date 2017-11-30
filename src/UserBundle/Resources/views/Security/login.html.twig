@@ -2,6 +2,10 @@
 
 {% block title %}{{ parent() }} - Connexion{% endblock %}
 
+{% block activeConnexion %}
+    class="active"
+{% endblock %}
+
 {% block content %}
 <div class="well fullscreenForm" id="loginForm">
     <form action="{{ path("fos_user_security_check") }}" method="post" id="login">

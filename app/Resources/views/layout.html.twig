@@ -46,13 +46,13 @@
                         </ul>
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{ path("lcs_user_details", {username: app.user.username}) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                            <li {% block activeProfil %}{% endblock %}><a href="{{ path("lcs_user_details", {username: app.user.username}) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
                             <li><a href="{{ path("fos_user_security_logout") }}"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
                         </ul>
                         {% else %}
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> Inscription</a></li>
-                            <li><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+                            <li {% block activeConnexion %}{% endblock %}><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
                         </ul>
                         {% endif %}
                     </div>
