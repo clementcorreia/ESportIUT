@@ -51,7 +51,7 @@
                         </ul>
                         {% else %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> Inscription</a></li>
+                            <li {% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> Inscription</a></li>
                             <li {% block activeConnexion %}{% endblock %}><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
                         </ul>
                         {% endif %}
