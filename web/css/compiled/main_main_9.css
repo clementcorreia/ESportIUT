@@ -1,0 +1,197 @@
+/**
+    Gestion du formulaire de connexion
+*/
+#loginForm > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginForm > form > input {
+    margin-bottom: 20px;
+}
+
+#loginForm > form > button {
+    width: 50%;
+}
+
+#loginForm > form > p {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.fullscreenForm {
+    display: flex;
+    justify-content: center;
+}
+
+.fullscreenForm > form {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fullscreenForm > form > div.form-group {
+    width: 100%;
+}
+
+.fullscreenForm > form > div.not(.form-group) {
+    text-align: center;
+}
+
+label.required:after {
+    content: " *";
+    color: red;
+}
+
+form:before:not(#login) {
+    content: "(*) Champs obligatoires";
+    color: red;
+}
+
+/**
+    Gestion des tableaux
+*/
+tbody tr:hover{
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+.table > thead > tr > th {
+    vertical-align: middle;
+} 
+tbody > tr > .control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+tbody > tr > td > span.rang {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+/**
+    Gestion des affichages des détails
+*/
+div.details.twoColumns {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+div.details.twoColumns > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+div.details.twoColumns > div > div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+div.details.twoColumns > div > div > h4 {
+    flex: 1;
+}
+
+div.details.twoColumns > div > div > div, div.details.twoColumns > div > div > p {
+    flex: 2;
+}
+
+div.details:not(.twoColumns) > div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+div.details:not(.twoColumns) > div > h4, div.details:not(.twoColumns) > div > h5 {
+    flex: 1;
+}
+
+div.details:not(.twoColumns) > div > h5 {
+    padding-left: 15px;
+}
+
+div.details:not(.twoColumns) > div > div, div.details:not(.twoColumns) > div > p {
+    flex: 3;
+}
+
+div.detailsEntity > div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+div.detailsEntity > div > h3 {
+    flex: 1;
+}
+
+div.detailsEntity > div > p {
+    flex: 2;
+    font-size: 135%;
+}
+
+/**
+    Gestion du collapse du menu
+*/
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}
+
+.modal-body form label{
+    width: 100%; /*25*/
+    vertical-align: middle;
+    text-align: left !important;
+    padding-left: 30px !important;
+}
+
+.modal-body form input,.modal-body form select,.modal-body form textarea{
+    width: 90%; /*73*/
+    display: inline-block;
+    margin-left: 30px;
+    vertical-align: middle;
+}
+.modal-body form input[type="checkbox"]{
+    display: block;
+    width: auto;
+}
+.modal-body form .checkbox{
+    padding-left: 20px;
+}
+.modal-body form .help-block.with-errors{
+    text-align: center;
+}

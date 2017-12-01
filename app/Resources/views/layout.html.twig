@@ -10,6 +10,7 @@
                 'css/jquery.datetimepicker.css'
                 'jqueryui/jquery-ui.css'
                 'css/toastr.min.css'
+                'flag-icon-css/css/flag-icon.css'
                 'css/main.css' 
                 filter='cssrewrite' output='css/compiled/main.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}?v=0.0.2"></script>
@@ -18,8 +19,10 @@
         <title>E-sport IUT</title>
     </head>
     <body>
-        {% trans_default_domain 'GestionBundle' %}
         <div class="container">
+            <div id="locale" data-locale="{{ app.request.locale }}"></div>
+            <a href="{{ path('setlocale', {'language': 'fr'}) }}"><span class="flag-icon flag-icon-fr"></span> FR</a>
+            <a href="{{ path('setlocale', {'language': 'en'}) }}"><span class="flag-icon flag-icon-gb"></span> EN</a>
             <h1>{% block title %}E-Sport IUT{% endblock %}</h1>
             
             {% block menu %}         
@@ -36,23 +39,23 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li {% block activeAccueil %}{% endblock %}><a href="{{ path("lcs_homepage") }}"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-                            <li {% block activeCompetitions %}{% endblock %}><a href="{{ path("lcs_competitions_index") }}">Compétitions</a></li>
-                            <li {% block activeEquipes %}{% endblock %}><a href="{{ path("lcs_equipes_index") }}">Equipes</a></li>
-                            <li {% block activeJoueurs %}{% endblock %}><a href="{{ path("lcs_joueurs_index") }}">Joueurs</a></li>
+                            <li {% block activeAccueil %}{% endblock %}><a href="{{ path("lcs_homepage") }}"><span class="glyphicon glyphicon-home"></span> {{ 'lcs.menu.home'|trans }}</a></li>
+                            <li {% block activeCompetitions %}{% endblock %}><a href="{{ path("lcs_competitions_index") }}">{{ 'lcs.menu.competitions'|trans }}</a></li>
+                            <li {% block activeEquipes %}{% endblock %}><a href="{{ path("lcs_equipes_index") }}">{{ 'lcs.menu.teams'|trans }}</a></li>
+                            <li {% block activeJoueurs %}{% endblock %}><a href="{{ path("lcs_joueurs_index") }}">{{ 'lcs.menu.players'|trans }}</a></li>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li {% block activeUsers %}{% endblock %}><a href="{{ path("lcs_users_index") }}">Utilisateurs</a></li>
+                                <li {% block activeUsers %}{% endblock %}><a href="{{ path("lcs_users_index") }}">{{ 'lcs.menu.users'|trans }}</a></li>
                             {% endif %}
                         </ul>
                         {% if app.user %}
                         <ul class="nav navbar-nav navbar-right">
                             <li {% block activeProfil %}{% endblock %}><a href="{{ path("lcs_user_details", {username: app.user.username}) }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
-                            <li><a href="{{ path("fos_user_security_logout") }}"><span class="glyphicon glyphicon-log-out"></span> Déconnexion</a></li>
+                            <li><a href="{{ path("fos_user_security_logout") }}"><span class="glyphicon glyphicon-log-out"></span> {{ 'lcs.menu.disconnect'|trans }}</a></li>
                         </ul>
                         {% else %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li {% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> Inscription</a></li>
-                            <li {% block activeConnexion %}{% endblock %}><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+                            <li {% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.menu.register'|trans }}</a></li>
+                            <li {% block activeConnexion %}{% endblock %}><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> {{ 'lcs.menu.connection'|trans }}</a></li>
                         </ul>
                         {% endif %}
                     </div>

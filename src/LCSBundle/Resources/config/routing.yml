@@ -2,6 +2,10 @@ lcs_homepage:
     path:     /
     defaults: { _controller: LCSBundle:Accueil:index }
 
+setlocale:
+    path:     /setlocale/{language}
+    defaults: { _controller: LCSBundle:Locale:setLocale }
+
 #### COMPETITIONS ####    
 
 lcs_competitions_index:

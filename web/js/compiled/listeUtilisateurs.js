@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var datatableDefaults = getDatatableDefaults();
     $('#listeUtilisateurs_table').DataTable($.extend({}, datatableDefaults, {
         "ajax": Routing.generate('lcs_users_liste'),
         "columns": [

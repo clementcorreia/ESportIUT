@@ -1,0 +1,17 @@
+lcs:
+    menu:
+        home: Home
+        competitions: Competitions
+        teams: Teams
+        players: Players
+        users: Users
+        register: Sign up
+        connection: Log in
+        disconnect: Log out
+    team:
+        list: Team list
+        table:
+            name: Name
+            slogan: Slogan
+            captain: Captain
+            numberPlayers: Number of players

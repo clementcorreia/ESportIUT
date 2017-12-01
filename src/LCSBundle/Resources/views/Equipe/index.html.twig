@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ parent() }} - Liste des équipes{% endblock %}
+{% block title %}{{ parent() }} - {{ 'lcs.team.list'|trans }}{% endblock %}
 
 {% block activeEquipes %}
 	class="active"
@@ -10,10 +10,10 @@
 
 	<table id="listeEquipes_table" class="table table-striped table-bordered datatable_table">
 		<thead>
-			<th>Nom</th>
-			<th>Slogan</th>
-			<th>Capitaine</th>
-			<th>Nombre de joueurs</th>
+			<th>{{ 'lcs.team.table.name'|trans }}</th>
+			<th>{{ 'lcs.team.table.slogan'|trans }}</th>
+			<th>{{ 'lcs.team.table.captain'|trans }}</th>
+			<th>{{ 'lcs.team.table.numberPlayers'|trans }}</th>
 		</thead>
 	</table>
 	{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}

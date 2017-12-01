@@ -12,7 +12,8 @@ parameters:
 
 framework:
     #esi: ~
-    translator:      { fallback: %locale%  }
+    translator:      
+        fallback: %locale%
     secret: '%secret%'
     router:
         resource: '%kernel.root_dir%/config/routing.yml'
@@ -23,7 +24,7 @@ framework:
     #serializer: { enable_annotations: true }
     templating:
         engines: ['twig']
-    default_locale: %locale%
+    default_locale: fr
     trusted_hosts: ~
     trusted_proxies: ~
     session:

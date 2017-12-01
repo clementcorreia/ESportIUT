@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function() {    
+    var datatableDefaults = getDatatableDefaults();
     $('#listeCompetitions_table').DataTable($.extend({}, datatableDefaults, {
         "ajax": Routing.generate('lcs_competitions_liste'),
         "columns": [
