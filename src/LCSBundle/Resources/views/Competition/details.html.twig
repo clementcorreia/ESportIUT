@@ -7,50 +7,167 @@
 {% endblock %}
 
 {% block content %}
-    <div class="detailsEntity">
-    {% if competition is not empty %}
-		<div>
-			<h3>Nom :</h3>
-			<p>{{ competition.nom }}</p>
-		</div>
-        <div>
-            <h3>Date : </h3>
-            <p> {% if competition.dateFin is not null %}
-                Du {{ competition.dateDebut|date('d/m/Y') }} au {{ competition.dateFin|date('d/m/Y') }}
-                {% else %}
-                Depuis le {{ competition.dateDebut|date('d/m/Y') }}
-                {% endif %}
-            </p>
+    <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" class="active"><a href="#tab_details" data-toggle="tab">Détails</a></li>
+        <li role="presentation"><a href="#tab_poules" data-toggle="tab">Poules</a></li>
+        <li role="presentation"><a href="#tab_matchs" data-toggle="tab">Matchs</a></li>
+        <li role="presentation"><a href="#tab_stats" data-toggle="tab">Stats</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="detailsEntity tab-pane active" id="tab_details">
+        {% if competition is not empty %}
+    		<div>
+    			<h3>Nom :</h3>
+    			<p>{{ competition.nom }}</p>
+    		</div>
+            <div>
+                <h3>Date : </h3>
+                <p> {% if competition.dateFin is not null %}
+                    Du {{ competition.dateDebut|date('d/m/Y') }} au {{ competition.dateFin|date('d/m/Y') }}
+                    {% else %}
+                    Depuis le {{ competition.dateDebut|date('d/m/Y') }}
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <h3>Nombre d'équipes : </h3>
+                <p>{{ equipesInscrites }} (min. {{ competition.nbEquipeMin }})</p>
+            </div>
+            <div>
+                <h3>Description : </h3>
+                <p>
+                    {% if competition.description is not empty %}
+                    {{ competition.description }}
+                    {% else %}
+                    <i>Aucune description.</i>
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <p>
+                    {% if competition.allowCaptainRegister %}
+                    <i>Les capitaines sont autorisés à inscrire leur équipe.</i>
+                    {% else %}
+                    <i>Seuls les organisateurs et administrateurs peuvent inscrire des équies.</i>
+                    {% endif %}
+                </p>
+            </div>
+    	{% else %}
+    		<p><i>Aucune donnée...</i></p>
+    	{% endif %}
+            <button type="button" class="btn btn-warning" id="addModal"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
         </div>
-        <div>
-            <h3>Nombre d'équipes : </h3>
-            <p>{{ equipesInscrites }} (min. {{ competition.nbEquipeMin }})</p>
+        <div class="tab-pane" id="tab_poules">
+            <h3>Poule A</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Classement</th>
+                        <th>Equipe</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Equipe 1</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Equipe 2</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Equipe 5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Equipe 3</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Equipe 6</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Equipe 4</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Poule B</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Classement</th>
+                        <th>Equipe</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Equipe 1</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Equipe 2</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Equipe 5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Equipe 3</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Equipe 6</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Equipe 4</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div>
-            <h3>Description : </h3>
+        <div class="tab-pane" id="tab_matchs">
+            <h3>Poule A</h3>
             <p>
-                {% if competition.description is not empty %}
-                {{ competition.description }}
-                {% else %}
-                <i>Aucune description.</i>
-                {% endif %}
+                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
             </p>
-        </div>
-        <div>
+            <h3>Poule B</h3>
             <p>
-                {% if competition.allowCaptainRegister %}
-                <i>Les capitaines sont autorisés à inscrire leur équipe.</i>
-                {% else %}
-                <i>Seuls les organisateurs et administrateurs peuvent inscrire des équies.</i>
-                {% endif %}
+                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
+            </p>
+            <h3>1/4 de finale</h3>
+            <p>
+                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
+                Match 4 : Equipe 1 - Equipe 2 - 2-1<br />
             </p>
         </div>
-	{% else %}
-		<p><i>Aucune donnée...</i></p>
-	{% endif %}
+        <div class="tab-pane" id="tab_stats">
+            Diverses stats
+        </div>
 	</div>
-
-    <button type="button" class="btn btn-warning" id="addModal"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
 

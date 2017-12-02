@@ -58,7 +58,7 @@ class CompetitionType extends AbstractType
                         'required' => false
                     )
                 ))
-                ->add('allowCaptainRegister', null, array(
+                /*->add('allowCaptainRegister', null, array(
                     'label' => 'Autoriser les capitaines à inscrire leur équipe',
                     'label_attr' => array(
                         'class' => 'checkbox_form',
@@ -66,7 +66,7 @@ class CompetitionType extends AbstractType
                     'attr' => array(
                         'required' => false,
                     )
-                ))
+                ))*/
                 ->add('equipes', 'entity', array(
                     'label'     => 'Equipes',
                     'class'     => 'LCSBundle:Equipe',
