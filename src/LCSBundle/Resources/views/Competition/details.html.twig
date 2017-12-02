@@ -60,7 +60,7 @@
         <div class="tab-pane" id="tab_poules">
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
                 <div>&nbsp;</div>
-                <button type="button" class="btn btn-primary" id="addModal2"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.group.add'|trans }}</button>
+                <button type="button" class="btn btn-success" id="addModal2"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.group.add'|trans }}</button>
             {% endif %}
             <h3>Poule A</h3>
             <table class="table">
