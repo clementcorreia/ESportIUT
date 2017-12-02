@@ -18,3 +18,4 @@ lcs:
 control:
     button:
         add: Ajouter
+        edit: Modifier

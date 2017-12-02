@@ -22704,12 +22704,8 @@ var mbs = {
                             if(data.closeModal === true) {                                
                                 setTimeout(function(){ $('#edit-modal').modal('hide'); }, 200);
                             }
-                            if(data.type === 'fournisseur') {
-                                var url = Routing.generate('cem_fournisseurs_details', {'id': data.id});
-                                window.location.replace(url);
-                            }
-                            if(data.type === 'sousCommande') {
-                                var url = Routing.generate('cem_souscommandes_details', {'id': data.id});
+                            if(data.type === 'competition') {
+                                var url = Routing.generate('lcs_competitions_details', {'id': data.id});
                                 window.location.replace(url);
                             }
                         }

@@ -10,9 +10,9 @@
 	<table id="listeCompetitions_table" class="table table-striped table-bordered">
 		<thead>
 			<th>Nom</th>
-			<th>Début</th>
-			<th>Fin</th>
+			<th>Date</th>
 			<th>Inscrits</th>
+			<th>Limite des inscriptions</th>
 		</thead>
 	</table>
 	{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
@@ -26,6 +26,7 @@
 {% block pageScript %}
 	<script type="text/javascript">		
     	var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
+    	var liste = true;
 	</script>
     {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

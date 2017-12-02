@@ -31,9 +31,19 @@ class CompetitionType extends AbstractType
                     'widget' => 'single_text',
                     'input'    => 'datetime',
                     'format' => 'dd/MM/yyyy',
+                    'required' => false,
                     'attr' => array(
                         'class'=>'date',
-                        'required' => false
+                    )
+                ))
+                ->add('dateLimiteInscription', DateType::class, array(
+                    'label' => 'Date limite des inscriptions',
+                    'widget' => 'single_text',
+                    'input'    => 'datetime',
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'attr' => array(
+                        'class'=>'date',
                     )
                 ))
                 ->add('nbEquipeMin', null, array(
@@ -56,6 +66,14 @@ class CompetitionType extends AbstractType
                     'attr' => array(
                         'required' => false,
                     )
+                ))
+                ->add('equipes', 'entity', array(
+                    'label'     => 'Equipes',
+                    'class'     => 'LCSBundle:Equipe',
+                    'property'  => 'nom',
+                    'multiple'  => true,
+                    'expanded'  => false,
+                    'required'  => false
                 ));
     }
     
@@ -65,7 +83,8 @@ class CompetitionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LCSBundle\Entity\Competition'
+            'data_class' => 'LCSBundle\Entity\Competition',
+            'afficheEquipes' => false
         ));
     }
 

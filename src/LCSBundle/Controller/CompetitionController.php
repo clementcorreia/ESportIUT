@@ -19,13 +19,17 @@ class CompetitionController extends Controller
     {
     	$competition = $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id);
 
-    	if($competition) {
+    	/*if($competition) {
 			$competition->setDateDebut($competition->getDateDebut()->format('d/m/Y'));
-    		$competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
-    	}
+    		if($competition->getDateFin())
+                $competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
+    	}*/
+
+        $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
     	
         return $this->render('LCSBundle:Competition:details.html.twig', array(
-        	'competition' => $competition
+        	'competition' => $competition,
+            'equipesInscrites' => $equipesInscrites
         ));
     }
 
@@ -34,12 +38,14 @@ class CompetitionController extends Controller
         $competitions = $this->getDoctrine()->getRepository("LCSBundle:Competition")->findAll();
         $data     = ['data' => []];
         foreach($competitions as $competition) {
+            $url_det = $competition ? $this->generateUrl('lcs_competitions_details', array('id' => $competition->getId())) : null;
         	$equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
+            $dates = $competition ? $competition->getDateFin() ? "Du ".$competition->getDateDebut()->format('d/m/Y')." au ".$competition->getDateFin()->format('d/m/Y') : "Depuis le ".$competition->getDateDebut()->format('d/m/Y') : null;
             $data['data'][] = [
-                'nom'       => $competition ? $competition->getNom() : null,
-                'dateDebut' => $competition ? $competition->getDateDebut()->format('d/m/Y') : null,
-                'dateFin'   => $competition ? $competition->getDateFin()->format('d/m/Y') : null,
+                'nom'       => "<a href=\"$url_det\">".($competition ? $competition->getNom() : null)."</a>",
+                'dates' => $dates,
                 'equipes'	=> $equipesInscrites,
+                'limiteInscriptions' => $competition ? $competition->getDateLimiteInscription() ? $competition->getDateLimiteInscription()->format('d/m/Y') : $competition->getDateDebut()->modify('-1 day')->format('d/m/Y') : null,
                 //Permet de récupérer l'id pour chaque td du tableau
                 //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire
                 'DT_RowId'  => 'id_'.$competition->getId()
@@ -52,7 +58,7 @@ class CompetitionController extends Controller
      * Un controller permettant d'ajouter ou de modifier une Competition
      * via une popup
      */
-    public function editAction(Request $request, $id = null) {
+    public function editAction(Request $request, $id) {
         $competition = null;
         if(!is_null($id) && $id > 0)
             $competition = $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id);
@@ -61,9 +67,9 @@ class CompetitionController extends Controller
             $competition = new Competition();
         }
 
-        $form = $this->createForm(CompetitionType::class, $competition,array(
+        $form = $this->createForm(CompetitionType::class, $competition, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('lcs_competitions_edit', array('id' => $id)),
+            'action' => $this->generateUrl('lcs_competitions_edit', array('id' => $id))
         ));
 
         $form->handleRequest($request);
@@ -101,4 +107,5 @@ class CompetitionController extends Controller
             'form' => $form->createView()
         ));
     }
+
 }

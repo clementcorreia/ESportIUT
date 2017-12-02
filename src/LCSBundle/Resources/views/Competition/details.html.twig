@@ -14,19 +14,55 @@
 			<p>{{ competition.nom }}</p>
 		</div>
         <div>
-            <h3>Début : </h3>
-            <p>{{ competition.dateDebut }}</p>
+            <h3>Date : </h3>
+            <p> {% if competition.dateFin is not null %}
+                Du {{ competition.dateDebut|date('d/m/Y') }} au {{ competition.dateFin|date('d/m/Y') }}
+                {% else %}
+                Depuis le {{ competition.dateDebut|date('d/m/Y') }}
+                {% endif %}
+            </p>
         </div>
         <div>
-            <h3>Fin : </h3>
-            <p>{{ competition.dateFin }}</p>
+            <h3>Nombre d'équipes : </h3>
+            <p>{{ equipesInscrites }} (min. {{ competition.nbEquipeMin }})</p>
         </div>
         <div>
             <h3>Description : </h3>
-            <p>{{ competition.description }}</p>
+            <p>
+                {% if competition.description is not empty %}
+                {{ competition.description }}
+                {% else %}
+                <i>Aucune description.</i>
+                {% endif %}
+            </p>
+        </div>
+        <div>
+            <p>
+                {% if competition.allowCaptainRegister %}
+                <i>Les capitaines sont autorisés à inscrire leur équipe.</i>
+                {% else %}
+                <i>Seuls les organisateurs et administrateurs peuvent inscrire des équies.</i>
+                {% endif %}
+            </p>
         </div>
 	{% else %}
 		<p><i>Aucune donnée...</i></p>
 	{% endif %}
 	</div>
+
+    <button type="button" class="btn btn-warning" id="addModal"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
+
+    {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
+
+{% endblock %}
+    
+{% block pageScript %}
+    <script type="text/javascript">     
+        var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
+        var competition_id = '{{ competition.id }}';
+        var liste = false;
+    </script>
+    {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

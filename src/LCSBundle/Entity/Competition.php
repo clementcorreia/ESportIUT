@@ -44,6 +44,13 @@ class Competition
     private $dateFin;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateLimiteInscription", type="date", nullable=true)
+     */
+    private $dateLimiteInscription;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="nbEquipeMin", type="integer", nullable=true)
@@ -88,6 +95,7 @@ class Competition
      */
     public function __construct()
     {
+        $this->dateDebut = new \DateTime();
         $this->poules = new \Doctrine\Common\Collections\ArrayCollection();
         $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -336,5 +344,29 @@ class Competition
     public function getAllowCaptainRegister()
     {
         return $this->allowCaptainRegister;
+    }
+
+    /**
+     * Set dateLimiteInscription
+     *
+     * @param \DateTime $dateLimiteInscription
+     *
+     * @return Competition
+     */
+    public function setDateLimiteInscription($dateLimiteInscription)
+    {
+        $this->dateLimiteInscription = $dateLimiteInscription;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLimiteInscription
+     *
+     * @return \DateTime
+     */
+    public function getDateLimiteInscription()
+    {
+        return $this->dateLimiteInscription;
     }
 }
