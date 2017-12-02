@@ -99,3 +99,11 @@ lcs_users_edit:
     defaults: { _controller: LCSBundle:Utilisateur:edit, id: null }
     options:
         expose: true
+
+#### POULES ####
+
+lcs_poules_edit:
+    path    : /poules/edit/{idCompetition}
+    defaults: { _controller: LCSBundle:Poule:edit }
+    options:
+        expose: true

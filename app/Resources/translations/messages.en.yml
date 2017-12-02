@@ -15,6 +15,11 @@ lcs:
             slogan: Slogan
             captain: Captain
             numberPlayers: Number of players
+    competition:
+        group:
+            add: Add group
+        game:
+            generate: Generate the final stages
 control:
     button:
         add: Add

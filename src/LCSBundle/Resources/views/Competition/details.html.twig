@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+    {% if competition is not empty %}
     <ul class="nav nav-tabs nav-justified">
         <li role="presentation" class="active"><a href="#tab_details" data-toggle="tab">Détails</a></li>
         <li role="presentation"><a href="#tab_poules" data-toggle="tab">Poules</a></li>
@@ -15,7 +16,6 @@
     </ul>
     <div class="tab-content">
         <div class="detailsEntity tab-pane active" id="tab_details">
-        {% if competition is not empty %}
     		<div>
     			<h3>Nom :</h3>
     			<p>{{ competition.nom }}</p>
@@ -52,12 +52,16 @@
                     {% endif %}
                 </p>
             </div>
-    	{% else %}
-    		<p><i>Aucune donnée...</i></p>
-    	{% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
             <button type="button" class="btn btn-warning" id="addModal"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
+        {% endif %}
         </div>
+
         <div class="tab-pane" id="tab_poules">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+                <div>&nbsp;</div>
+                <button type="button" class="btn btn-primary" id="addModal2"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.group.add'|trans }}</button>
+            {% endif %}
             <h3>Poule A</h3>
             <table class="table">
                 <thead>
@@ -68,32 +72,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr class="bg-success">
                         <td>1</td>
                         <td>Equipe 1</td>
                         <td>9</td>
                     </tr>
-                    <tr>
+                    <tr class="bg-success">
                         <td>-</td>
                         <td>Equipe 2</td>
                         <td>9</td>
                     </tr>
-                    <tr>
+                    <tr class="bg-success">
                         <td>3</td>
                         <td>Equipe 5</td>
                         <td>6</td>
                     </tr>
-                    <tr>
+                    <tr class="bg-success">
                         <td>4</td>
                         <td>Equipe 3</td>
                         <td>3</td>
                     </tr>
-                    <tr>
+                    <tr class="bg-danger">
                         <td>5</td>
                         <td>Equipe 6</td>
                         <td>2</td>
                     </tr>
-                    <tr>
+                    <tr class="bg-danger">
                         <td>6</td>
                         <td>Equipe 4</td>
                         <td>0</td>
@@ -143,7 +147,12 @@
                 </tbody>
             </table>
         </div>
+
         <div class="tab-pane" id="tab_matchs">
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+                <div>&nbsp;</div>
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generate'|trans }}</button>
+            {% endif %}
             <h3>Poule A</h3>
             <p>
                 Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
@@ -164,16 +173,23 @@
                 Match 4 : Equipe 1 - Equipe 2 - 2-1<br />
             </p>
         </div>
+
         <div class="tab-pane" id="tab_stats">
             Diverses stats
         </div>
 	</div>
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
+    {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id})) }}
+    
+    {% else %}
+        <p><i>Aucune donnée...</i></p>
+    {% endif %}
 
 {% endblock %}
     
 {% block pageScript %}
+    {% if competition is not empty %}
     <script type="text/javascript">     
         var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
         var competition_id = '{{ competition.id }}';
@@ -182,4 +198,5 @@
     {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% endif %}
 {% endblock %}

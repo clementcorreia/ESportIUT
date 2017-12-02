@@ -28,6 +28,7 @@ $(document).ready(function() {
     }
     else {
         openAddModal(Routing.generate('lcs_competitions_edit', {'id': competition_id}));
+        openAddModal2(Routing.generate('lcs_poules_edit', {'idCompetition': competition_id}));
     }
 
 });
