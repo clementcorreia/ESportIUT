@@ -15,3 +15,6 @@ lcs:
             slogan: Slogan
             captain: Captain
             numberPlayers: Number of players
+control:
+    button:
+        add: Add

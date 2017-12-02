@@ -17,7 +17,7 @@
 		</thead>
 	</table>
 	{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
-    <button type="button" class="btn btn-success" id="addModal"><span class="glyphicon glyphicon-plus"></span> Ajouter</button>
+    <button type="button" class="btn btn-success" id="addModal"><span class="glyphicon glyphicon-plus"></span> {{ 'control.button.add'|trans }}</button>
     {% endif %}
 
 	{{ render(controller('LCSBundle:Equipe:details', {'id' : 0})) }} 

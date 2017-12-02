@@ -67,7 +67,7 @@ lcs_joueurs_liste:
         expose: true
 
 lcs_joueurs_details:
-    path    : /joueurs/details/{pseudo}
+    path    : /joueurs/details/{id}
     defaults: { _controller: LCSBundle:Joueur:details }
     options:
         expose: true

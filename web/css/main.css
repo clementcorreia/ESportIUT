@@ -1,5 +1,5 @@
 /**
-    Gestion du formulaire de connexion
+    Gestion des formulaires
 */
 #loginForm > form {
     display: flex;
@@ -49,6 +49,13 @@ label.required:after {
 form:before:not(#login) {
     content: "(*) Champs obligatoires";
     color: red;
+}
+
+form .form-group label.checkbox_form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
 }
 
 /**

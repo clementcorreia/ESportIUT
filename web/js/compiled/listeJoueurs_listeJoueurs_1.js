@@ -12,7 +12,7 @@ $(document).ready(function() {
     }));
 
     $('#listeJoueurs_table tbody').on('click', 'td:not(.select-checkbox,.control,.link)', function () {
-        var pseudo = $(this).parent().attr("id").split("_")[1];
-        openDetailsModal(Routing.generate('lcs_joueurs_details',{'pseudo':pseudo}));
+        var id = $(this).parent().attr("id").split("_")[1];
+        openDetailsModal(Routing.generate('lcs_joueurs_details',{'id':id}));
     });
 });

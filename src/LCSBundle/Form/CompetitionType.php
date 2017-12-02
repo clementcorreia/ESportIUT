@@ -32,7 +32,8 @@ class CompetitionType extends AbstractType
                     'input'    => 'datetime',
                     'format' => 'dd/MM/yyyy',
                     'attr' => array(
-                        'class'=>'date'
+                        'class'=>'date',
+                        'required' => false
                     )
                 ))
                 ->add('nbEquipeMin', null, array(
@@ -45,6 +46,15 @@ class CompetitionType extends AbstractType
                     'label' => 'Description',
                     'attr' => array(
                         'required' => false
+                    )
+                ))
+                ->add('allowCaptainRegister', null, array(
+                    'label' => 'Autoriser les capitaines à inscrire leur équipe',
+                    'label_attr' => array(
+                        'class' => 'checkbox_form',
+                    ),
+                    'attr' => array(
+                        'required' => false,
                     )
                 ));
     }

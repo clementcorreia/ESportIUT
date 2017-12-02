@@ -26,9 +26,9 @@ class JoueurController extends Controller
         ));
     }
 
-    public function detailsAction($pseudo)
+    public function detailsAction($id)
     {
-    	$joueur = $this->getDoctrine()->getRepository("LCSBundle:Joueur")->findOneByPseudo($pseudo);
+    	$joueur = $id ? $this->getDoctrine()->getRepository("LCSBundle:Joueur")->find($id) : null;
     	
         return $this->render('LCSBundle:Joueur:details.html.twig', array(
         	'joueur' => $joueur
@@ -50,7 +50,7 @@ class JoueurController extends Controller
                 'rang'       => $rang,
                 //Permet de récupérer l'id pour chaque td du tableau
                 //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire
-                'DT_RowId'   => 'id_'.$joueur->getPseudo()
+                'DT_RowId'   => 'id_'.$joueur->getId()
             ];
         }
         return (new JsonResponse)->setData($data);

@@ -32,7 +32,7 @@ class Competition
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDebut", type="date", nullable=true)
+     * @ORM\Column(name="dateDebut", type="date")
      */
     private $dateDebut;
 
@@ -63,6 +63,13 @@ class Competition
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="allowCaptainRegister", type="boolean")
+     */
+    private $allowCaptainRegister;
 
     /**
      * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Poule", mappedBy="competition")
@@ -305,5 +312,29 @@ class Competition
     public function getEquipes()
     {
         return $this->equipes;
+    }
+
+    /**
+     * Set allowCaptainRegister
+     *
+     * @param boolean $allowCaptainRegister
+     *
+     * @return Competition
+     */
+    public function setAllowCaptainRegister($allowCaptainRegister)
+    {
+        $this->allowCaptainRegister = $allowCaptainRegister;
+
+        return $this;
+    }
+
+    /**
+     * Get allowCaptainRegister
+     *
+     * @return boolean
+     */
+    public function getAllowCaptainRegister()
+    {
+        return $this->allowCaptainRegister;
     }
 }
