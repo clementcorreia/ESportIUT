@@ -25,10 +25,25 @@ class CompetitionController extends Controller
                 $competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
     	}*/
 
+        $poules = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($competition->getId()) : null;
+
+        $equipesPoules = array();
+        foreach ($poules as $key => $poule) {
+            $equipesPoules[$key] = $poule->getEquipes()->getValues();
+        }
+        dump($equipesPoules);
+
+        /*$equipes = array();
+        foreach ($equipesPoules as $key => $equipe) {
+            $equipes[$key] = $equipe->getValues();
+        }*/
+
         $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
     	
         return $this->render('LCSBundle:Competition:details.html.twig', array(
         	'competition' => $competition,
+            'poules' => $poules,
+            'equipes' => $equipesPoules,
             'equipesInscrites' => $equipesInscrites
         ));
     }

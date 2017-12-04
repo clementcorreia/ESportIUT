@@ -10,4 +10,17 @@ namespace LCSBundle\Repository;
  */
 class PouleRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findPoulesCompetition($competition_id) {
+
+		$qb = $this->createQueryBuilder('p')
+			->where('p.competition = :com_id')
+			->andWhere('p.type = :type')
+			->orderBy('p.nom', 'ASC')
+			->setParameter('com_id', $competition_id)
+			->setParameter('type', 0);
+
+		return $qb->getQuery()->getResult();
+	}
+
 }

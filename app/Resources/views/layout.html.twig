@@ -23,6 +23,7 @@
             <div id="locale" data-locale="{{ app.request.locale }}"></div>
             <a href="{{ path('setlocale', {'language': 'fr'}) }}"><span class="flag-icon flag-icon-fr"></span> FR</a>
             <a href="{{ path('setlocale', {'language': 'en'}) }}"><span class="flag-icon flag-icon-gb"></span> EN</a>
+            <!--<a href="{#{ path('setlocale', {'language': 'us'}) }#}"><span class="flag-icon flag-icon-us"></span> US</a>-->
             <h1>{% block title %}E-Sport IUT{% endblock %}</h1>
             
             {% block menu %}         
@@ -55,7 +56,7 @@
                         {% else %}
                         <ul class="nav navbar-nav navbar-right">
                             <li {% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.menu.register'|trans }}</a></li>
-                            <li {% block activeConnexion %}{% endblock %}><a href="{{ path("fos_login") }}"><span class="glyphicon glyphicon-log-in"></span> {{ 'lcs.menu.connection'|trans }}</a></li>
+                            <li {% block activeConnexion %}{% endblock %} id="loginButton"><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'lcs.menu.connection'|trans }}</a></li>
                         </ul>
                         {% endif %}
                     </div>
@@ -75,6 +76,8 @@
             {% endblock %}
             
             {% block content %}{% endblock %}  
+
+            {{ render(controller('UserBundle:Security:login')) }}
     
         </div>
         
@@ -92,7 +95,33 @@
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-        {% endblock %}
+        {% endblock %}       
+        <script>
+            $(document).ready(function(){
+                $('#loginButton').click(function() {
+                    $('#loginFormModal').modal('show');
+                })
+                $('#_submit').click(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        type        : $('form').attr( 'method' ),
+                        url         : '{{ path("fos_user_security_check") }}',
+                        data        : $('form').serialize(),
+                        dataType    : "json",
+                        success     : function(data, status, object) {
+                            if(data.error) $('.error').html(data.message);
+                            else {
+                                $('#loginFormModal').modal('hide');
+                                location.reload();
+                            }
+                        },
+                        error: function(data, status, object){
+                            console.log(data.message);
+                        }
+                    });
+                });
+            });
+        </script>
         {% block pageScript %}{% endblock %}
     </body>
 </html>

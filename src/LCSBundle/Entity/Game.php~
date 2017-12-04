@@ -79,8 +79,7 @@ class Game
     public function __construct()
     {
         $this->statistiquesJoueurs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->statistiquesJoueurs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->manches = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statistiquesEquipes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -290,39 +289,5 @@ class Game
     public function getEquipes()
     {
         return $this->equipes;
-    }
-
-    /**
-     * Add manch
-     *
-     * @param \LCSBundle\Entity\Manche $manch
-     *
-     * @return Game
-     */
-    public function addManch(\LCSBundle\Entity\Manche $manch)
-    {
-        $this->manches[] = $manch;
-
-        return $this;
-    }
-
-    /**
-     * Remove manch
-     *
-     * @param \LCSBundle\Entity\Manche $manch
-     */
-    public function removeManch(\LCSBundle\Entity\Manche $manch)
-    {
-        $this->manches->removeElement($manch);
-    }
-
-    /**
-     * Get manches
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getManches()
-    {
-        return $this->manches;
     }
 }

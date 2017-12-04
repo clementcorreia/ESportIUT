@@ -9,37 +9,42 @@
 {% block content %}
     {% if competition is not empty %}
     <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a href="#tab_details" data-toggle="tab">Détails</a></li>
-        <li role="presentation"><a href="#tab_poules" data-toggle="tab">Poules</a></li>
+        <li role="presentation" class="active"><a href="#tab_details" data-toggle="tab">{{ 'lcs.competition.details.tabLibelle'|trans }}</a></li>
+        <li role="presentation"><a href="#tab_poules" data-toggle="tab">{{ 'lcs.competition.group.tabLibelle'|trans }}</a></li>
         <li role="presentation"><a href="#tab_matchs" data-toggle="tab">Matchs</a></li>
         <li role="presentation"><a href="#tab_stats" data-toggle="tab">Stats</a></li>
     </ul>
     <div class="tab-content">
         <div class="detailsEntity tab-pane active" id="tab_details">
     		<div>
-    			<h3>Nom :</h3>
+    			<h3>{{ 'lcs.competition.details.name'|trans }} :</h3>
     			<p>{{ competition.nom }}</p>
     		</div>
             <div>
-                <h3>Date : </h3>
+                <h3>{{ 'lcs.competition.details.date'|trans }} : </h3>
                 <p> {% if competition.dateFin is not null %}
                     Du {{ competition.dateDebut|date('d/m/Y') }} au {{ competition.dateFin|date('d/m/Y') }}
                     {% else %}
-                    Depuis le {{ competition.dateDebut|date('d/m/Y') }}
+                    {{ 'lcs.global.date.since'|trans }} 
+                    {% if app.request.locale == 'us' %}
+                    {{ competition.dateDebut|date('m/d/Y') }}
+                    {% else %}
+                    {{ competition.dateDebut|date('d/m/Y') }}
+                    {% endif %}
                     {% endif %}
                 </p>
             </div>
             <div>
-                <h3>Nombre d'équipes : </h3>
+                <h3>{{ 'lcs.competition.details.numberTeams'|trans }} : </h3>
                 <p>{{ equipesInscrites }} (min. {{ competition.nbEquipeMin }})</p>
             </div>
             <div>
-                <h3>Description : </h3>
+                <h3>{{ 'lcs.competition.details.description'|trans }} : </h3>
                 <p>
                     {% if competition.description is not empty %}
                     {{ competition.description }}
                     {% else %}
-                    <i>Aucune description.</i>
+                    <i>{{ 'lcs.competition.details.nodescription'|trans }}</i>
                     {% endif %}
                 </p>
             </div>
@@ -62,6 +67,12 @@
                 <div>&nbsp;</div>
                 <button type="button" class="btn btn-success" id="addModal2"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.group.add'|trans }}</button>
             {% endif %}
+            {#% for key, poule in poules %}
+                {{ poule.nom }}
+                {% for equipe in equipes[key] %}
+                    {{ equipe.nom }}
+                {% endfor %}
+            {% endfor %#}
             <h3>Poule A</h3>
             <table class="table">
                 <thead>

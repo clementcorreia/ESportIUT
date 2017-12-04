@@ -32,6 +32,7 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
+        "twig/extensions": "~1.2",
         "twig/twig": "^1.0||^2.0",
         "webonaute/doctrine-fixtures-generator-bundle": "dev-master"
     },

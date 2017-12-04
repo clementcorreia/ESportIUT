@@ -1,29 +1,32 @@
-{% extends "layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
 
-{% block title %}{{ parent() }} - Connexion{% endblock %}
-
-{% block activeConnexion %}
-    class="active"
-{% endblock %}
-
-{% block content %}
-<div class="well fullscreenForm" id="loginForm">
-    <form action="{{ path("fos_user_security_check") }}" method="post" id="login">
-        <div>&nbsp;</div>
-        {% if error is defined and error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <label for="username" class="sr-only">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control input-lg" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required autofocus tabindex="1">
-        <label for="password" class="sr-only">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="password" id="password" name="_password" class="form-control input-lg" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required tabindex="2">
-        <p>
-            <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" tabindex="3"/>
-        </p>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" tabindex="4">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
-    </form>
+<div class="modal fade" id="loginFormModal" style="display: none;" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path("fos_user_security_check") }}" method="post" role="form" data-async data-target="#rating-modal" class="text-left">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ 'layout.login'|trans }}</h4>
+                </div>
+                <div class="modal-body" id="login">
+                    {% if error is defined and error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <label for="username" class="sr-only">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control input-lg" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required autofocus tabindex="1">
+                    <label for="password" class="sr-only">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                    <input type="password" id="password" name="_password" class="form-control input-lg" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required tabindex="2">
+                    <p>
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" tabindex="3"/>
+                    </p>
+                    <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" tabindex="4">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-{% endblock %}

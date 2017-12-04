@@ -1,4 +1,7 @@
 lcs:
+    global:
+        date:
+            since: Since
     menu:
         home: Home
         competitions: Competitions
@@ -16,7 +19,17 @@ lcs:
             captain: Captain
             numberPlayers: Number of players
     competition:
+        details: 
+            tabLibelle: Details
+            name: Name
+            date: Date
+            numberTeams: Number of teams
+            description: Description
+            nodescription: No description.
+            allowCaptainRegister: Les capitaines sont autorisés à inscrire leur équipe.
+            blockCaptainRegister: Seuls les organisateurs et administrateurs peuvent inscrire des équies.
         group:
+            tabLibelle: Groups
             add: Add group
         game:
             generate: Generate the final stages

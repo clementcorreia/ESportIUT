@@ -70,6 +70,10 @@ class Equipe
         $this->statistiques = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->nom;
+    }
+
     /**
      * Get id
      *
