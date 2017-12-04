@@ -5,3 +5,6 @@ services:
     authentication_handler:
         class:        UserBundle\Handler\AuthenticationHandler
         arguments:    [@router, @security.context, @fos_user.user_manager, @service_container]
+    logout_handler:
+        class:  UserBundle\Handler\LogoutSuccessHandler
+        arguments:  [@router, @service_container]

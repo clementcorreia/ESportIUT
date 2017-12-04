@@ -75,6 +75,10 @@ $(document).ready(function() {
     mbs.init.datePicker();
 });
 
+$('.modal').on('shown.bs.modal', function() {
+  $(this).find('[autofocus]').focus();
+});
+
 // -------------------------------------------------------------------------
 // Fonction/Variables communes
 // gérant l'ouverture, la gestion des popups
