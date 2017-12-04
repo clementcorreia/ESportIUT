@@ -55,7 +55,7 @@
                         </ul>
                         {% else %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li {% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.menu.register'|trans }}</a></li>
+                            <!--<li {#% block activeInscription %}{% endblock %}><a href="{{ path("fos_register") }}"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.menu.register'|trans }#}</a></li>-->
                             <li {% block activeConnexion %}{% endblock %} id="loginButton"><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'lcs.menu.connection'|trans }}</a></li>
                         </ul>
                         {% endif %}
