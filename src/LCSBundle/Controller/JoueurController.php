@@ -44,8 +44,8 @@ class JoueurController extends Controller
             $rang = "<span class=\"$color\">".($joueur ? $joueur->getRang()->getNom() : null)."</span>";
             $data['data'][] = [
                 'pseudo'     => $joueur ? $joueur->getPseudo() : null,
-                'prenom'     => $joueur ? $joueur->getPrenom() : null,
-                'nom'        => $joueur ? $joueur->getNom() : null,
+                'prenom'     => $joueur ? ucwords($joueur->getPrenom()) : null,
+                'nom'        => $joueur ? ucwords($joueur->getNom()) : null,
                 'poste'      => $joueur ? $joueur->getPoste()->getNom() : null,
                 'rang'       => $rang,
                 //Permet de récupérer l'id pour chaque td du tableau
