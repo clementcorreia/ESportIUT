@@ -27,7 +27,7 @@
             <h1>{% block title %}E-Sport IUT{% endblock %}</h1>
             
             {% block menu %}         
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" id="menu">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -96,6 +96,11 @@
             {% endjavascripts %}
             <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% endblock %}       
+        {% if showLogin is defined and showLogin %}
+            <script type="text/javascript">
+                $('#loginFormModal').modal('show');
+            </script>
+        {% endif %}
         <script>
             $(document).ready(function(){
                 $('#loginButton').click(function() {
@@ -109,7 +114,11 @@
                         data        : $('form').serialize(),
                         dataType    : "json",
                         success     : function(data, status, object) {
-                            if(data.error) $('.error').html(data.message);
+                            if(data.error) {
+                                $('.error').html(data.message);
+                                $('form').reset();
+                                toastr.error("Connexion échouée");
+                            }
                             else {
                                 $('#loginFormModal').modal('hide');
                                 location.reload();

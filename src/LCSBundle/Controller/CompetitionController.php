@@ -31,7 +31,6 @@ class CompetitionController extends Controller
         foreach ($poules as $key => $poule) {
             $equipesPoules[$key] = $poule->getEquipes()->getValues();
         }
-        dump($equipesPoules);
 
         /*$equipes = array();
         foreach ($equipesPoules as $key => $equipe) {

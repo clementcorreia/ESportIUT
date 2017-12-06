@@ -9,6 +9,9 @@
                     <h4 class="modal-title">{{ 'layout.login'|trans }}</h4>
                 </div>
                 <div class="modal-body" id="login">
+                    {% if error %}
+                        <div>{{ error|trans }}</div>
+                    {% endif %}
                     {% if error is defined and error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
