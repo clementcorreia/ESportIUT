@@ -42,10 +42,20 @@ class JoueurController extends Controller
         foreach($joueurs as $joueur) {
             $color = $joueur ? $joueur->getRang()->getNom() : null;
             $rang = "<span class=\"$color\">".($joueur ? $joueur->getRang()->getNom() : null)."</span>";
+            $noms = explode('-', $joueur ? ucwords($joueur->getNom()) : null);
+            foreach ($noms as &$nom) {
+                $nom = ucwords($nom);
+            }
+            $noms = join('-', $noms);
+            $prenoms = explode('-', $joueur ? ucwords($joueur->getPrenom()) : null);
+            foreach ($prenoms as &$prenom) {
+                $prenom = ucwords($prenom);
+            }
+            $prenoms = join('-', $prenoms);
             $data['data'][] = [
                 'pseudo'     => $joueur ? $joueur->getPseudo() : null,
-                'prenom'     => $joueur ? ucwords($joueur->getPrenom()) : null,
-                'nom'        => $joueur ? ucwords($joueur->getNom()) : null,
+                'prenom'     => $prenoms,
+                'nom'        => $noms,
                 'poste'      => $joueur ? $joueur->getPoste()->getNom() : null,
                 'rang'       => $rang,
                 //Permet de récupérer l'id pour chaque td du tableau
