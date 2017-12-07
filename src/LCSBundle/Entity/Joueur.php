@@ -72,7 +72,7 @@ class Joueur
      */
     public function __toString()
     {
-        return $this->pseudo;
+        return "(".$this->pseudo.") ".$this->prenom." ".strtoupper($this->nom);
     }
 
     /**

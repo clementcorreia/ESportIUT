@@ -32,7 +32,7 @@ class EquipeController extends Controller
             $data['data'][] = [
                 'nom'        => $equipe ? $equipe->getNom() : null,
                 'slogan'     => $equipe ? $equipe->getSlogan() : null,
-                'capitaine'  => $equipe ? $equipe->getCapitaine()->__toString() : null,
+                'capitaine'  => $equipe ? $equipe->getCapitaine()->getPseudo() : null,
                 'nbJoueurs'  => $equipe ? count($equipe->getJoueurs()) + ($equipe->getCapitaine() ? 1 : 0) : null,
                 //Permet de récupérer l'id pour chaque td du tableau
                 //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire

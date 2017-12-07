@@ -26,7 +26,6 @@ class EquipeType extends AbstractType
                 ->add('joueurs', 'entity', array(
                     'label'     => 'Joueurs',
                     'class'     => 'LCSBundle:Joueur',
-                    'property'  => 'pseudo',
                     'multiple'  => true,
                     'expanded'  => false
                 ));
