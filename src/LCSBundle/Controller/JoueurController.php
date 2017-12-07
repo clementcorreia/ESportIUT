@@ -40,28 +40,30 @@ class JoueurController extends Controller
         $joueurs = $this->getDoctrine()->getRepository("LCSBundle:Joueur")->findAll();
         $data     = ['data' => []];
         foreach($joueurs as $joueur) {
-            $color = $joueur ? $joueur->getRang()->getNom() : null;
-            $rang = "<span class=\"$color\">".($joueur ? $joueur->getRang()->getNom() : null)."</span>";
-            $noms = explode('-', $joueur ? ucwords($joueur->getNom()) : null);
-            foreach ($noms as &$nom) {
-                $nom = ucwords($nom);
+            if($joueur) {
+                $color = $joueur ? $joueur->getRang() ? $joueur->getRang()->getNom() : null : null;
+                $rang = "<span class=\"$color\">".($joueur ? $joueur->getRang() ? $joueur->getRang()->getNom() : null : null)."</span>";
+                $noms = explode('-', $joueur ? ucwords($joueur->getNom()) : null);
+                foreach ($noms as &$nom) {
+                    $nom = ucwords($nom);
+                }
+                $noms = join('-', $noms);
+                $prenoms = explode('-', $joueur ? ucwords($joueur->getPrenom()) : null);
+                foreach ($prenoms as &$prenom) {
+                    $prenom = ucwords($prenom);
+                }
+                $prenoms = join('-', $prenoms);
+                $data['data'][] = [
+                    'pseudo'     => $joueur ? $joueur->getPseudo() ? $joueur->getPseudo() : null : null,
+                    'prenom'     => $prenoms,
+                    'nom'        => $noms,
+                    'poste'      => $joueur ? $joueur->getPoste()->getNom() : null,
+                    'rang'       => $rang,
+                    //Permet de récupérer l'id pour chaque td du tableau
+                    //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire
+                    'DT_RowId'   => 'id_'.$joueur->getId()
+                ];
             }
-            $noms = join('-', $noms);
-            $prenoms = explode('-', $joueur ? ucwords($joueur->getPrenom()) : null);
-            foreach ($prenoms as &$prenom) {
-                $prenom = ucwords($prenom);
-            }
-            $prenoms = join('-', $prenoms);
-            $data['data'][] = [
-                'pseudo'     => $joueur ? $joueur->getPseudo() : null,
-                'prenom'     => $prenoms,
-                'nom'        => $noms,
-                'poste'      => $joueur ? $joueur->getPoste()->getNom() : null,
-                'rang'       => $rang,
-                //Permet de récupérer l'id pour chaque td du tableau
-                //Pour pouvoir gérer le click qur la ligne en js, et rediriger vers la bonne affaire
-                'DT_RowId'   => 'id_'.$joueur->getId()
-            ];
         }
         return (new JsonResponse)->setData($data);
     }
