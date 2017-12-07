@@ -56,7 +56,7 @@ class JoueurController extends Controller
                 $data['data'][] = [
                     'pseudo'     => $joueur ? $joueur->getPseudo() ? $joueur->getPseudo() : null : null,
                     'prenom'     => $prenoms,
-                    'nom'        => $noms,
+                    'nom'        => strtoupper($noms),
                     'poste'      => $joueur ? $joueur->getPoste()->getNom() : null,
                     'rang'       => $rang,
                     //Permet de récupérer l'id pour chaque td du tableau
