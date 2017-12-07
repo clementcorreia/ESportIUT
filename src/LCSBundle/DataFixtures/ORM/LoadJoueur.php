@@ -22,7 +22,7 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 3;
+        return ;
     }
 
 
@@ -33,55 +33,115 @@ class LoadJoueur extends AbstractFixture implements OrderedFixtureInterface
     {
         $manager->getClassMetadata(Joueur::class)->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
     
-        $item8 = new Joueur();
-        $this->addReference('_reference_LCSBundleEntityJoueur8', $item8);
-        $item8->setPseudo("ThePowerVoid");
-        $item8->setNom("Vannier");
-        $item8->setPrenom("Pierre");
-        $item8->setPoste($this->getReference('_reference_LCSBundleEntityPoste3'));
-        $item8->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
+        $item17 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur17', $item17);
+        $item17->setPseudo("ThePowerVoid");
+        $item17->setNom("Vannier");
+        $item17->setPrenom("Pierre");
+        $item17->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste83'));
+        $item17->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
 
-        $manager->persist($item8);
+        $manager->persist($item17);
 
-        $item13 = new Joueur();
-        $this->addReference('_reference_LCSBundleEntityJoueur13', $item13);
-        $item13->setPseudo("Spk Angelus");
-        $item13->setNom("Lopez");
-        $item13->setPrenom("Rémi");
-        $item13->setPoste($this->getReference('_reference_LCSBundleEntityPoste1'));
-        $item13->setRang($this->getReference('_reference_LCSBundleEntityRang3'));
+        $item18 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur18', $item18);
+        $item18->setPseudo("Spk Angelus");
+        $item18->setNom("Lopez");
+        $item18->setPrenom("Rémi");
+        $item18->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste81'));
+        $item18->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang81'));
 
-        $manager->persist($item13);
+        $manager->persist($item18);
 
-        $item14 = new Joueur();
-        $this->addReference('_reference_LCSBundleEntityJoueur14', $item14);
-        $item14->setPseudo("Toutruche");
-        $item14->setNom("Mazel");
-        $item14->setPrenom("Guilhem");
-        $item14->setPoste($this->getReference('_reference_LCSBundleEntityPoste5'));
-        $item14->setRang($this->getReference('_reference_LCSBundleEntityRang6'));
+        $item19 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur19', $item19);
+        $item19->setPseudo("Toutruche");
+        $item19->setNom("Mazel");
+        $item19->setPrenom("Guilhem");
+        $item19->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste85'));
+        $item19->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang84'));
 
-        $manager->persist($item14);
+        $manager->persist($item19);
 
-        $item15 = new Joueur();
-        $this->addReference('_reference_LCSBundleEntityJoueur15', $item15);
-        $item15->setPseudo("Howrus");
-        $item15->setNom("Morandini");
-        $item15->setPrenom("Eric");
-        $item15->setPoste($this->getReference('_reference_LCSBundleEntityPoste2'));
-        $item15->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
+        $item20 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur20', $item20);
+        $item20->setPseudo("Howrus");
+        $item20->setNom("Morandini");
+        $item20->setPrenom("Eric");
+        $item20->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste82'));
+        $item20->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
 
-        $manager->persist($item15);
+        $manager->persist($item20);
 
-        $item16 = new Joueur();
-        $this->addReference('_reference_LCSBundleEntityJoueur16', $item16);
-        $item16->setPseudo("Not Known");
-        $item16->setNom("Cisterne");
-        $item16->setPrenom("Clément");
-        $item16->setPoste($this->getReference('_reference_LCSBundleEntityPoste4'));
-        $item16->setRang($this->getReference('_reference_LCSBundleEntityRang4'));
+        $item21 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur21', $item21);
+        $item21->setPseudo("Lamouche XXI");
+        $item21->setNom("Cisterne");
+        $item21->setPrenom("Clément");
+        $item21->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste84'));
+        $item21->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
 
-        $manager->persist($item16);
+        $manager->persist($item21);
+
+        $item27 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur27', $item27);
+        $item27->setPseudo("Evilox");
+        $item27->setNom("grard");
+        $item27->setPrenom("corentin");
+        $item27->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste81'));
+        $item27->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang83'));
+
+        $manager->persist($item27);
+
+        $item28 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur28', $item28);
+        $item28->setPseudo("Nnoitra Jirga");
+        $item28->setNom("reynaud");
+        $item28->setPrenom("erwan");
+        $item28->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste85'));
+        $item28->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
+
+        $manager->persist($item28);
+
+        $item29 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur29', $item29);
+        $item29->setPseudo("Retto74");
+        $item29->setNom("rakotorina");
+        $item29->setPrenom("joyss");
+        $item29->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste82'));
+        $item29->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
+
+        $manager->persist($item29);
+
+        $item30 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur30', $item30);
+        $item30->setPseudo("MatCom974");
+        $item30->setNom("commins");
+        $item30->setPrenom("matthieu");
+        $item30->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste83'));
+        $item30->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang79'));
+
+        $manager->persist($item30);
+
+        $item31 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur31', $item31);
+        $item31->setPseudo("NightYano");
+        $item31->setNom("dejesus-martin");
+        $item31->setPrenom("david");
+        $item31->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste84'));
+        $item31->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang79'));
+
+        $manager->persist($item31);
+
+        $item32 = new Joueur();
+        $this->addReference('_reference_LCSBundleEntityJoueur32', $item32);
+        $item32->setPseudo("Mornyan");
+        $item32->setNom("phun-vong");
+        $item32->setPrenom("morgane");
+        $item32->setPoste($this->getReference('_reference_Proxies__CG__LCSBundleEntityPoste84'));
+        $item32->setRang($this->getReference('_reference_Proxies__CG__LCSBundleEntityRang82'));
+
+        $manager->persist($item32);
 
     
         $manager->flush();
