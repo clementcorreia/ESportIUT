@@ -68,7 +68,7 @@
                 <button type="button" class="btn btn-success" id="addModal-group"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.group.add'|trans }}</button>
             {% endif %}
             {% for key, poule in poules %}
-                <h3>{{ poule.nom }} <button type="button" data-id="{{ poule.id }}" class="btn btn-warning editModal-group"><span class="glyphicon glyphicon-edit"></span> Modifier</button></h3>
+                <h3>{{ poule.nom }} {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}<button type="button" data-id="{{ poule.id }}" class="btn btn-warning editModal-group"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.competition.group.edit'|trans }}</button>{% endif %}</h3>
                 <table class="table">
                     <thead>
                         <tr>

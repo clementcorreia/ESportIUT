@@ -32,6 +32,7 @@ lcs:
             tabLibelle: Poules
             libelle: Poule
             add: Ajouter une poule
+            edit: Modifier une poule
         game:
             generate: Générer les phases finales
 

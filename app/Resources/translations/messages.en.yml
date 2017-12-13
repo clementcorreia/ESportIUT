@@ -32,6 +32,7 @@ lcs:
             tabLibelle: Groups
             libelle: Group
             add: Add group
+            edit: Edit group
         game:
             generate: Generate the final stages
 control:
