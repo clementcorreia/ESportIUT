@@ -18,14 +18,12 @@ class PouleController extends Controller
         $poule = null;
         if(!is_null($id) && $id > 0) {
             $poule = $this->getDoctrine()->getRepository('LCSBundle:Poule')->find($id);
-            dump($poule->getNom());   
         }
 
         if (!$poule) {            
         	$poule = new Poule();
         	$poule->setCompetition($this->getDoctrine()->getRepository('LCSBundle:Competition')->find($idCompetition));
         	$poule->setType(0);
-            dump("l");
         }
 
         $form = $this->createForm(PouleType::class, $poule, array(
