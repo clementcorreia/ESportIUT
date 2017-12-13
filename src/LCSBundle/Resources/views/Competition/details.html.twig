@@ -58,22 +58,44 @@
                 </p>
             </div>
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
-            <button type="button" class="btn btn-warning" id="addModal"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
+            <button type="button" class="btn btn-warning" id="addModal-competition"><span class="glyphicon glyphicon-edit"></span> {{ 'control.button.edit'|trans }}</button>
         {% endif %}
         </div>
 
         <div class="tab-pane" id="tab_poules">
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
                 <div>&nbsp;</div>
-                <button type="button" class="btn btn-success" id="addModal2"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.group.add'|trans }}</button>
+                <button type="button" class="btn btn-success" id="addModal-group"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.group.add'|trans }}</button>
             {% endif %}
-            {#% for key, poule in poules %}
-                {{ poule.nom }}
-                {% for equipe in equipes[key] %}
-                    {{ equipe.nom }}
-                {% endfor %}
-            {% endfor %#}
-            <h3>Poule A</h3>
+            {% for key, poule in poules %}
+                <h3>{{ poule.nom }} <button type="button" data-id="{{ poule.id }}" class="btn btn-warning editModal-group"><span class="glyphicon glyphicon-edit"></span> Modifier</button></h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Classement</th>
+                            <th>Equipe</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% if equipes[key]|length > 0 %}
+                    {% for equipe in equipes[key] %}
+                        <tr><!-- class="bg-success">-->
+                            <td><i>null</i></td>
+                            <td>{{ equipe.nom }}</td>
+                            <td><i>null</i></td>
+                        </tr>
+                    {% endfor %}                
+                {% else %}
+                        <tr>
+                            <td colspan="3" style="text-align: center;"><i>Aucune équipe inscrite</i></td>
+                        </tr>
+                {% endif %}
+                    </tbody>
+                </table>
+            {% endfor %}
+            <!--
+            <h3>Poule A <button type="button" data-id="1" class="btn btn-warning" id="editModal-group"><span class="glyphicon glyphicon-edit"></span> Modifier</button></h3>
             <table class="table">
                 <thead>
                     <tr>
@@ -156,7 +178,7 @@
                         <td>0</td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
         </div>
 
         <div class="tab-pane" id="tab_matchs">
@@ -191,7 +213,7 @@
 	</div>
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
-    {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id})) }}
+    {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id, 'id' : 0})) }}
     
     {% else %}
         <p><i>Aucune donnée...</i></p>

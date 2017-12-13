@@ -14,14 +14,23 @@ class PouleController extends Controller
      * Un controller permettant d'ajouter ou de modifier une poule
      * via une popup
      */
-    public function editAction(Request $request, $idCompetition) {
-    	$poule = new Poule();
-    	$poule->setCompetition($this->getDoctrine()->getRepository('LCSBundle:Competition')->find($idCompetition));
-    	$poule->setType(0);
+    public function editAction(Request $request, $id, $idCompetition) {
+        $poule = null;
+        if(!is_null($id) && $id > 0) {
+            $poule = $this->getDoctrine()->getRepository('LCSBundle:Poule')->find($id);
+            dump($poule->getNom());   
+        }
+
+        if (!$poule) {            
+        	$poule = new Poule();
+        	$poule->setCompetition($this->getDoctrine()->getRepository('LCSBundle:Competition')->find($idCompetition));
+        	$poule->setType(0);
+            dump("l");
+        }
 
         $form = $this->createForm(PouleType::class, $poule, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('lcs_poules_edit', array('idCompetition' => $idCompetition))
+            'action' => $this->generateUrl('lcs_poules_edit', array('idCompetition' => $idCompetition, 'id' => $id))
         ));
 
         $form->handleRequest($request);
@@ -57,7 +66,7 @@ class PouleController extends Controller
         $nomCompet = $poule ? $poule->getCompetition()->getNom() : null;
         return $this->render('LCSBundle:Poule:edit.html.twig', array(
             'competition' => $nomCompet,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 }

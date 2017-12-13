@@ -20,15 +20,19 @@ $(document).ready(function() {
                 window.location.replace(Routing.generate('lcs_competitions_details',{'id':id}));    
             }
             else {
-                openEditModal(Routing.generate('lcs_competitions_edit',{'id':id}));
+                openEditModal(Routing.generate('lcs_competitions_edit',{'id':id}), 'competition');
             }
         });
 
-        openAddModal(Routing.generate('lcs_competitions_edit'),{'id': 0});
+        openAddModal(Routing.generate('lcs_competitions_edit'),{'id': 0}, 'competition');
     }
     else {
-        openAddModal(Routing.generate('lcs_competitions_edit', {'id': competition_id}));
-        openAddModal2(Routing.generate('lcs_poules_edit', {'idCompetition': competition_id}));
+        $(".editModal-group").on('click', function() {
+            var poule_id = $(this).data('id');
+            openEditModal(Routing.generate('lcs_poules_edit', {'idCompetition': competition_id, 'id': poule_id}), 'group');
+        });
+        openAddModal(Routing.generate('lcs_competitions_edit', {'id': competition_id}), 'competition');
+        openAddModal(Routing.generate('lcs_poules_edit', {'idCompetition': competition_id, 'id': 0}), 'group');
     }
 
 });

@@ -2,7 +2,7 @@ function autocollapse() {
     var navbar = $('.navbar.navbar-collapse');
     navbar.removeClass('collapsed');
     if(navbar.innerHeight() > 50) {
-    	navbar.addClass('collapsed');
+        navbar.addClass('collapsed');
     }
 }
 $(document).on('ready', autocollapse);
@@ -75,32 +75,40 @@ $(document).ready(function() {
     mbs.init.datePicker();
 });
 
-$('.modal').on('shown.bs.modal', function() {
-  $(this).find('[autofocus]').focus();
-});
-
 // -------------------------------------------------------------------------
 // Fonction/Variables communes
 // gérant l'ouverture, la gestion des popups
 // ----------------------------------------------------------------------------
 
-function openAddModal(url) {
+/*unction openAddModal(url) {
     $('#addModal').on('click', function() {
         openEditModal(url);
     });
+}*/
+
+function openAddModal(url, id_modal) {
+    $('#addModal-' + id_modal).on('click', function() {
+        openEditModal(url, id_modal);
+    });
+    $('#editModal-' + id_modal).on('click', function() {
+        openEditModal(url, id_modal);
+    });
 }
 
-function openAddModal2(url) {
+function openEditModal(url, id_modal) {
+    $("#edit_form_container_" + id_modal).load(url + ' #edit_form_container_' + id_modal + ' > *', function (html) {
+        $('#edit-modal-' + id_modal).modal('show');
+        $('#edit-modal-' + id_modal + ' #titleContainer').empty();
+        $('#edit-modal-' + id_modal + ' .modal-body h4').appendTo('#edit-modal-' + id_modal + ' #titleContainer');
+        mbs.init.form(id_modal);
+    });
+}
+
+/*function openAddModal2(url) {
     $('#addModal2').on('click', function() {
         openEditModal(url, 1);
     });
 }   
-
-function openDetailsModal(url) {
-    $("#details_container").load(url + ' #details_container > *', function (html) {
-        $('#details-modal').modal('show');
-    });
-}
 
 function openEditModal(url, option = 0) {
     if (!option) {
@@ -119,7 +127,7 @@ function openEditModal(url, option = 0) {
             mbs.init.form();
         });
     }
-}
+}*/
 
 function openContentModal(html) {
     $('#edit-modal .modal-body').html(html);
@@ -183,7 +191,7 @@ function array_search (needle, haystack, argStrict) {
 
 var mbs = {
     init: {
-        datePicker: function () {
+        datePicker: function (id_modal) {
             jQuery.datetimepicker.setLocale('fr');
             var i=1;
             $('input.date').each(function () {
@@ -201,7 +209,7 @@ var mbs = {
                     scrollInput: false
                 });
 
-                $('#edit-modal, #edit-modal2').on('scroll',function() {
+                $('#edit-modal' + id_modal).on('scroll',function() {
                     if ($(tmpinput.data('dtp')).css('display')!=='none'){
                         tmpinput.datetimepicker('hide');
                         tmpinput.datetimepicker('show');
@@ -228,9 +236,9 @@ var mbs = {
 
         },
 
-        submitButton: function () {
-            $('#edit_form_container form:first').on('submit', function () {
-                var form = $('#edit_form_container form');
+        submitButton: function (id_modal) {
+            $('#edit_form_container_' + id_modal + ' form:first').on('submit', function () {
+                var form = $('#edit_form_container_' + id_modal + ' form');
                 if (!form.validator('validate').data('bs.validator').hasErrors()) {
                     $.post(form.attr('action'), form.serialize()).done(function (data) {
                         // Si validation serveur OK
@@ -238,10 +246,9 @@ var mbs = {
                             form.trigger('ajaxdone');
                             // Affiche message ok
                             toastr.success($('#' + data.confirmation_message_id).text());
-
                             var updateTable = function () {
-                                setTimeout(function(){ $('#edit-modal').modal('hide'); }, 200);
-                                $('#' + data.type + '_' + data.id).effect("highlight", {color: '#A9E2F3'}, 2500);
+                                setTimeout(function(){ $('#edit-modal-' + id_modal).modal('hide'); }, 200);
+                                $('#id_' + data.id).addClass('highlight');
                             };
                             if (typeof window.oTable != 'undefined') {                                
                                 window.oTable.ajax.reload(updateTable);
@@ -249,15 +256,14 @@ var mbs = {
                             } else {                                
                                 $('#main_table, .datatable_table').DataTable().ajax.reload(updateTable);
                             }
-                            if(data.closeModal === true) {                                
-                                setTimeout(function(){ $('#edit-modal').modal('hide'); }, 200);
+                            if(data.closeModal === true) {                             
+                                setTimeout(function(){ $('#edit-modal-' + id_modal).modal('hide'); }, 200);
                             }
                             if(data.type === 'competition') {
                                 var url = Routing.generate('lcs_competitions_details', {'id': data.id});
                                 window.location.replace(url);
                             }
                         }
-
                         // Si validation serveur NOK
                         else if (data.res === false) {
                             if(data.confirmation_message_id)
@@ -294,7 +300,7 @@ var mbs = {
                     return false;
                 }
             });
-            $('#edit_form_container2 form:first').on('submit', function () {
+            /*$('#edit_form_container2 form:first').on('submit', function () {
                 var form = $('#edit_form_container2 form');
                 if (!form.validator('validate').data('bs.validator').hasErrors()) {
                     $.post(form.attr('action'), form.serialize()).done(function (data) {
@@ -362,10 +368,10 @@ var mbs = {
                     });
                     return false;
                 }
-            });
+            });*/
         },
 
-        deleteButton: function () {
+        /*deleteButton: function () {
             $('#edit-modal button[data-action=delete]').off('click');
             $('#edit-modal button[data-action=delete]').on('click', function () {
                 var form = $('#frm-edit');
@@ -386,23 +392,23 @@ var mbs = {
                     });
                 });
             });
-        },
+        },*/
 
         // Déplacement de la listbox "Affiche n elements" à droite du bouton
-        modalButton: function() {
+        /*modalButton: function() {
             $("#modal-btn").detach().prependTo('#main_table_length');
-        },
+        },*/
 
         modal: function() {
             $('#edit-modal').on('shown.bs.modal', function () {
                 $("#edit_form_container form input").parent().find('h4').focus();
             });
-            $('#edit-modal2').on('shown.bs.modal', function () {
+            /*$('#edit-modal2').on('shown.bs.modal', function () {
                 $("#edit_form_container2 form input").parent().find('h4').focus();
-            });
+            });*/
         },
 
-        chevron:function(){
+        /*chevron:function(){
             function toggleChevron(e) {
                 $(e.target)
                     .prev('.panel-heading')
@@ -415,17 +421,17 @@ var mbs = {
                     $(this).on('shown.bs.collapse', toggleChevron);
                 });
             }
-        },
+        },*/
 
-        form: function () {
+        form: function (id_modal) {
             // Initialise la validation client (bootstrap validator)
-            $('#edit_form_container form').validator();
-            $('#edit_form_container2 form').validator();
+            $('#edit_form_container_' + id_modal + ' form').validator();
+            //$('#edit_form_container2 form').validator();
 
-            mbs.init.datePicker();
-            mbs.init.submitButton();
-            mbs.init.deleteButton();
-            mbs.init.chevron();
+            mbs.init.datePicker(id_modal);
+            mbs.init.submitButton(id_modal);
+            //mbs.init.deleteButton();
+            //mbs.init.chevron();
         }
     },
 

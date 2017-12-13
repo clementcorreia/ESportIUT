@@ -53,16 +53,23 @@ class Competition
     /**
      * @var int
      *
-     * @ORM\Column(name="nbEquipeMin", type="integer", nullable=true)
+     * @ORM\Column(name="nbEquipeMin", type="integer", nullable=false)
      */
     private $nbEquipeMin;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nbEquipeMax", type="integer", nullable=true)
+     * @ORM\Column(name="nbEquipeMax", type="integer", nullable=false)
      */
     private $nbEquipeMax;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbEquipeSortantes", type="integer", nullable=false)
+     */
+    //private $nbEquipeSortantes;*/
 
     /**
      * @var string

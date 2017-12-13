@@ -1,9 +1,9 @@
-<div class="modal fade" id="edit-modal2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit-modal-group" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             {% include 'modalHeader.html.twig' %}
 
-            <div class="modal-body" id="edit_form_container2">
+            <div class="modal-body" id="edit_form_container_group">
                  <h4 class="modal-title">
                     {% if app.request.get('id') is not null and app.request.get('id')>0 %}
                         Modifier une poule

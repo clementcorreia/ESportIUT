@@ -103,7 +103,7 @@ lcs_users_edit:
 #### POULES ####
 
 lcs_poules_edit:
-    path    : /poules/edit/{idCompetition}
+    path    : /poules/edit/{id}/{idCompetition}
     defaults: { _controller: LCSBundle:Poule:edit }
     options:
         expose: true

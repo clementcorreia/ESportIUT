@@ -30,6 +30,7 @@ lcs:
             blockCaptainRegister: Seuls les organisateurs et administrateurs peuvent inscrire des équies.
         group: 
             tabLibelle: Poules
+            libelle: Poule
             add: Ajouter une poule
         game:
             generate: Générer les phases finales
