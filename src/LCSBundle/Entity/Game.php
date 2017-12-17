@@ -25,13 +25,6 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="numero", type="string", length=10, unique=true)
-     */
-    private $numero;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="nom", type="string", length=30, nullable=true)
      */
     private $nom;
@@ -84,6 +77,10 @@ class Game
         $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->equipes[0].' - '.$this->equipes[1];
+    }
+
     /**
      * Get id
      *
@@ -92,30 +89,6 @@ class Game
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set numero
-     *
-     * @param string $numero
-     *
-     * @return Game
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    /**
-     * Get numero
-     *
-     * @return string
-     */
-    public function getNumero()
-    {
-        return $this->numero;
     }
 
     /**

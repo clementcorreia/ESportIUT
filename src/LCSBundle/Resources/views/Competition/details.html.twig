@@ -75,15 +75,21 @@
                             <th>Classement</th>
                             <th>Equipe</th>
                             <th>Pts</th>
+                            <th>Victoires</th>
+                            <th>Défaites</th>
+                            <th>Différence</th>
                         </tr>
                     </thead>
                     <tbody>
                 {% if equipes[key]|length > 0 %}
                     {% for equipe in equipes[key] %}
                         <tr><!-- class="bg-success">-->
-                            <td><i>null</i></td>
+                            <td>{% if loop.index == 1 %}1{% else %}-{% endif %}</td>
                             <td>{{ equipe.nom }}</td>
-                            <td><i>null</i></td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                     {% endfor %}                
                 {% else %}
@@ -94,117 +100,24 @@
                     </tbody>
                 </table>
             {% endfor %}
-            <!--
-            <h3>Poule A <button type="button" data-id="1" class="btn btn-warning" id="editModal-group"><span class="glyphicon glyphicon-edit"></span> Modifier</button></h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Classement</th>
-                        <th>Equipe</th>
-                        <th>Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-success">
-                        <td>1</td>
-                        <td>Equipe 1</td>
-                        <td>9</td>
-                    </tr>
-                    <tr class="bg-success">
-                        <td>-</td>
-                        <td>Equipe 2</td>
-                        <td>9</td>
-                    </tr>
-                    <tr class="bg-success">
-                        <td>3</td>
-                        <td>Equipe 5</td>
-                        <td>6</td>
-                    </tr>
-                    <tr class="bg-success">
-                        <td>4</td>
-                        <td>Equipe 3</td>
-                        <td>3</td>
-                    </tr>
-                    <tr class="bg-danger">
-                        <td>5</td>
-                        <td>Equipe 6</td>
-                        <td>2</td>
-                    </tr>
-                    <tr class="bg-danger">
-                        <td>6</td>
-                        <td>Equipe 4</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h3>Poule B</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Classement</th>
-                        <th>Equipe</th>
-                        <th>Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Equipe 1</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td>Equipe 2</td>
-                        <td>9</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Equipe 5</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Equipe 3</td>
-                        <td>3</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Equipe 6</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Equipe 4</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>-->
         </div>
 
         <div class="tab-pane" id="tab_matchs">
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
                 <div>&nbsp;</div>
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generate'|trans }}</button>
+                <button type="button" class="btn btn-primary" id="addModal-generateGM"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateGM'|trans }}</button>
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateFS'|trans }}</button>
             {% endif %}
-            <h3>Poule A</h3>
-            <p>
-                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
-            </p>
-            <h3>Poule B</h3>
-            <p>
-                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
-            </p>
-            <h3>1/4 de finale</h3>
-            <p>
-                Match 1 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 2 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 3 : Equipe 1 - Equipe 2 - 2-1<br />
-                Match 4 : Equipe 1 - Equipe 2 - 2-1<br />
-            </p>
+            {% for key, poule in poules %}
+                <h3>{{ poule.nom }}</h3>
+                {% if matchs[key]|length > 0 %}
+                    {% for match in matchs[key] %}
+                <p>
+                    Match {{ loop.index }} : {{ match }}<br />
+                </p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
         </div>
 
         <div class="tab-pane" id="tab_stats">
@@ -214,6 +127,7 @@
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
     {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id, 'id' : 0})) }}
+    {{ render(controller('LCSBundle:Game:generateGroupMathes', {'id' : competition.id})) }}
     
     {% else %}
         <p><i>Aucune donnée...</i></p>

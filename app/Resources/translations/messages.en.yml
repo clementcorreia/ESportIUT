@@ -34,8 +34,12 @@ lcs:
             add: Add group
             edit: Edit group
         game:
-            generate: Generate the final stages
+            labelReturn: Generate the return matches
+            generateGM: Generate the group matches
+            generateFS: Generate the final stages
 control:
+    yes: Yes
+    no: No
     button:
         add: Add
         edit: Edit

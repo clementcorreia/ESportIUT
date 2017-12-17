@@ -1,0 +1,32 @@
+<div class="modal fade" id="edit-modal-generateGM" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container_generateGM">
+                 <h4 class="modal-title">
+                    Génération des matchs de poule
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                    <h3>Informations sur la compétition</h3>
+                        
+                    {{ form_row(form.matchReturn) }}
+
+                    {{ form_rest(form) }}
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <div id="modal-validation-message-creation-generateGM" style="display: none;">
+                <p>Les matchs de poules ont été créés avec succès</p>
+            </div>
+        </div>
+    </div>
+</div>

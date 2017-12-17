@@ -33,6 +33,7 @@ $(document).ready(function() {
         });
         openAddModal(Routing.generate('lcs_competitions_edit', {'id': competition_id}), 'competition');
         openAddModal(Routing.generate('lcs_poules_edit', {'idCompetition': competition_id, 'id': 0}), 'group');
+        openAddModal(Routing.generate('lcs_matchs_generateGroupMathes', {'id': competition_id}), 'generateGM');
     }
 
 });

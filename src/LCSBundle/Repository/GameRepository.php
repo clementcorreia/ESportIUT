@@ -10,4 +10,12 @@ namespace LCSBundle\Repository;
  */
 class GameRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findGamesByPoule($poule_id) {
+
+		$qb = $this->createQueryBuilder('g')
+			->where('g.poule = :grp_id')
+			->setParameter('grp_id', $poule_id);
+
+		return $qb->getQuery()->getResult();
+	}
 }

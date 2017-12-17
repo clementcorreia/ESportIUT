@@ -17,7 +17,11 @@ class CompetitionController extends Controller
 
     public function detailsAction($id)
     {
+
+        // Onglet Détails
+
     	$competition = $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id);
+        $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
 
     	/*if($competition) {
 			$competition->setDateDebut($competition->getDateDebut()->format('d/m/Y'));
@@ -25,24 +29,37 @@ class CompetitionController extends Controller
                 $competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
     	}*/
 
+        // Onglet Poules
+
         $poules = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($competition->getId()) : null;
 
         $equipesPoules = array();
+        $matchsPoules = array();
+        $matchs = array();
         foreach ($poules as $key => $poule) {
             $equipesPoules[$key] = $poule->getEquipes()->getValues();
+            $matchsPoules[$key] = $this->getDoctrine()->getRepository("LCSBundle:Game")->findGamesByPoule($poule->getId());
+            usort($equipesPoules[$key], function($a, $b)
+            {
+                return strcmp($a->getNom(), $b->getNom());
+            });
         }
+
+        // Onglet Matchs
+
+        
+
 
         /*$equipes = array();
         foreach ($equipesPoules as $key => $equipe) {
             $equipes[$key] = $equipe->getValues();
         }*/
 
-        $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
-    	
         return $this->render('LCSBundle:Competition:details.html.twig', array(
         	'competition' => $competition,
             'poules' => $poules,
             'equipes' => $equipesPoules,
+            'matchs' => $matchsPoules,
             'equipesInscrites' => $equipesInscrites
         ));
     }

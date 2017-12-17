@@ -78,6 +78,13 @@ lcs_matchs_index:
     path:     /matchs
     defaults: { _controller: LCSBundle:Game:index }
 
+lcs_matchs_generateGroupMathes:
+    path:     /matchs/generate/group/{id}
+    defaults: { _controller: LCSBundle:Game:generateGroupMathes, id: 0 }
+    options:
+        expose: true
+
+
 #### USERS ####
 
 lcs_users_index:

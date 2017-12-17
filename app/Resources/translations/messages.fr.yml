@@ -34,9 +34,13 @@ lcs:
             add: Ajouter une poule
             edit: Modifier une poule
         game:
-            generate: Générer les phases finales
+            labelReturn: Générer les matchs retours
+            generateGM: Générer les matchs de poule
+            generateFS: Générer les phases finales
 
 control:
+    yes: Oui
+    no: Non
     button:
         add: Ajouter
         edit: Modifier
