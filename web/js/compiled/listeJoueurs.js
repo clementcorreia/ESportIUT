@@ -7,12 +7,12 @@ $(document).ready(function() {
             {"data": "prenom"},
             {"data": "nom"},
             {"data": "poste"},
-            {"data": "rang"},
+            {"data": "rang"}
         ]
     }));
 
     $('#listeJoueurs_table tbody').on('click', 'td:not(.select-checkbox,.control,.link)', function () {
         var id = $(this).parent().attr("id").split("_")[1];
-        openDetailsModal(Routing.generate('lcs_joueurs_details',{'id':id}));
+        openEditModal(Routing.generate('lcs_joueurs_details',{'id':id}));
     });
 });

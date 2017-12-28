@@ -37,7 +37,7 @@
     width: 100%;
 }
 
-.fullscreenForm > form > div.not(.form-group) {
+.fullscreenForm > form > div:not(.form-group) {
     text-align: center;
 }
 

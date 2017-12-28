@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use LCSBundle\Form\JoueurType;
 
-class UserType extends BaseType;
+class UserType extends BaseType
 {
     /**
      * {@inheritdoc}

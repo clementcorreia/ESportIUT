@@ -19,10 +19,10 @@ class CompetitionType extends AbstractType
                     'choice' => array(
                         '1' => $options['yes'],
                         'O' => $options['no'],
-                    )
+                    ),
                     'multiple'  => false,
                     'expanded'  => true
-                ))
+                ));
     }
     
     /**
