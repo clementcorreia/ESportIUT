@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use LCSBundle\Entity\Game;
+use LCSBundle\Form\TourType;
 
 class GameController extends Controller
 {
@@ -22,19 +23,48 @@ class GameController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('lcs_matchs_generateGroupMathes', array('id' => $id))
         );*/
-
         $form = $this->createFormBuilder()//$defaultData)
-        	->setAction($this->generateUrl('lcs_matchs_generateGroupMathes', array('id' => $id)))
-            ->add('matchReturn', ChoiceType::class, array(
-                'label' => $translator->trans('lcs.competition.game.labelReturn').' ?',
-                'choices' => array(
-                    1 => $translator->trans('control.yes'),
-                    0 => $translator->trans('control.no'),
-                ),
-                'multiple'  => false,
-                'expanded'  => true
-            ))
-            ->getForm();
+        	->setAction($this->generateUrl('lcs_matchs_generateGroupMathes', array('id' => $id)));
+                
+        $poules = $id ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($id) : null;
+        $equipesPoules = array();
+        foreach ($poules as $key => $poule) {
+            $equipesPoules[$key] = $poule->getEquipes()->getValues();
+            usort($equipesPoules[$key], function($a, $b)
+            {
+                return strcmp($a->getNom(), $b->getNom());
+            });
+        }
+        $max = 0;
+        foreach ($equipesPoules as $key => $equipesPoule) {
+            if(count($equipesPoule) >= $max) {
+                $max = count($equipesPoule);
+            }
+        }
+        $nbTours = $max - 1;
+        $form_id = array();
+        for($i = 1; $i <= $nbTours*2; $i++) {
+            // ajouter un champ dans le formulaire pour chaque tour
+            $form_id[] = array('num' => $i, 'cache' => $i <= $nbTours);
+            $form->add("$i", TourType::class, array(
+                'label' => "Tour $i",
+            ));
+        }
+
+        $form = $form->add('matchReturn', ChoiceType::class, array(
+                        'label' => $translator->trans('lcs.competition.game.labelReturn').' ?',
+                        'choices' => array(
+                            1 => $translator->trans('control.yes'),
+                            0 => $translator->trans('control.no'),
+                        ),
+                        'data' => 0,
+                        'multiple'  => false,
+                        'expanded'  => true,
+                        'attr' => array(
+                            'onchange' => 'setDisplayToursMatchRetour();',
+                        )
+                    ))
+                    ->getForm();
 
         $form->handleRequest($request);
 
@@ -42,15 +72,15 @@ class GameController extends Controller
         if($form->isSubmitted()) {
         	if($form->isValid()) {
         		$matchReturn = $form->get('matchReturn')->getData();
-        		$poules = $id ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($id) : null;
-        		$equipesPoules = array();
-        		foreach ($poules as $key => $poule) {
-        		    $equipesPoules[$key] = $poule->getEquipes()->getValues();
-        		    usort($equipesPoules[$key], function($a, $b)
-        		    {
-        		        return strcmp($a->getNom(), $b->getNom());
-        		    });
-        		}
+                        $em = $this->getDoctrine()->getManager();
+                        if($matchReturn==1) {
+                            $nbTours*=2;
+                        }
+                        for($i=1; $i <= $nbTours; $i++) {
+                            $tourData = $form->get("$i")->getData();
+                            $em->persist($tourData);
+                        }
+                        $em->flush();
         		$matchs = array();
         		foreach ($equipesPoules as $key => $equipesPoule) {
         		    $tab1 = $equipesPoule;
@@ -61,26 +91,29 @@ class GameController extends Controller
         		            $equipeB = $equipesPoule[$j];
         		            $matchs[$key][] = array(
         		                $equipeA,
-        		                $equipeB
+        		                $equipeB,
+                                        1,
         		            );
         		            if($matchReturn==1) { // si on veut des matchs retours
         		                $matchs[$key][] = array(
         		                    $equipeB,
-        		                    $equipeA
+        		                    $equipeA,
+                                            1,
         		                );
         		            }
         		        }
         		    }
         		}
-				$em = $this->getDoctrine()->getManager();
         		foreach ($poules as $key => $poule) {
-        			foreach ($matchs[$key] as $match) {
-        				$game = new Game();
-        				$game->setPoule($poule)
-        						->addEquipe($match[0])
-        						->addEquipe($match[1]);
-						$em->persist($game);
-        			}
+                            foreach ($matchs[$key] as $match) {
+                                $game = new Game();
+                                $tour = $this->getDoctrine()->getRepository('LCSBundle:Tour')->find($match[2]);
+                                $game->setPoule($poule)
+                                    ->addEquipe($match[0])
+                                    ->addEquipe($match[1])
+                                    ->setTour($tour);
+                                $em->persist($game);
+                            }
         		}
 				$em->flush();
 	            //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
@@ -105,7 +138,9 @@ class GameController extends Controller
 	        }
 	    }
         return $this->render('LCSBundle:Game:generateGroupMatches.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'form_id' => $form_id,
+            'nbTours' => $nbTours,
         ));
     }
 

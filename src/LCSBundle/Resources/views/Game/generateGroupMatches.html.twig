@@ -14,6 +14,35 @@
                         
                     {{ form_row(form.matchReturn) }}
 
+                    <h3>Génération des tours</h3>
+                    
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ordre</th>
+                                <th>Nom</th>
+                                <th>Semaine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for id in form_id %}
+                        {% if id.cache %}
+                            <tr>
+                                <td>{{ id.num }}</td>
+                                <td>{{ form_widget(form[id.num].nom, {'attr': {'value': 'Tour ' ~ id.num} }) }}</td>
+                                <td>{{ form_widget(form[id.num].semaine) }}</td>
+                            </tr>
+                        {% else %}
+                            <tr class="toursMatchRetour" style="display: none;">
+                                <td>{{ id.num }}</td>
+                                <td>{{ form_widget(form[id.num].nom, {'attr': {'value': 'Tour ' ~ id.num} }) }}</td>
+                                <td>{{ form_widget(form[id.num].semaine) }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                        </tbody>
+                    </table>
+                    
                     {{ form_rest(form) }}
                     
                     <div class="modal-footer">
@@ -30,3 +59,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function setDisplayToursMatchRetour() {
+        var elem = document.getElementsByClassName("toursMatchRetour");
+        $(elem).each(function() {
+            if($(this).css('display') == 'none') {
+                $(this).show();
+            }
+            else {
+                $(this).hide();
+            }
+        });
+    }
+</script>

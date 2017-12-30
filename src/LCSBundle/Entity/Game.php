@@ -55,6 +55,12 @@ class Game
     private $poule;
 
     /**
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Tour", inversedBy="games")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tour;
+
+    /**
      * @ORM\ManyToMany(targetEntity="LCSBundle\Entity\Equipe", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -297,5 +303,29 @@ class Game
     public function getManches()
     {
         return $this->manches;
+    }
+
+    /**
+     * Set tour
+     *
+     * @param \LCSBundle\Entity\Tour $tour
+     *
+     * @return Game
+     */
+    public function setTour(\LCSBundle\Entity\Tour $tour)
+    {
+        $this->tour = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Get tour
+     *
+     * @return \LCSBundle\Entity\Tour
+     */
+    public function getTour()
+    {
+        return $this->tour;
     }
 }

@@ -24,7 +24,7 @@ $(document).ready(function() {
             }
         });
 
-        openAddModal(Routing.generate('lcs_competitions_edit'),{'id': 0}, 'competition');
+        openAddModal(Routing.generate('lcs_competitions_edit',{'id': 0}), 'competition');
     }
     else {
         $(".editModal-group").on('click', function() {
