@@ -41,6 +41,16 @@ class Tour
      */
     private $games;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Competition", inversedBy="tours")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $competition;
+    
+    public function __toString() {
+        return $this->nom;
+    }
+
 
     /**
      * Get id
@@ -140,5 +150,29 @@ class Tour
     public function getGames()
     {
         return $this->games;
+    }
+
+    /**
+     * Set competition
+     *
+     * @param \LCSBundle\Entity\Competition $competition
+     *
+     * @return Tour
+     */
+    public function setCompetition(\LCSBundle\Entity\Competition $competition)
+    {
+        $this->competition = $competition;
+
+        return $this;
+    }
+
+    /**
+     * Get competition
+     *
+     * @return \LCSBundle\Entity\Competition
+     */
+    public function getCompetition()
+    {
+        return $this->competition;
     }
 }

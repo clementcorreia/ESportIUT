@@ -25,7 +25,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=30, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
 
@@ -82,9 +82,17 @@ class Game
         $this->manches = new \Doctrine\Common\Collections\ArrayCollection();
         $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    public function getEquipeA() {
+        return $this->equipes[0];
+    }
+    
+    public function getEquipeB() {
+        return $this->equipes[1];
+    }
 
     public function __toString() {
-        return $this->equipes[0].' - '.$this->equipes[1];
+        return $this->equipes[0].' VS '.$this->equipes[1];
     }
 
     /**

@@ -22719,6 +22719,9 @@ var mbs = {
                                 var url = Routing.generate('lcs_competitions_details', {'id': data.id});
                                 window.location.replace(url);
                             }
+                            if(data.type === 'generateGM') {
+                                openEditModal(Routing.generate('lcs_matchs_setTourFromMatches', {'id': competition_id}), 'setTourGM');
+                            }
                         }
                         // Si validation serveur NOK
                         else if (data.res === false) {

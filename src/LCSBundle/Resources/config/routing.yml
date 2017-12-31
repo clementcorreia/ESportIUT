@@ -84,6 +84,11 @@ lcs_matchs_generateGroupMatches:
     options:
         expose: true
 
+lcs_matchs_setTourFromMatches:
+    path:     /matchs/set/tour/{id}
+    defaults: { _controller: LCSBundle:Game:setTourFromMatches, id: 0 }
+    options:
+        expose: true
 
 #### USERS ####
 

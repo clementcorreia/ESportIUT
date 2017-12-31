@@ -96,6 +96,12 @@ class Competition
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Tour", mappedBy="competition")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tours;
     
     /**
      * Constructor
@@ -379,5 +385,39 @@ class Competition
     public function getDateLimiteInscription()
     {
         return $this->dateLimiteInscription;
+    }
+
+    /**
+     * Add tour
+     *
+     * @param \LCSBundle\Entity\Tour $tour
+     *
+     * @return Competition
+     */
+    public function addTour(\LCSBundle\Entity\Tour $tour)
+    {
+        $this->tours[] = $tour;
+
+        return $this;
+    }
+
+    /**
+     * Remove tour
+     *
+     * @param \LCSBundle\Entity\Tour $tour
+     */
+    public function removeTour(\LCSBundle\Entity\Tour $tour)
+    {
+        $this->tours->removeElement($tour);
+    }
+
+    /**
+     * Get tours
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTours()
+    {
+        return $this->tours;
     }
 }

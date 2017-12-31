@@ -10,4 +10,14 @@ namespace LCSBundle\Repository;
  */
 class TourRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findTourByCompetitionId($competition_id) {
+
+        $qb = $this->createQueryBuilder('t')
+                ->where('t.competition = :com_id')
+                ->orderBy('t.nom', 'ASC')
+                ->setParameter('com_id', $competition_id);
+
+        return $qb;//->getQuery()->getResult();
+    }
+
 }

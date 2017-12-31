@@ -127,7 +127,8 @@
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
     {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id, 'id' : 0})) }}
-    {{ render(controller('LCSBundle:Game:generateGroupMathes', {'id' : competition.id})) }}
+    {{ render(controller('LCSBundle:Game:generateGroupMatches', {'id' : competition.id})) }}
+    {{ render(controller('LCSBundle:Game:setTourFromMatches', {'id' : competition.id})) }}
     
     {% else %}
         <p><i>Aucune donnée...</i></p>

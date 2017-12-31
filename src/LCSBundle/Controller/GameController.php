@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use LCSBundle\Entity\Game;
 use LCSBundle\Form\TourType;
+use LCSBundle\Form\GameType;
 
 class GameController extends Controller
 {
@@ -78,6 +79,7 @@ class GameController extends Controller
                         }
                         for($i=1; $i <= $nbTours; $i++) {
                             $tourData = $form->get("$i")->getData();
+                            $id ? $tourData->setCompetition($this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id)) : null;
                             $em->persist($tourData);
                         }
                         $em->flush();
@@ -109,20 +111,21 @@ class GameController extends Controller
                                 $game = new Game();
                                 $tour = $this->getDoctrine()->getRepository('LCSBundle:Tour')->find($match[2]);
                                 $game->setPoule($poule)
+                                    ->setNom($match[0]." VS ".$match[1])
                                     ->addEquipe($match[0])
                                     ->addEquipe($match[1])
                                     ->setTour($tour);
                                 $em->persist($game);
                             }
         		}
-				$em->flush();
+                        $em->flush();
 	            //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
 	            //en json qui va afficher en toastr succees ce qui est marqué dans
 	            //le div de l'id modal-validation-message-creation dans ta vue add ("Le Competition a été créé avec succès")
 	            //traitement fait dans le fichier main.js
 	            return new JsonResponse([
 	                'res' => true,
-	                'type' => 'game',
+	                'type' => 'generateGM',
 	                'closeModal' => true,
 	                'id' => $id,
 	                'confirmation_message_id' => 'modal-validation-message-creation-'.'generateGM'
@@ -141,6 +144,67 @@ class GameController extends Controller
             'form' => $form->createView(),
             'form_id' => $form_id,
             'nbTours' => $nbTours,
+        ));
+    }
+    
+    public function setTourFromMatchesAction(Request $request, $id) {
+        // Onglet Détails
+
+    	$competition = $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id);
+        $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
+
+    	/*if($competition) {
+			$competition->setDateDebut($competition->getDateDebut()->format('d/m/Y'));
+    		if($competition->getDateFin())
+                $competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
+    	}*/
+
+        // Onglet Poules
+
+        $poules = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($competition->getId()) : null;
+
+        $equipesPoules = array();
+        $matchsPoules = array();
+        $matchs = array();
+        foreach ($poules as $key => $poule) {
+            $equipesPoules[$key] = $poule->getEquipes()->getValues();
+            $matchsPoules[$key] = $this->getDoctrine()->getRepository("LCSBundle:Game")->findGamesByPoule($poule->getId());
+            usort($equipesPoules[$key], function($a, $b)
+            {
+                return strcmp($a->getNom(), $b->getNom());
+            });
+        }
+        
+        $tours = $this->getDoctrine()->getRepository("LCSBundle:Tour")->findByCompetition($competition);
+        $form_id = array();
+        $form = $this->createFormBuilder()//$defaultData)
+        	->setAction($this->generateUrl('lcs_matchs_setTourFromMatches', array('id' => $id)));
+        foreach ($poules as $key => $poule) {
+            foreach ($matchsPoules[$key] as $match) {
+                $form->add($key."_".$match->getId(), new GameType(array('competition_id' => $id)), array(
+                    'label' => '<span class="text-info">'.$match->getEquipeA().'</span> VS <span class="text-info">'.$match->getEquipeB().'</span>',
+                    "data" => $match,
+                ));
+                $form_id[] = $key."_".$match->getId();
+            }
+        }
+        
+
+        // Onglet Matchs
+
+        
+
+
+        /*$equipes = array();
+        foreach ($equipesPoules as $key => $equipe) {
+            $equipes[$key] = $equipe->getValues();
+        }*/
+
+        return $this->render('LCSBundle:Game:setTourFromMatches.html.twig', array(
+            'poules' => $poules,
+            'tours' => $tours,
+            'form' => $form->getForm()->createView(),
+            'form_id' => $form_id,
         ));
     }
 
