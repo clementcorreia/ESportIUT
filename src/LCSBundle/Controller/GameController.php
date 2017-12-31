@@ -16,15 +16,15 @@ class GameController extends Controller
         return $this->render('LCSBundle:Game:index.html.twig');
     }
 
-    public function generateGroupMathesAction(Request $request, $id) {
+    public function generateGroupMatchesAction(Request $request, $id) {
     	$translator = $this->get('translator');
 
         /*$defaultData =  array(
             'method' => 'POST',
-            'action' => $this->generateUrl('lcs_matchs_generateGroupMathes', array('id' => $id))
+            'action' => $this->generateUrl('lcs_matchs_generateGroupMatches', array('id' => $id))
         );*/
         $form = $this->createFormBuilder()//$defaultData)
-        	->setAction($this->generateUrl('lcs_matchs_generateGroupMathes', array('id' => $id)));
+        	->setAction($this->generateUrl('lcs_matchs_generateGroupMatches', array('id' => $id)));
                 
         $poules = $id ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($id) : null;
         $equipesPoules = array();

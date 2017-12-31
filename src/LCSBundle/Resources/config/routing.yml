@@ -78,9 +78,9 @@ lcs_matchs_index:
     path:     /matchs
     defaults: { _controller: LCSBundle:Game:index }
 
-lcs_matchs_generateGroupMathes:
+lcs_matchs_generateGroupMatches:
     path:     /matchs/generate/group/{id}
-    defaults: { _controller: LCSBundle:Game:generateGroupMathes, id: 0 }
+    defaults: { _controller: LCSBundle:Game:generateGroupMatches, id: 0 }
     options:
         expose: true
 
