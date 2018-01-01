@@ -8,7 +8,7 @@
 
 {% block content %}
     {% if competition is not empty %}
-    <ul class="nav nav-tabs nav-justified">
+    <ul class="nav nav-tabs nav-justified" id="onglets">
         <li role="presentation" class="active"><a href="#tab_details" data-toggle="tab">{{ 'lcs.competition.details.tabLibelle'|trans }}</a></li>
         <li role="presentation"><a href="#tab_poules" data-toggle="tab">{{ 'lcs.competition.group.tabLibelle'|trans }}</a></li>
         <li role="presentation"><a href="#tab_matchs" data-toggle="tab">Matchs</a></li>
@@ -142,6 +142,20 @@
         var admin = "{{ is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') }}";
         var competition_id = '{{ competition.id }}';
         var liste = false;
+        $('#onglets a').click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+
+        // store the currently selected tab in the hash value
+        $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+            var id = $(e.target).attr("href").substr(1);
+            window.location.hash = id;
+        });
+
+        // on load of the page: switch to the currently selected tab
+        var hash = window.location.hash;
+        $('#onglets a[href="' + hash + '"]').tab('show');
     </script>
     {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
