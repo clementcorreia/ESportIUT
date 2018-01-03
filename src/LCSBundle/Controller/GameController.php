@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use LCSBundle\Entity\Game;
+use LCSBundle\Entity\Manche;
 use LCSBundle\Form\TourType;
+use LCSBundle\Form\MancheType;
 use LCSBundle\Form\GameType;
 
 class GameController extends Controller
@@ -16,7 +18,62 @@ class GameController extends Controller
     {
         return $this->render('LCSBundle:Game:index.html.twig');
     }
+    
+    public function detailsAction($id)
+    {
+        $match = $id ? $this->getDoctrine()->getRepository("LCSBundle:Game")->find($id) : null;
+        return $this->render('LCSBundle:Game:details.html.twig', array(
+            'match' => $match,
+        ));
+    }
 
+    public function addGameAction(Request $request, $id) {
+        $manche = new Manche();
+        
+        $form = $this->createForm(MancheType::class, $manche, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('lcs_matchs_addGame', array('id' => $id)),
+        ));
+        
+        $match = $id ? $this->getDoctrine()->getRepository("LCSBundle:Game")->find($id) : null;
+
+        $form->handleRequest($request);
+
+        //Bien penser à tester si le formulaire est soumis
+        if($form->isSubmitted()){
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $manche->setGame($match);
+                $em->persist($manche);
+                $em->flush();
+                //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
+                //en json qui va afficher en toastr succees ce qui est marqué dans
+                //le div de l'id modal-validation-message-creation dans ta vue add ("Le Competition a été créé avec succès")
+                //traitement fait dans le fichier main.js
+                return new JsonResponse([
+                    'res' => true,
+                    'type' => 'addGame',
+                    'closeModal' => true,
+                    'id' => $id,
+                    'confirmation_message_id' => 'modal-validation-message-creation-' . 'generateGM'
+                ]);
+            } else {
+                //Erreur dans le formulaire, on affiche les erreurs
+                return new JsonResponse([
+                    'res' => false,
+                    'form_name' => $form->getName(),
+                    'errors' => $this->getErrorsAsArray($form)
+                ]);
+            }
+        }
+        
+        return $this->render('LCSBundle:Game:addGame.html.twig', array(
+            'form' => $form->createView(),
+            'equipeA' => $match->getEquipes()->getValues()[0],
+            'equipeB' => $match->getEquipes()->getValues()[1],
+        ));
+    }
+    
     public function generateGroupMatchesAction(Request $request, $id) {
     	$translator = $this->get('translator');
 

@@ -36,6 +36,13 @@ class Manche
     private $scoreEquipeB;
 
     /**
+     * @var Time
+     *
+     * @ORM\Column(name="duree", type="time")
+     */
+    private $duree;
+
+    /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Game", inversedBy="manches")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -103,11 +110,11 @@ class Manche
     /**
      * Set game
      *
-     * @param \LCSBundle\Entity\Manche $game
+     * @param \LCSBundle\Entity\Game $game
      *
      * @return Manche
      */
-    public function setGame(\LCSBundle\Entity\Manche $game)
+    public function setGame(\LCSBundle\Entity\Game $game)
     {
         $this->game = $game;
 
@@ -117,10 +124,34 @@ class Manche
     /**
      * Get game
      *
-     * @return \LCSBundle\Entity\Manche
+     * @return \LCSBundle\Entity\Game
      */
     public function getGame()
     {
         return $this->game;
+    }
+
+    /**
+     * Set duree
+     *
+     * @param \DateTime $duree
+     *
+     * @return Manche
+     */
+    public function setDuree($duree)
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * Get duree
+     *
+     * @return \DateTime
+     */
+    public function getDuree()
+    {
+        return $this->duree;
     }
 }

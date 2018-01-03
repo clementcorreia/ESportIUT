@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Détails d'un match{% endblock %}
+
+{% block activeCompetitions %}
+    class="active"
+{% endblock %}
+
+{% block content %}
+    {{ match }}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+        <button type="button" class="btn btn-success" id="addModal-addGame"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addGame'|trans }}</button>
+    {% endif %}
+    
+    {{ render(controller('LCSBundle:Game:addGame', {'id' : match.id})) }}
+{% endblock %}
+    
+{% block pageScript %}
+    <script type="text/javascript">
+        var match_id = '{{ match.id }}';
+    </script>
+    {% javascripts 'js/detailsGame.js' output='js/compiled/detailsGame.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

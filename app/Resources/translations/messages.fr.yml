@@ -39,6 +39,7 @@ lcs:
             deleteGM: Supprimer les matchs de poule
             setTourFromGM: Affecter les tours aux matchs de poule
             generateFS: Générer les phases finales
+            addGame: Ajouter une partie
         tour:
             edit: Modifier les tours
 
