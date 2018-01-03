@@ -36,7 +36,7 @@
                             <tr class="toursMatchRetour" style="display: none;">
                                 <td>{{ id.num }}</td>
                                 <td>{{ form_widget(form[id.num].nom, {'attr': {'value': 'Tour ' ~ id.num} }) }}</td>
-                                <td>{{ form_widget(form[id.num].semaine) }}</td>
+                                <td>{{ form_widget(form[id.num].semaine, {'attr': {'value': "now"|date("m/d/Y")} }) }}</td>
                             </tr>
                         {% endif %}
                     {% endfor %}

@@ -1,0 +1,32 @@
+<div class="modal fade" id="edit-modal-deleteGM" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container_deleteGM">
+                 <h4 class="modal-title">
+                    Supprimer les matchs de poule
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                    <p>Êtes-vous sur de vouloir supprimer les matchs de poule ? L'opération est irréversible.</p>
+                    {{ form_rest(form) }}
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Valider</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <div id="modal-deleteGM-message-ok" style="display: none;">
+                <p>Les matchs de poule ont été supprimés avec succès</p>
+            </div>
+            <div id="modal-deleteGM-message-erreur" style="display: none;">
+                <p>Les matchs de poule n'ont pas pu être supprimés</p>
+            </div>
+        </div>
+    </div>
+</div>

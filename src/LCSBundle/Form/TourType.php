@@ -16,15 +16,16 @@ class TourType extends AbstractType
     {
         $builder->add('nom')
                 ->add('semaine', DateType::class, array(
-                    'label' => 'Semaine',                    
-                    'data' => new \DateTime(),
+                    'label' => 'Semaine',
+                    //'data' => new \DateTime(),
                     'widget' => 'single_text',
                     'input'    => 'datetime',
                     'format' => 'dd/MM/yyyy',
+                    'required' => false,
                     'attr' => array(
                         'class'=>'date',
                         'oninvalid' => "setCustomValidity('La date du bon de commande ne doit pas être vide.')",
-                        'oninput'  => "try{setCustomValidity('')}catch(e){}"
+                        'oninput'  => "try{setCustomValidity('')}catch(e){}",
                     )
                 ));
     }

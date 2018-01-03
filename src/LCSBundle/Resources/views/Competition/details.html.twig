@@ -105,18 +105,37 @@
         <div class="tab-pane" id="tab_matchs">
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
                 <div>&nbsp;</div>
-                <button type="button" class="btn btn-primary" id="addModal-generateGM"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateGM'|trans }}</button>
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateFS'|trans }}</button>
-            {% endif %}
-            {% for key, poule in poules %}
-                <h3>{{ poule.nom }}</h3>
-                {% if matchs[key]|length > 0 %}
-                    {% for match in matchs[key] %}
-                <p>
-                    Match {{ loop.index }} : {{ match }}<br />
-                </p>
-                    {% endfor %}
+                {% if not competition.isGroupMatchesGenerated %}
+                    <button type="button" class="btn btn-primary" id="addModal-generateGM"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateGM'|trans }}</button>
+                {% else %}
+                    <button type="button" class="btn btn-primary" id="addModal-setTourGM"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.setTourFromGM'|trans }}</button>
+                    <button type="button" class="btn btn-warning" id="addModal-editTour"><span class="glyphicon glyphicon-edit"></span> {{ 'lcs.competition.tour.edit'|trans }}</button>
+                    <button type="button" class="btn btn-danger" id="addModal-deleteGM"><span class="glyphicon glyphicon-trash"></span> {{ 'lcs.competition.game.deleteGM'|trans }}</button>
                 {% endif %}
+                <button type="button" class="btn btn-primary disabled"><span class="glyphicon glyphicon-cog"></span> {{ 'lcs.competition.game.generateFS'|trans }}</button>
+            {% endif %}
+            {% set cpt = 1 %}
+            {% for tour in tours %}
+                {% if loop.index > 1 %}<br />{% endif %}
+                <h3>{{ tour.nom }}</h3>
+                {% if tour.semaine is not null %}
+                <h4><i>Semaine du {{ tour.semaine|date('d/m/Y') }}</i></h4>
+                {% else %}
+                <h4><i>A définir</i></h4>
+                {% endif %}
+                {% for key, poule in poules %}
+                    <h5><b>{{ poule.nom }}</b></h5>
+                    {% if matchs[key]|length > 0 %}
+                        {% for match in matchs[key] %}
+                            {% if match.tour.id == tour.id %}
+                    <p>
+                        Match {{ cpt }} : {{ match }}
+                    </p>
+                                {% set cpt = cpt+1 %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </div>
 
@@ -126,8 +145,10 @@
 	</div>
 
     {{ render(controller('LCSBundle:Competition:edit', {'id' : competition.id})) }}
+    {{ render(controller('LCSBundle:Competition:editTour', {'id' : competition.id})) }}
     {{ render(controller('LCSBundle:Poule:edit', {'idCompetition' : competition.id, 'id' : 0})) }}
     {{ render(controller('LCSBundle:Game:generateGroupMatches', {'id' : competition.id})) }}
+    {{ render(controller('LCSBundle:Game:deleteGroupMatches', {'id' : competition.id})) }}
     {{ render(controller('LCSBundle:Game:setTourFromMatches', {'id' : competition.id})) }}
     
     {% else %}

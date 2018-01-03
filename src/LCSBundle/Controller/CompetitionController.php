@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use LCSBundle\Entity\Competition;
 use LCSBundle\Form\CompetitionType;
+use LCSBundle\Form\TourType;
 
 class CompetitionController extends Controller
 {
@@ -47,6 +48,7 @@ class CompetitionController extends Controller
 
         // Onglet Matchs
 
+        $tours = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Tour")->findByCompetition($competition) : null;
         
 
 
@@ -56,12 +58,73 @@ class CompetitionController extends Controller
         }*/
 
         return $this->render('LCSBundle:Competition:details.html.twig', array(
-        	'competition' => $competition,
+            'competition' => $competition,
             'poules' => $poules,
+            'tours' => $tours,
             'equipes' => $equipesPoules,
             'matchs' => $matchsPoules,
             'equipesInscrites' => $equipesInscrites
         ));
+    }
+    
+    public function editTourAction(Request $request, $id) {
+        
+        $competition = $id ? $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id) : null;
+        
+        $form = $this->createFormBuilder()//$defaultData)
+        	->setAction($this->generateUrl('lcs_competitions_editTour', array('id' => $id)));
+                
+        $tours = $this->getDoctrine()->getRepository("LCSBundle:Tour")->findByCompetition($competition);
+        $form_id = array();
+        foreach($tours as $tour) {
+            // ajouter un champ dans le formulaire pour chaque tour
+            $id = $tour->getId();
+            $form_id[] = $id;
+            $form->add("$id", TourType::class, array(
+                'label' => $tour->getNom(),
+                'data' => $tour,
+            ));
+        }
+
+        $form = $form->getForm();
+
+        $form->handleRequest($request);
+
+        //Bien penser à tester si le formulaire est soumis
+        if($form->isSubmitted()) {
+        	if($form->isValid()) {
+                        $em = $this->getDoctrine()->getManager();
+                        foreach($tours as $tour) {
+                            $id = $tour->getId();
+                            $tourData = $form->get("$id")->getData();
+                            $em->persist($tourData);
+                        }
+                        $em->flush();
+	            //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
+	            //en json qui va afficher en toastr succees ce qui est marqué dans
+	            //le div de l'id modal-validation-message-creation dans ta vue add ("Le Competition a été créé avec succès")
+	            //traitement fait dans le fichier main.js
+	            return new JsonResponse([
+	                'res' => true,
+	                'type' => 'editTour',
+	                'closeModal' => true,
+	                'id' => $id,
+	                'confirmation_message_id' => 'modal-validation-message-creation-'.'editTour'
+	            ]);
+	        }
+	        else{
+	            //Erreur dans le formulaire, on affiche les erreurs
+	            return new JsonResponse([
+	                'res' => false,
+	                'form_name' => $form->getName(),
+	                'errors' => $this->getErrorsAsArray($form)
+	            ]);
+	        }
+	    }
+        return $this->render('LCSBundle:Competition:editTour.html.twig', array(
+            'form' => $form->createView(),
+            'form_id' => $form_id,
+        ));        
     }
 
     public function listeAction()

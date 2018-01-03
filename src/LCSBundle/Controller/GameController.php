@@ -24,6 +24,9 @@ class GameController extends Controller
             'method' => 'POST',
             'action' => $this->generateUrl('lcs_matchs_generateGroupMatches', array('id' => $id))
         );*/
+        
+        $competition = $id ? $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id) : null;
+        
         $form = $this->createFormBuilder()//$defaultData)
         	->setAction($this->generateUrl('lcs_matchs_generateGroupMatches', array('id' => $id)));
                 
@@ -109,15 +112,17 @@ class GameController extends Controller
         		foreach ($poules as $key => $poule) {
                             foreach ($matchs[$key] as $match) {
                                 $game = new Game();
-                                $tour = $this->getDoctrine()->getRepository('LCSBundle:Tour')->find($match[2]);
                                 $game->setPoule($poule)
                                     ->setNom($match[0]." VS ".$match[1])
                                     ->addEquipe($match[0])
-                                    ->addEquipe($match[1])
-                                    ->setTour($tour);
+                                    ->addEquipe($match[1]);
                                 $em->persist($game);
                             }
         		}
+                        if ($competition) {
+                            $competition->setIsGroupMatchesGenerated(true);
+                            $em->persist($competition);
+                        }
                         $em->flush();
 	            //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
 	            //en json qui va afficher en toastr succees ce qui est marqué dans
@@ -147,19 +152,57 @@ class GameController extends Controller
         ));
     }
     
-    public function setTourFromMatchesAction(Request $request, $id) {
-        // Onglet Détails
+    public function deleteGroupMatchesAction(Request $request, $id) {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('lcs_matchs_deleteGroupMatches', array('id' => $id)))
+            ->getForm();
 
+        $form->handleRequest($request);
+
+        //Bien penser à tester si le formulaire est soumis
+        if($form->isSubmitted()){
+            if($form->isValid()) {
+                $competition = $id ? $this->getDoctrine()->getRepository('LCSBundle:Competition')->find($id) : null;
+                if(is_null($competition)) {
+                    return new JsonResponse([
+                        'res' => false,
+                        'confirmation_message_id' => 'modal-deleteGM-message-error'
+                    ]);
+                }
+                $em = $this->getDoctrine()->getManager();
+                $poules = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findByCompetition($competition) : null;
+                $matchs = array();
+                foreach ($poules as $poule) {
+                    $matchs_tmp = $this->getDoctrine()->getRepository("LCSBundle:Game")->findByPoule($poule);
+                    foreach ($matchs_tmp as $match) {
+                        $matchs[] = $match;
+                    }                    
+                }
+                foreach ($matchs as $match) {
+                    $em->remove($match);
+                }
+                $tours = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Tour")->findByCompetition($competition) : null;
+                foreach($tours as $tour) {
+                    $em->remove($tour);
+                }
+                $competition->setIsGroupMatchesGenerated(false);
+                $em->persist($competition);
+                $em->flush();
+                return new JsonResponse([
+                    'res' => true,
+                    'confirmation_message_id' => 'modal-deleteGM-message-ok'
+                ]);
+            }
+        }
+        return $this->render('LCSBundle:Game:deleteGroupMatches.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+    
+    public function setTourFromMatchesAction(Request $request, $id) {
+        
     	$competition = $this->getDoctrine()->getRepository("LCSBundle:Competition")->find($id);
         $equipesInscrites = $competition ? count($competition->getEquipes()).'/'.$competition->getNbEquipeMax() : null;
-
-    	/*if($competition) {
-			$competition->setDateDebut($competition->getDateDebut()->format('d/m/Y'));
-    		if($competition->getDateFin())
-                $competition->setDateFin($competition->getDateFin()->format('d/m/Y'));
-    	}*/
-
-        // Onglet Poules
 
         $poules = $competition ? $this->getDoctrine()->getRepository("LCSBundle:Poule")->findPoulesCompetition($competition->getId()) : null;
 
@@ -181,29 +224,58 @@ class GameController extends Controller
         	->setAction($this->generateUrl('lcs_matchs_setTourFromMatches', array('id' => $id)));
         foreach ($poules as $key => $poule) {
             foreach ($matchsPoules[$key] as $match) {
-                $form->add($key."_".$match->getId(), new GameType(array('competition_id' => $id)), array(
+                $form->add($match->getId(), new GameType(array('competition_id' => $id)), array(
                     'label' => '<span class="text-info">'.$match->getEquipeA().'</span> VS <span class="text-info">'.$match->getEquipeB().'</span>',
                     "data" => $match,
                 ));
-                $form_id[] = $key."_".$match->getId();
+                $form_id[] = $match->getId();
+            }
+        }
+
+        $form = $form->getForm();
+
+        $form->handleRequest($request);
+
+        //Bien penser à tester si le formulaire est soumis
+        if($form->isSubmitted()) {
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                foreach ($poules as $key => $poule) {
+                    foreach ($matchsPoules[$key] as $match) {
+                        $id = $match->getId();
+                        $tour = $form->get("$id")->getData();
+                        //$match = $id ? $this->getDoctrine()->getRepository("LCSBundle:Match")->find($id) : null;
+                        //$match ? $match->setTour($tour) : null;
+                        $em->persist($tour);
+                    }
+                }
+                $em->flush();
+                //Dans la popup on ne redirige pas sur une url mais on retourne une réponse
+                //en json qui va afficher en toastr succees ce qui est marqué dans
+                //le div de l'id modal-validation-message-creation dans ta vue add ("Le Competition a été créé avec succès")
+                //traitement fait dans le fichier main.js
+                return new JsonResponse([
+                    'res' => true,
+                    'type' => 'setTourGM',
+                    'closeModal' => true,
+                    'id' => $id,
+                    'confirmation_message_id' => 'modal-validation-message-creation-'.'setTourGM'
+                ]);
+            }
+            else{
+                //Erreur dans le formulaire, on affiche les erreurs
+                return new JsonResponse([
+                    'res' => false,
+                    'form_name' => $form->getName(),
+                    'errors' => $this->getErrorsAsArray($form)
+                ]);
             }
         }
         
-
-        // Onglet Matchs
-
-        
-
-
-        /*$equipes = array();
-        foreach ($equipesPoules as $key => $equipe) {
-            $equipes[$key] = $equipe->getValues();
-        }*/
-
         return $this->render('LCSBundle:Game:setTourFromMatches.html.twig', array(
             'poules' => $poules,
             'tours' => $tours,
-            'form' => $form->getForm()->createView(),
+            'form' => $form->createView(),
             'form_id' => $form_id,
         ));
     }

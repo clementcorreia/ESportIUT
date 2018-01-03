@@ -56,7 +56,7 @@ class Game
 
     /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Tour", inversedBy="games")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $tour;
 

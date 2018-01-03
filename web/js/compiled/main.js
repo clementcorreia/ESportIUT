@@ -22542,21 +22542,21 @@ $(document).ready(function() {
     });
 }*/
 
-function openAddModal(url, id_modal) {
+function openAddModal(url, id_modal, doReload = false) {
     $('#addModal-' + id_modal).on('click', function() {
-        openEditModal(url, id_modal);
+        openEditModal(url, id_modal, doReload);
     });
     $('#editModal-' + id_modal).on('click', function() {
-        openEditModal(url, id_modal);
+        openEditModal(url, id_modal, doReload);
     });
 }
 
-function openEditModal(url, id_modal) {
+function openEditModal(url, id_modal, doReload = false) {
     $("#edit_form_container_" + id_modal).load(url + ' #edit_form_container_' + id_modal + ' > *', function (html) {
         $('#edit-modal-' + id_modal).modal('show');
         $('#edit-modal-' + id_modal + ' #titleContainer').empty();
         $('#edit-modal-' + id_modal + ' .modal-body h4').appendTo('#edit-modal-' + id_modal + ' #titleContainer');
-        mbs.init.form(id_modal);
+        mbs.init.form(id_modal, doReload);
     });
 }
 
@@ -22692,7 +22692,7 @@ var mbs = {
 
         },
 
-        submitButton: function (id_modal) {
+        submitButton: function (id_modal, doReload) {
             $('#edit_form_container_' + id_modal + ' form:first').on('submit', function () {
                 var form = $('#edit_form_container_' + id_modal + ' form');
                 if (!form.validator('validate').data('bs.validator').hasErrors()) {
@@ -22722,6 +22722,9 @@ var mbs = {
                             if(data.type === 'generateGM') {
                                 openEditModal(Routing.generate('lcs_matchs_setTourFromMatches', {'id': competition_id}), 'setTourGM');
                             }
+                            if(doReload) {
+                                location.reload();
+                            }
                         }
                         // Si validation serveur NOK
                         else if (data.res === false) {
@@ -22759,136 +22762,21 @@ var mbs = {
                     return false;
                 }
             });
-            /*$('#edit_form_container2 form:first').on('submit', function () {
-                var form = $('#edit_form_container2 form');
-                if (!form.validator('validate').data('bs.validator').hasErrors()) {
-                    $.post(form.attr('action'), form.serialize()).done(function (data) {
-                        // Si validation serveur OK
-                        if (data.res === true) {                            
-                            form.trigger('ajaxdone');
-                            // Affiche message ok
-                            toastr.success($('#' + data.confirmation_message_id).text());
-
-                            var updateTable = function () {
-                                setTimeout(function(){ $('#edit-modal2').modal('hide'); }, 200);
-                                $('#' + data.type + '_' + data.id).effect("highlight", {color: '#A9E2F3'}, 2500);
-                            };
-                            if (typeof window.oTable != 'undefined') {                                
-                                window.oTable.ajax.reload(updateTable);
-
-                            } else {                                
-                                $('#main_table, .datatable_table').DataTable().ajax.reload(updateTable);
-                            }
-                            if(data.closeModal === true) {                                
-                                setTimeout(function(){ $('#edit-modal2').modal('hide'); }, 200);
-                            }
-                            if(data.type === 'fournisseur') {
-                                var url = Routing.generate('cem_fournisseurs_details', {'id': data.id});
-                                window.location.replace(url);
-                            }
-                            if(data.type === 'sousCommande') {
-                                var url = Routing.generate('cem_souscommandes_details', {'id': data.id});
-                                window.location.replace(url);
-                            }
-                        }
-
-                        // Si validation serveur NOK
-                        else if (data.res === false) {
-                            if(data.confirmation_message_id)
-                            {
-                                toastr.error($('#' + data.confirmation_message_id).text());
-                            }
-                            else{
-                            // Boucle sur chaque erreurs
-                                $.each(data.errors, function (key, value) {
-                                    // Si child existe (password), on boucle sur les childs
-                                    if ($.isPlainObject(data.errors[key])) {
-                                        $.each(data.errors[key], function (childkey, childvalue) {
-                                            if($.isPlainObject(childvalue)){
-                                                $.each(data.errors[key][childkey], function (childrenkey, childrenvalue) {
-                                                    $('#' + data.form_name + '_' + key + '_' + childkey+'_'+childrenkey).parent().addClass("has-error");
-                                                    $('#' + data.form_name + '_' + key + '_' + childkey+'_'+childrenkey).parent().find('.help-block').text(childrenvalue);
-                                                });
-                                            }
-                                            else{
-                                                $('#' + data.form_name + '_' + key + '_' + childkey).parent().addClass("has-error");
-                                                $('#' + data.form_name + '_' + key + '_' + childkey).parent().find('.help-block').text(childvalue);
-                                            }
-                                        });
-
-                                    } 
-                                    else {
-                                        $('#' + data.form_name + '_' + key).parent().addClass("has-error");
-                                        $('#' + data.form_name + '_' + key).parent().find('.help-block').text(value);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                    return false;
-                }
-            });*/
         },
-
-        /*deleteButton: function () {
-            $('#edit-modal button[data-action=delete]').off('click');
-            $('#edit-modal button[data-action=delete]').on('click', function () {
-                var form = $('#frm-edit');
-                var action = form.attr('action').replace("nosuchpage", "delete");
-                $.post(action).done(function (data) {
-                    $('#main_table, .datatable_table').DataTable().ajax.reload(function() {
-                        $('#edit-modal').modal('hide');
-                    });
-                });
-            });
-            $('#edit-modal2 button[data-action=delete]').off('click');
-            $('#edit-modal2 button[data-action=delete]').on('click', function () {
-                var form = $('#frm-edit');
-                var action = form.attr('action').replace("nosuchpage", "delete");
-                $.post(action).done(function (data) {
-                    $('#main_table, .datatable_table').DataTable().ajax.reload(function() {
-                        $('#edit-modal2').modal('hide');
-                    });
-                });
-            });
-        },*/
-
-        // Déplacement de la listbox "Affiche n elements" à droite du bouton
-        /*modalButton: function() {
-            $("#modal-btn").detach().prependTo('#main_table_length');
-        },*/
 
         modal: function() {
             $('#edit-modal').on('shown.bs.modal', function () {
                 $("#edit_form_container form input").parent().find('h4').focus();
             });
-            /*$('#edit-modal2').on('shown.bs.modal', function () {
-                $("#edit_form_container2 form input").parent().find('h4').focus();
-            });*/
         },
 
-        /*chevron:function(){
-            function toggleChevron(e) {
-                $(e.target)
-                    .prev('.panel-heading')
-                    .find("i.indicator")
-                    .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
-            }
-            if($('.panel-group').length>0){
-                $('.panel-group').each(function(){
-                    $(this).on('hidden.bs.collapse', toggleChevron);
-                    $(this).on('shown.bs.collapse', toggleChevron);
-                });
-            }
-        },*/
-
-        form: function (id_modal) {
+        form: function (id_modal, doReload = false) {
             // Initialise la validation client (bootstrap validator)
             $('#edit_form_container_' + id_modal + ' form').validator();
             //$('#edit_form_container2 form').validator();
 
             mbs.init.datePicker(id_modal);
-            mbs.init.submitButton(id_modal);
+            mbs.init.submitButton(id_modal, doReload);
             //mbs.init.deleteButton();
             //mbs.init.chevron();
         }

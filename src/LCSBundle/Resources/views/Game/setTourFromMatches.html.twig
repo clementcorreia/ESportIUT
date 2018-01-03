@@ -12,9 +12,15 @@
                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
                     <h3>Rappel des tours</h3>
                     {% for tour in tours %}
+                        {% if tour.semaine is not null %}
                         <p>
                             <b>{{ tour.nom }}</b> : Semaine du <b>{{ tour.semaine|date('d/m/Y') }}</b>
                         </p>
+                        {% else %}
+                        <p>
+                            <b>{{ tour.nom }}</b> : A définir</b>
+                        </p>  
+                        {% endif %}
                     {% endfor %}                    
                     
                     <h3>Informations sur les matchs</h3>
@@ -51,7 +57,7 @@
                 </div>
             </div>
             <div id="modal-validation-message-creation-setTourGM" style="display: none;">
-                <p>Les matchs de poules ont été créés avec succès</p>
+                <p>Les tours ont bien été affectés aux matchs de poules</p>
             </div>
         </div>
     </div>

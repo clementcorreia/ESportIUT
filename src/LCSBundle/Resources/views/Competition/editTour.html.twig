@@ -1,0 +1,49 @@
+<div class="modal fade" id="edit-modal-editTour" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container_editTour">
+                 <h4 class="modal-title">
+                    Edition des tours des matchs de poule
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                    <h3>Génération des tours</h3>
+                    
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ordre</th>
+                                <th>Nom</th>
+                                <th>Semaine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for id in form_id %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ form_widget(form[id].nom) }}</td>
+                            <td>{{ form_widget(form[id].semaine) }}</td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                    {{ form_rest(form) }}
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <div id="modal-validation-message-creation-editTour" style="display: none;">
+                <p>Les tours ont été modifiés avec succès</p>
+            </div>
+        </div>
+    </div>
+</div>

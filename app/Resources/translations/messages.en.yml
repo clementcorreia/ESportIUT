@@ -36,7 +36,11 @@ lcs:
         game:
             labelReturn: Generate the return matches
             generateGM: Generate the group matches
+            deleteGM: Delete the group matches
+            setTourFromGM: Affecter les tours aux matchs de poule
             generateFS: Generate the final stages
+        tour:
+            edit: Modifier les tours
 control:
     yes: Yes
     no: No

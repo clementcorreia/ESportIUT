@@ -29,6 +29,12 @@ lcs_competitions_edit:
     defaults: { _controller: LCSBundle:Competition:edit, id: null }
     options:
         expose: true
+        
+lcs_competitions_editTour:
+    path    : /competitions/edit/tour/{id}
+    defaults: { _controller: LCSBundle:Competition:editTour, id: null }
+    options:
+        expose: true
 
 #### EQUIPES ####
 
@@ -81,6 +87,12 @@ lcs_matchs_index:
 lcs_matchs_generateGroupMatches:
     path:     /matchs/generate/group/{id}
     defaults: { _controller: LCSBundle:Game:generateGroupMatches, id: 0 }
+    options:
+        expose: true
+        
+lcs_matchs_deleteGroupMatches:
+    path:     /matchs/delete/group/{id}
+    defaults: { _controller: LCSBundle:Game:deleteGroupMatches, id: 0 }
     options:
         expose: true
 

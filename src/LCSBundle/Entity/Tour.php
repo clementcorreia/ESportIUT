@@ -31,7 +31,7 @@ class Tour
     /**
      * @var \Date
      *
-     * @ORM\Column(name="semaine", type="date")
+     * @ORM\Column(name="semaine", type="date", nullable=true)
      */
     private $semaine;
 

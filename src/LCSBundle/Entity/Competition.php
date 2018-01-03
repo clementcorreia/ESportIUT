@@ -86,6 +86,13 @@ class Competition
     private $allowCaptainRegister;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isGroupMatchesGenerated", type="boolean")
+     */
+    private $isGroupMatchesGenerated;
+
+    /**
      * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Poule", mappedBy="competition")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -419,5 +426,29 @@ class Competition
     public function getTours()
     {
         return $this->tours;
+    }
+
+    /**
+     * Set isGroupMatchesGenerated
+     *
+     * @param boolean $isGroupMatchesGenerated
+     *
+     * @return Competition
+     */
+    public function setIsGroupMatchesGenerated($isGroupMatchesGenerated)
+    {
+        $this->isGroupMatchesGenerated = $isGroupMatchesGenerated;
+
+        return $this;
+    }
+
+    /**
+     * Get isGroupMatchesGenerated
+     *
+     * @return boolean
+     */
+    public function getIsGroupMatchesGenerated()
+    {
+        return $this->isGroupMatchesGenerated;
     }
 }
