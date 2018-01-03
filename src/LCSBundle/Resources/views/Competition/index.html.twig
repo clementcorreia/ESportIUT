@@ -29,6 +29,7 @@
     	var liste = true;
 	</script>
     {% javascripts 'js/datatables/listeCompetitions.js' output='js/compiled/listeCompetitions.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}">
+        var liste = true;</script>
     {% endjavascripts %}
 {% endblock %}
