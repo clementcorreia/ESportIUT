@@ -11,8 +11,12 @@
     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
         <button type="button" class="btn btn-success" id="addModal-addGame"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addGame'|trans }}</button>
     {% endif %}
+    {% for manche in manches %}
+        <p>Manche n°{{ loop.index }} : <button type="button" class="btn btn-success addModal-addStatJoueur" data-id="{{ manche.id }}"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addStatPlayer'|trans }}</button></p>
+    {% endfor %}
     
     {{ render(controller('LCSBundle:Game:addGame', {'id' : match.id})) }}
+    {{ render(controller('LCSBundle:Game:addStatJoueur', {'id' : 0})) }}
 {% endblock %}
     
 {% block pageScript %}

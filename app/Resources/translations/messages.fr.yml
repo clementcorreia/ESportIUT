@@ -40,6 +40,7 @@ lcs:
             setTourFromGM: Affecter les tours aux matchs de poule
             generateFS: Générer les phases finales
             addGame: Ajouter une partie
+            addStatPlayer: Ajouter les stats d'un joueur
         tour:
             edit: Modifier les tours
 

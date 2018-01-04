@@ -5,20 +5,19 @@ namespace LCSBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 
-class MancheType extends AbstractType
+class StatistiqueEquipeType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('scoreEquipeA')
-                ->add('scoreEquipeB')
-                ->add('duree', TimeType::class, array(
-                    'with_seconds' => true,
-                ));
+        $builder->add('barons')
+                ->add('drakes')
+                ->add('tours')
+                ->add('manche')
+                ->add('equipe');
     }
     
     /**
@@ -27,7 +26,7 @@ class MancheType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LCSBundle\Entity\Manche'
+            'data_class' => 'LCSBundle\Entity\StatistiqueEquipe'
         ));
     }
 
@@ -36,7 +35,7 @@ class MancheType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'lcsbundle_manche';
+        return 'lcsbundle_statistiqueequipe';
     }
 
 

@@ -12,18 +12,10 @@
                     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}                
                     
                     <h3>Informations sur la partie</h3>
-                    <table class="table" id="scoreManche">
-                        <tr>
-                            <td class="nomEquipe" style="border: none; width: 34%; text-align: right; vertical-align: middle;">{{ equipeA }}</td>
-                            <td id="inputScoreA" style="border: none; width: 15%;">{{ form_widget(form.scoreEquipeA) }}</td>
-                            <td id="separateur" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> - </td>
-                            <td id="inputScoreB" style="border: none; width: 15%;">{{ form_widget(form.scoreEquipeB) }}</td>
-                            <td class="nomEquipe" style="border: none; width: 34%; vertical-align: middle;">{{ equipeB }}</td>
-                        </tr>
-                    </table>
+                    {{ form_row(form.resultat) }}
                     <table class="table" id="duree">
                         <tr>
-                            <td class="labelDuree" style="border: none; width: 34%; text-align: right; vertical-align: middle;">Durée</td>
+                            <td class="labelDuree" style="border: none; vertical-align: middle;">Durée</td>
                             <td id="inputDureeHour" style="border: none; width: 20%;">{{ form_widget(form.duree.hour) }}</td>
                             <td class="separateurTime" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> h </td>
                             <td id="inputDureeMinute" style="border: none; width: 20%;">{{ form_widget(form.duree.minute) }}</td>
@@ -32,6 +24,40 @@
                             <td class="separateurTime" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> sec </td>
                         </tr>
                     </table>
+                    <div style="display:none;">
+                        {{form_row(form.statEquipeA.manche) }}
+                        {{form_row(form.statEquipeA.equipe) }}
+                        {{form_row(form.statEquipeB.manche) }}
+                        {{form_row(form.statEquipeB.equipe) }}
+                    </div>
+                    <h3>Statistiques par équipe</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Stat</th>
+                                <th>{{ equipeA }}</th>
+                                <th>{{ equipeB }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Barons</td>
+                                <td>{{ form_widget(form.statEquipeA.barons, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.barons, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Drakes</td>
+                                <td>{{ form_widget(form.statEquipeA.drakes, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.drakes, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tours</td>
+                                <td>{{ form_widget(form.statEquipeA.tours, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.tours, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>Statistiques par joueur</h3>
                     {{ form_rest(form) }}
                     <style type="text/css">
                         form table#scoreManche #inputScoreA #lcsbundle_manche_scoreEquipeA,

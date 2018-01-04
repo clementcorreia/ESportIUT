@@ -95,6 +95,12 @@ lcs_matchs_addGame:
     defaults: { _controller: LCSBundle:Game:addGame, id: 0 }
     options:
         expose: true
+        
+lcs_matchs_addStatJoueur:
+    path:     /matchs/edit/addStatJoueur/{id}
+    defaults: { _controller: LCSBundle:Game:addStatJoueur, id: 0 }
+    options:
+        expose: true
 
 lcs_matchs_generateGroupMatches:
     path:     /matchs/generate/group/{id}
