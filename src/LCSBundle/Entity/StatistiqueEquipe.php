@@ -43,10 +43,10 @@ class StatistiqueEquipe
     private $tours;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Game", inversedBy="statistiquesEquipes")
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Manche", inversedBy="statistiquesEquipes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
+    private $manche;
 
     /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Equipe", inversedBy="statistiques")
@@ -183,5 +183,29 @@ class StatistiqueEquipe
     public function getEquipe()
     {
         return $this->equipe;
+    }
+
+    /**
+     * Set manche
+     *
+     * @param \LCSBundle\Entity\Manche $manche
+     *
+     * @return StatistiqueEquipe
+     */
+    public function setManche(\LCSBundle\Entity\Manche $manche)
+    {
+        $this->manche = $manche;
+
+        return $this;
+    }
+
+    /**
+     * Get manche
+     *
+     * @return \LCSBundle\Entity\Manche
+     */
+    public function getManche()
+    {
+        return $this->manche;
     }
 }

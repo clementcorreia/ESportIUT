@@ -1,0 +1,49 @@
+<div class="modal fade" id="edit-modal-addStatJoueur" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container_addStatJoueur">
+                <h4 class="modal-title">
+                    Ajouter les statistiques d'un joueur
+                </h4>
+                <div class="well">
+                    {% if form is not null %}
+                        {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}
+                        <h3>Statistiques du joueur sur la partie</h3>
+                        {{ form_row(form.joueur) }}
+                        {{ form_row(form.poste) }}
+                        {{ form_row(form.champion) }}
+                        {{ form_row(form.gold) }}
+                        {{ form_row(form.cs) }}
+                        {{ form_row(form.kills) }}
+                        {{ form_row(form.deaths) }}
+                        {{ form_row(form.assists) }}
+                        {{ form_row(form.degats, {'label': 'Dégâts infligés'}) }}
+                        {{ form_row(form.controlWard, {'label': 'Balises de vision'}) }}
+                        {{ form_row(form.balisesPlacees, {'label': 'Balises placées'}) }}
+                        {{ form_row(form.balisesDetruites, {'label': 'Balises détruites'}) }}
+                        <div style="display: none;">
+                            {{ form_row(form.manche) }}
+                        </div>
+                        {{ form_rest(form) }}
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" data-action="submit">Valider</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                        </div>
+                        {{ form_end(form) }}
+                    {% endif %}
+                    
+                </div>
+            </div>
+            <div id="modal-addStatJoueur-message-ok" style="display: none;">
+                <p>Les matchs de poule ont été supprimés avec succès</p>
+            </div>
+            <div id="modal-addStatJoueur-message-erreur" style="display: none;">
+                <p>Les matchs de poule n'ont pas pu être supprimés</p>
+            </div>
+        </div>
+    </div>
+</div>

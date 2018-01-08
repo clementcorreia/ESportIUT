@@ -127,9 +127,13 @@
                     <h5><b>{{ poule.nom }}</b></h5>
                     {% if matchs[key]|length > 0 %}
                         {% for match in matchs[key] %}
-                            {% if match.tour.id == tour.id %}
+                            {% if match.tour is not null and match.tour.id == tour.id %}
                     <p>
-                        Match {{ cpt }} : {{ match }}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+                            <a href="{{ path('lcs_matchs_details', {'id' : match.id }) }}">Match {{ cpt }}</a> : {{ match }}
+                        {% else %}
+                            Match {{ cpt }} : {{ match }}
+                        {% endif %}
                     </p>
                                 {% set cpt = cpt+1 %}
                             {% endif %}

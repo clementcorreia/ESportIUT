@@ -39,6 +39,8 @@ lcs:
             deleteGM: Delete the group matches
             setTourFromGM: Affecter les tours aux matchs de poule
             generateFS: Generate the final stages
+            addGame: Add a game
+            addStatPlayer: Ajouter les stats d'un joueur
         tour:
             edit: Modifier les tours
 control:

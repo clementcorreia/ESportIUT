@@ -37,18 +37,6 @@ class Game
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueJoueur", mappedBy="game")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $statistiquesJoueurs;
-
-    /**
-     * @ORM\OneToMany(targetEntity="LCSBundle\Entity\StatistiqueEquipe", mappedBy="game")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $statistiquesEquipes;
-
-    /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Poule", inversedBy="games")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -61,10 +49,16 @@ class Game
     private $tour;
 
     /**
-     * @ORM\ManyToMany(targetEntity="LCSBundle\Entity\Equipe", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Equipe")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $equipes;
+    private $equipeA;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Equipe")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $equipeB;
 
     /**
      * @ORM\OneToMany(targetEntity="LCSBundle\Entity\Manche", mappedBy="game")
@@ -78,21 +72,17 @@ class Game
     public function __construct()
     {
         $this->statistiquesJoueurs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->statistiquesJoueurs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statistiquesEquipes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->manches = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->equipes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    public function getEquipeA() {
-        return $this->equipes[0];
-    }
-    
-    public function getEquipeB() {
-        return $this->equipes[1];
     }
 
     public function __toString() {
-        return $this->equipes[0].' VS '.$this->equipes[1];
+        if(count($this->manches) == 0) {
+            return $this->equipeA.' VS '.$this->equipeB;
+        }
+        else {
+            return $this->equipeA.' '.$this->getScoreEquipeA().' - '.$this->getScoreEquipeB().' '.$this->equipeB;
+        }
     }
 
     /**
@@ -188,40 +178,6 @@ class Game
     }
 
     /**
-     * Add statistiquesEquipe
-     *
-     * @param \LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe
-     *
-     * @return Game
-     */
-    public function addStatistiquesEquipe(\LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe)
-    {
-        $this->statistiquesEquipes[] = $statistiquesEquipe;
-
-        return $this;
-    }
-
-    /**
-     * Remove statistiquesEquipe
-     *
-     * @param \LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe
-     */
-    public function removeStatistiquesEquipe(\LCSBundle\Entity\StatistiqueEquipe $statistiquesEquipe)
-    {
-        $this->statistiquesEquipes->removeElement($statistiquesEquipe);
-    }
-
-    /**
-     * Get statistiquesEquipes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStatistiquesEquipes()
-    {
-        return $this->statistiquesEquipes;
-    }
-
-    /**
      * Set poule
      *
      * @param \LCSBundle\Entity\Poule $poule
@@ -243,40 +199,6 @@ class Game
     public function getPoule()
     {
         return $this->poule;
-    }
-
-    /**
-     * Add equipe
-     *
-     * @param \LCSBundle\Entity\Equipe $equipe
-     *
-     * @return Game
-     */
-    public function addEquipe(\LCSBundle\Entity\Equipe $equipe)
-    {
-        $this->equipes[] = $equipe;
-
-        return $this;
-    }
-
-    /**
-     * Remove equipe
-     *
-     * @param \LCSBundle\Entity\Equipe $equipe
-     */
-    public function removeEquipe(\LCSBundle\Entity\Equipe $equipe)
-    {
-        $this->equipes->removeElement($equipe);
-    }
-
-    /**
-     * Get equipes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEquipes()
-    {
-        return $this->equipes;
     }
 
     /**
@@ -335,5 +257,73 @@ class Game
     public function getTour()
     {
         return $this->tour;
+    }
+
+    /**
+     * Set equipeA
+     *
+     * @param \LCSBundle\Entity\Equipe $equipeA
+     *
+     * @return Game
+     */
+    public function setEquipeA(\LCSBundle\Entity\Equipe $equipeA)
+    {
+        $this->equipeA = $equipeA;
+
+        return $this;
+    }
+
+    /**
+     * Get equipeA
+     *
+     * @return \LCSBundle\Entity\Equipe
+     */
+    public function getEquipeA()
+    {
+        return $this->equipeA;
+    }
+
+    /**
+     * Set equipeB
+     *
+     * @param \LCSBundle\Entity\Equipe $equipeB
+     *
+     * @return Game
+     */
+    public function setEquipeB(\LCSBundle\Entity\Equipe $equipeB)
+    {
+        $this->equipeB = $equipeB;
+
+        return $this;
+    }
+
+    /**
+     * Get equipeB
+     *
+     * @return \LCSBundle\Entity\Equipe
+     */
+    public function getEquipeB()
+    {
+        return $this->equipeB;
+    }
+    
+    public function getScoreEquipeA() {
+        $cpt = 0;
+        foreach($this->manches as $manche) {
+            if($manche->getWin() == $this->getEquipeA()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
+    }
+    
+    public function getScoreEquipeB() {
+        $cpt = 0;
+        foreach($this->manches as $manche) {
+            if($manche->getWin() == $this->getEquipeB()) {
+                $cpt++;
+            }
+        }
+        return $cpt;
     }
 }

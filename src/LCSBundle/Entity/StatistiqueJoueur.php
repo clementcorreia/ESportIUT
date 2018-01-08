@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Statistique
  *
- * @ORM\Table(name="statistiqueJoueur")
+ * @ORM\Table(name="statistique_joueur")
  * @ORM\Entity(repositoryClass="LCSBundle\Repository\StatistiqueRepository")
  */
 class StatistiqueJoueur
@@ -97,10 +97,10 @@ class StatistiqueJoueur
     private $poste;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Game", inversedBy="statistiquesJoueurs")
+     * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Manche", inversedBy="statistiquesJoueurs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
+    private $manche;
 
     /**
      * @ORM\ManyToOne(targetEntity="LCSBundle\Entity\Joueur", inversedBy="statistiques")
@@ -429,5 +429,29 @@ class StatistiqueJoueur
     public function getJoueur()
     {
         return $this->joueur;
+    }
+
+    /**
+     * Set manche
+     *
+     * @param \LCSBundle\Entity\Manche $manche
+     *
+     * @return StatistiqueJoueur
+     */
+    public function setManche(\LCSBundle\Entity\Manche $manche)
+    {
+        $this->manche = $manche;
+
+        return $this;
+    }
+
+    /**
+     * Get manche
+     *
+     * @return \LCSBundle\Entity\Manche
+     */
+    public function getManche()
+    {
+        return $this->manche;
     }
 }

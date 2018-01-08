@@ -1,0 +1,69 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Détails d'un match{% endblock %}
+
+{% block activeCompetitions %}
+    class="active"
+{% endblock %}
+
+{% block content %}
+    {{ match }}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}
+        <button type="button" class="btn btn-success" id="addModal-addGame"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addGame'|trans }}</button>
+    {% endif %}
+    {% for manche in manches %}
+        <p>Manche n°{{ loop.index }} : <button type="button" class="btn btn-success addModal-addStatJoueur" data-id="{{ manche.id }}"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addStatPlayer'|trans }}</button></p>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    <th>Poste</th>
+                    <th>Champion</th>
+                    <th>Gold</th>
+                    <th>CS</th>
+                    <th>KDA</th>
+                    <th>Dégâts infligés</th>
+                    <th>Balises de vision</th>
+                    <th>Balises placées</th>
+                    <th>Balises détruites</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for statJ in manche.statistiquesJoueurs %}
+                <tr class="ligne">
+                    <td style="vertical-align: middle;">{{ statJ.joueur }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.poste }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.champion }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.gold }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.cs }}</td>
+                    <td style="vertical-align: middle;">
+                        {{ (statJ.kills+statJ.assists)/statJ.deaths }}:1<br />
+                        {{ statJ.kills ~ '/' ~ statJ.deaths ~ '/' ~ statJ.assists }}
+                    </td>
+                    <td style="vertical-align: middle;">{{ statJ.degats }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.controlWard }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.balisesPlacees }}</td>
+                    <td style="vertical-align: middle;">{{ statJ.balisesDetruites }}</td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    <style type="text/css">
+        .ligne > td {
+            vertical-align: center;
+        }
+    </style>
+    
+    {{ render(controller('LCSBundle:Game:addGame', {'id' : match.id})) }}
+    {{ render(controller('LCSBundle:Game:addStatJoueur', {'id' : 0})) }}
+{% endblock %}
+    
+{% block pageScript %}
+    <script type="text/javascript">
+        var match_id = '{{ match.id }}';
+    </script>
+    {% javascripts 'js/detailsGame.js' output='js/compiled/detailsGame.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

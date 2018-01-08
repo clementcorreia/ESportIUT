@@ -1,0 +1,83 @@
+<div class="modal fade" id="edit-modal-addGame" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {% include 'modalHeader.html.twig' %}
+
+            <div class="modal-body" id="edit_form_container_addGame">
+                 <h4 class="modal-title">
+                    Ajout d'une partie à un match
+                </h4>
+                <div class="well">
+                    {% form_theme form with ['bootstrap_3_layout.html.twig', 'Form/bootstrap-validator.html.twig'] %}
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'} }) }}                
+                    
+                    <h3>Informations sur la partie</h3>
+                    {{ form_row(form.resultat) }}
+                    <table class="table" id="duree">
+                        <tr>
+                            <td class="labelDuree" style="border: none; vertical-align: middle;">Durée</td>
+                            <td id="inputDureeHour" style="border: none; width: 20%;">{{ form_widget(form.duree.hour) }}</td>
+                            <td class="separateurTime" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> h </td>
+                            <td id="inputDureeMinute" style="border: none; width: 20%;">{{ form_widget(form.duree.minute) }}</td>
+                            <td class="separateurTime" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> min </td>
+                            <td id="inputDureeSecond" style="border: none; width: 20%;">{{ form_widget(form.duree.second) }}</td>
+                            <td class="separateurTime" style="border: none; width: 2%; text-align: center; vertical-align: middle;"> sec </td>
+                        </tr>
+                    </table>
+                    <div style="display:none;">
+                        {{form_row(form.statEquipeA.manche) }}
+                        {{form_row(form.statEquipeA.equipe) }}
+                        {{form_row(form.statEquipeB.manche) }}
+                        {{form_row(form.statEquipeB.equipe) }}
+                    </div>
+                    <h3>Statistiques par équipe</h3>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Stat</th>
+                                <th>{{ equipeA }}</th>
+                                <th>{{ equipeB }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Barons</td>
+                                <td>{{ form_widget(form.statEquipeA.barons, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.barons, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Drakes</td>
+                                <td>{{ form_widget(form.statEquipeA.drakes, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.drakes, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tours</td>
+                                <td>{{ form_widget(form.statEquipeA.tours, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                                <td>{{ form_widget(form.statEquipeB.tours, {'attr': { 'style': 'margin: 0;' } }) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{ form_rest(form) }}
+                    <style type="text/css">
+                        form table#scoreManche #inputScoreA #lcsbundle_manche_scoreEquipeA,
+                        form table#scoreManche #inputScoreB #lcsbundle_manche_scoreEquipeB,
+                        form table#duree #inputDureeHour #lcsbundle_manche_duree_hour,
+                        form table#duree #inputDureeMinute #lcsbundle_manche_duree_minute,
+                        form table#duree #inputDureeSecond #lcsbundle_manche_duree_second {
+                            width: 100%;
+                            margin: 0;
+                        }
+                    </style>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" data-action="submit">Enregistrer</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div id="modal-validation-message-creation-addGame" style="display: none;">
+                <p>La partie a été créée avec succès</p>
+            </div>
+        </div>
+    </div>
+</div>

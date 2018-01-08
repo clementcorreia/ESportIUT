@@ -83,6 +83,24 @@ lcs_joueurs_details:
 lcs_matchs_index:
     path:     /matchs
     defaults: { _controller: LCSBundle:Game:index }
+    
+lcs_matchs_details:
+    path:     /matchs/details/{id}
+    defaults: { _controller: LCSBundle:Game:details }
+    options:
+        expose: true
+        
+lcs_matchs_addGame:
+    path:     /matchs/edit/addGame/{id}
+    defaults: { _controller: LCSBundle:Game:addGame, id: 0 }
+    options:
+        expose: true
+        
+lcs_matchs_addStatJoueur:
+    path:     /matchs/edit/addStatJoueur/{id}
+    defaults: { _controller: LCSBundle:Game:addStatJoueur, id: 0 }
+    options:
+        expose: true
 
 lcs_matchs_generateGroupMatches:
     path:     /matchs/generate/group/{id}
