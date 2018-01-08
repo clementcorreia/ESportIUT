@@ -1,5 +1,5 @@
 $(document).ready(function() {    
-    //if(liste) {
+    if(liste) {
         var datatableDefaults = getDatatableDefaults();
         $('#listeCompetitions_table').DataTable($.extend({}, datatableDefaults, {
             "ajax": Routing.generate('lcs_competitions_liste'),
@@ -25,7 +25,7 @@ $(document).ready(function() {
         });
 
         openAddModal(Routing.generate('lcs_competitions_edit',{'id': 0}), 'competition');
-    /*}
+    }
     else {
         $(".editModal-group").on('click', function() {
             var poule_id = $(this).data('id');
@@ -37,6 +37,6 @@ $(document).ready(function() {
         openAddModal(Routing.generate('lcs_matchs_setTourFromMatches', {'id': competition_id}), 'setTourGM', true);
         openAddModal(Routing.generate('lcs_competitions_editTour', {'id': competition_id}), 'editTour', true);
         openAddModal(Routing.generate('lcs_matchs_deleteGroupMatches', {'id': competition_id}), 'deleteGM', true);
-    }*/
+    }
 
 });
