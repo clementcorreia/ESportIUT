@@ -12,7 +12,8 @@
         <button type="button" class="btn btn-success" id="addModal-addGame"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addGame'|trans }}</button>
     {% endif %}
     {% for manche in manches %}
-        <p>Manche n°{{ loop.index }} : <button type="button" class="btn btn-success addModal-addStatJoueur" data-id="{{ manche.id }}"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addStatPlayer'|trans }}</button></p>
+        <div>&nbsp;</div>
+        <p>Manche n°{{ loop.index }} : {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ORGANISATEUR') %}<button type="button" class="btn btn-success addModal-addStatJoueur" data-id="{{ manche.id }}"><span class="glyphicon glyphicon-plus"></span> {{ 'lcs.competition.game.addStatPlayer'|trans }}</button>{% endif %}</p>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -29,7 +30,8 @@
                 </tr>
             </thead>
             <tbody>
-        {% for statJ in manche.statistiquesJoueurs %}
+        {% if manche.statistiquesJoueurs|length > 0 %}
+            {% for statJ in manche.statistiquesJoueurs %}
                 <tr class="ligne">
                     <td style="vertical-align: middle;">{{ statJ.joueur }}</td>
                     <td style="vertical-align: middle;">{{ statJ.poste }}</td>
@@ -45,7 +47,12 @@
                     <td style="vertical-align: middle;">{{ statJ.balisesPlacees }}</td>
                     <td style="vertical-align: middle;">{{ statJ.balisesDetruites }}</td>
                 </tr>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+                <tr>
+                    <td colspan="10" style="text-align: center;">Aucune stat</td>
+                </tr>
+        {% endif %}
             </tbody>
         </table>
     {% endfor %}
