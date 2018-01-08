@@ -127,6 +127,13 @@ class GameController extends Controller
             $joueursEquipeB = $game ? $game->getEquipeB() ? $game->getEquipeB()->getJoueurs()->getValues() : array() : array();
             $joueursEquipeB[] = $game ? $game->getEquipeB() ? $game->getEquipeB()->getCapitaine() : array() : array();
             $joueurs = $game ? array_merge($joueursEquipeA, $joueursEquipeB) : array();
+            $statsJoueurs = $manche ? $manche->getStatistiquesJoueurs()->getValues() : array();
+            foreach($statsJoueurs as $stat) {
+                $index = array_search($stat->getJoueur(), $joueurs);
+                if($index >= 0) {
+                    unset($joueurs[$index]);
+                }
+            }
 
             $form = $this->createForm(StatistiqueJoueurType::class, $statJoueur, array(
                 'method' => 'POST',

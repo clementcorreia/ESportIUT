@@ -77,7 +77,12 @@ class Game
     }
 
     public function __toString() {
-        return $this->equipeA.' VS '.$this->equipeB;
+        if(count($this->manches) == 0) {
+            return $this->equipeA.' VS '.$this->equipeB;
+        }
+        else {
+            return $this->equipeA.' '.$this->getScoreEquipeA().' - '.$this->getScoreEquipeB().' '.$this->equipeB;
+        }
     }
 
     /**
@@ -309,6 +314,7 @@ class Game
                 $cpt++;
             }
         }
+        return $cpt;
     }
     
     public function getScoreEquipeB() {
@@ -318,5 +324,6 @@ class Game
                 $cpt++;
             }
         }
+        return $cpt;
     }
 }
